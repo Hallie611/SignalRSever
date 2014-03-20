@@ -4,6 +4,7 @@ using System.Linq;
 using System.Web;
 using Microsoft.AspNet.SignalR;
 using System.Threading.Tasks;
+using Newtonsoft.Json;
 
 namespace SignalRSever
 {
@@ -51,14 +52,14 @@ namespace SignalRSever
         }
 
 
-        public void Register(string data)
+        public void Register(string name,int level,int point)
         {
             lock (_syncRoot)
             {
                 var client = listPlay.FirstOrDefault(x => x.ConnectionId == Context.ConnectionId);
                 if (client == null)
                 {
-                    client = new Client { ConnectionId = Context.ConnectionId, Name = data };
+                    client = new Client { ConnectionId = Context.ConnectionId, Name = name,point=point ,};
                     listPlay.Add(client);
                 }
 
@@ -68,24 +69,19 @@ namespace SignalRSever
         }
 
 
-        public void FindOpponent(int point)
+        public void FindOpponent(int level)
         {
             var player = listPlay.FirstOrDefault(x => x.ConnectionId == Context.ConnectionId);
-            if (player == null) return;
+            if (player == null) return ;
             player.LookingForOpponent = true;
-            player.point = point;
-
-
+            player.level = level;
             // Look for a random opponent if there's more than one looking for a game
             var opponent = listPlay.Where(x => x.ConnectionId != Context.ConnectionId && x.LookingForOpponent && !x.IsPlaying).OrderBy(x => Guid.NewGuid()).FirstOrDefault();
             if (opponent == null)
             {
                 Clients.Client(Context.ConnectionId).noOpponents();
-                return;
+                return ;
             }
-
-
-
             // Set both players as busy
             player.IsPlaying = true;
             player.LookingForOpponent = false;
@@ -93,15 +89,20 @@ namespace SignalRSever
             opponent.LookingForOpponent = false;
             player.Opponent = opponent;
             opponent.Opponent = player;
+            
             // Notify both players that a game was found
-            Clients.Client(Context.ConnectionId).foundOpponent(new { Name =opponent.ConnectionId});
-            Clients.Client(opponent.ConnectionId).foundOpponent(new { Name =player.ConnectionId});
+
+
+
+            
+            Clients.Client(Context.ConnectionId).foundOpponent(new { oName =opponent.Name, oLevel = opponent.level ,oPoint= opponent.point  });
+            Clients.Client(opponent.ConnectionId).foundOpponent(new { oName = player.Name, oLevel = player.level, oPoint = player.point });
 
             lock (_syncRoot)
             {
                 games.Add(new Chasing { Player1 = player, Player2 = opponent });
 
-                if (player.point > opponent.point)
+                if (player.level > opponent.level)
                 {
                     Clients.Client(Context.ConnectionId).createQuestionList();
                 }
@@ -110,14 +111,13 @@ namespace SignalRSever
                     Clients.Client(opponent.ConnectionId).createQuestionList();
                 }
 
-
-
-               
                 Clients.Client(Context.ConnectionId).getQuestionList(listQ);
                 Clients.Client(opponent.ConnectionId).getQuestionList(listQ);
             }
 
             SendStatsUpdate();
+
+
         }
 
 
