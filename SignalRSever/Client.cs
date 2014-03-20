@@ -8,6 +8,7 @@ namespace SignalRSever
     public class Client
     {
         public string Name { get; set; }
+        public int point {get;set; }
         public Client Opponent { get; set; }
         public bool IsPlaying { get; set; }
         public bool WaitingForMove { get; set; }

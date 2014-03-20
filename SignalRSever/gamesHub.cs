@@ -18,6 +18,20 @@ namespace SignalRSever
         private static readonly List<Chasing> games = new List<Chasing>();
         private static readonly List<Question> listQ = new List<Question>();
 
+
+        public void getValue(int a)
+        {
+            
+            listQ.Clear();
+            for (int i = 1; i <= 3; i++)
+            {
+                Question Q = new Question();
+                Q.id = i;
+                Q.type = "find bug" + a;
+                listQ.Add(Q);
+            }
+        }
+
         public Task SendStatsUpdate()
         {
 
@@ -54,11 +68,13 @@ namespace SignalRSever
         }
 
 
-        public void FindOpponent()
+        public void FindOpponent(int point)
         {
             var player = listPlay.FirstOrDefault(x => x.ConnectionId == Context.ConnectionId);
             if (player == null) return;
             player.LookingForOpponent = true;
+            player.point = point;
+
 
             // Look for a random opponent if there's more than one looking for a game
             var opponent = listPlay.Where(x => x.ConnectionId != Context.ConnectionId && x.LookingForOpponent && !x.IsPlaying).OrderBy(x => Guid.NewGuid()).FirstOrDefault();
@@ -68,15 +84,15 @@ namespace SignalRSever
                 return;
             }
 
+
+
             // Set both players as busy
             player.IsPlaying = true;
             player.LookingForOpponent = false;
             opponent.IsPlaying = true;
             opponent.LookingForOpponent = false;
-
             player.Opponent = opponent;
             opponent.Opponent = player;
-
             // Notify both players that a game was found
             Clients.Client(Context.ConnectionId).foundOpponent(new { Name =opponent.ConnectionId});
             Clients.Client(opponent.ConnectionId).foundOpponent(new { Name =player.ConnectionId});
@@ -84,16 +100,21 @@ namespace SignalRSever
             lock (_syncRoot)
             {
                 games.Add(new Chasing { Player1 = player, Player2 = opponent });
-                listQ.Clear();
-                for(int i=1;i<=3;i++)
-                { 
-                Question Q = new Question();
-                Q.id = i;
-                Q.type = "find bug" +i;
-                listQ.Add(Q);
+
+                if (player.point > opponent.point)
+                {
+                    Clients.Client(Context.ConnectionId).createQuestionList();
                 }
-                Clients.Client(Context.ConnectionId).sentQuestionList(listQ);
-                Clients.Client(opponent.ConnectionId).sentQuestionList(listQ);
+                else
+                {
+                    Clients.Client(opponent.ConnectionId).createQuestionList();
+                }
+
+
+
+               
+                Clients.Client(Context.ConnectionId).getQuestionList(listQ);
+                Clients.Client(opponent.ConnectionId).getQuestionList(listQ);
             }
 
             SendStatsUpdate();
