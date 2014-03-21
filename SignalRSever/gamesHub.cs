@@ -17,20 +17,13 @@ namespace SignalRSever
         /// This list is used to keep track of games and their states
         /// </summary>
         private static readonly List<Chasing> games = new List<Chasing>();
-        private static readonly List<Question> listQ = new List<Question>();
+        private static  List<Question> listQ = new List<Question>();
 
 
-        public void getValue(int a)
+        public void getValue(List<Question> a)
         {
-            
-            listQ.Clear();
-            for (int i = 1; i <= 3; i++)
-            {
-                Question Q = new Question();
-                Q.id = i;
-                Q.type = "find bug" + a;
-                listQ.Add(Q);
-            }
+            listQ = a;
+           
         }
 
         public Task SendStatsUpdate()
