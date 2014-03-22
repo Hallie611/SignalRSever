@@ -17,11 +17,12 @@ namespace SignalRSever
         /// This list is used to keep track of games and their states
         /// </summary>
         private static readonly List<Chasing> games = new List<Chasing>();
-        private static  List<Question> listQ = new List<Question>();
+        private static List<Question> listQ = new List<Question>();
 
 
         public void getValue(List<Question> a)
         {
+            listQ.Clear();
             listQ = a;
         }
 
