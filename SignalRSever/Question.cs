@@ -7,7 +7,7 @@ namespace SignalRSever
 {
     public class Question
     {
-        public int id { get; set; }
+        public int questionId { get; set; }
         public string type { get; set; }
     }
 }
