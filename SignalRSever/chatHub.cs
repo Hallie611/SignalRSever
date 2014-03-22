@@ -10,7 +10,7 @@ namespace SignalRSever
     {
         public void Send(string name, string message)
         {
-            // Call the broadcastMessage method to update listPlay.
+            // Call the broadcastMessage method to update listClient.
             Clients.All.broadcastMessage(name, message);
         }
     }

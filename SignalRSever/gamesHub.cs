@@ -11,7 +11,7 @@ namespace SignalRSever
     public class gamesHub : Hub
     {
         private static object _syncRoot = new object();
-        private static readonly List<Client> listPlay = new List<Client>();
+        private static readonly List<Client> listClient = new List<Client>();
         private static int _gamesPlayed = 0;
         /// <summary>
         /// This list is used to keep track of games and their states
@@ -23,21 +23,20 @@ namespace SignalRSever
         public void getValue(List<Question> a)
         {
             listQ = a;
-           
         }
 
         public Task SendStatsUpdate()
         {
 
-            return Clients.All.refeshAmountOfPlayer(new { totalClient = listPlay.Count });
+            return Clients.All.refeshAmountOfPlayer(new { totalClient = listClient.Count });
         }
 
         public override Task OnDisconnected()
         {
-            var clientWithoutGame = listPlay.FirstOrDefault(x => x.ConnectionId == Context.ConnectionId);
+            var clientWithoutGame = listClient.FirstOrDefault(x => x.ConnectionId == Context.ConnectionId);
             if (clientWithoutGame != null)
             {
-                listPlay.Remove(clientWithoutGame);
+                listClient.Remove(clientWithoutGame);
 
                 SendStatsUpdate();
             }
@@ -49,11 +48,11 @@ namespace SignalRSever
         {
             lock (_syncRoot)
             {
-                var client = listPlay.FirstOrDefault(x => x.ConnectionId == Context.ConnectionId);
+                var client = listClient.FirstOrDefault(x => x.ConnectionId == Context.ConnectionId);
                 if (client == null)
                 {
                     client = new Client { ConnectionId = Context.ConnectionId, Name = name,point=point ,};
-                    listPlay.Add(client);
+                    listClient.Add(client);
                 }
 
                 client.IsPlaying = false;
@@ -64,12 +63,12 @@ namespace SignalRSever
 
         public void FindOpponent(int level)
         {
-            var player = listPlay.FirstOrDefault(x => x.ConnectionId == Context.ConnectionId);
+            var player = listClient.FirstOrDefault(x => x.ConnectionId == Context.ConnectionId);
             if (player == null) return ;
             player.LookingForOpponent = true;
             player.level = level;
             // Look for a random opponent if there's more than one looking for a game
-            var opponent = listPlay.Where(x => x.ConnectionId != Context.ConnectionId && x.LookingForOpponent && !x.IsPlaying).OrderBy(x => Guid.NewGuid()).FirstOrDefault();
+            var opponent = listClient.Where(x => x.ConnectionId != Context.ConnectionId && x.LookingForOpponent && !x.IsPlaying).OrderBy(x => Guid.NewGuid()).FirstOrDefault();
             if (opponent == null)
             {
                 Clients.Client(Context.ConnectionId).noOpponents();
@@ -84,10 +83,6 @@ namespace SignalRSever
             opponent.Opponent = player;
             
             // Notify both players that a game was found
-
-
-
-            
             Clients.Client(Context.ConnectionId).foundOpponent(new { oName =opponent.Name, oLevel = opponent.level ,oPoint= opponent.point  });
             Clients.Client(opponent.ConnectionId).foundOpponent(new { oName = player.Name, oLevel = player.level, oPoint = player.point });
 
@@ -111,6 +106,24 @@ namespace SignalRSever
             SendStatsUpdate();
 
 
+        }
+
+        public void playerReady()
+        {
+            var game = games.FirstOrDefault(x => x.Player1.ConnectionId == Context.ConnectionId || x.Player2.ConnectionId == Context.ConnectionId);
+            if (game == null || game.IsGameOver) return;
+
+
+            if (game.Player1.ConnectionId == Context.ConnectionId)
+                game.Player1.IsReady = true;
+            else
+                game.Player2.IsReady = true;
+
+            if (game.Player1.IsReady == true && game.Player2.IsReady == true)
+            {
+                Clients.Client(game.Player1.ConnectionId).gameReady();
+                Clients.Client(game.Player2.ConnectionId).gameReady();
+            }
         }
 
 

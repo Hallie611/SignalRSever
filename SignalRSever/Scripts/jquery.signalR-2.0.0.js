@@ -421,7 +421,7 @@
 
             if (!connection.json) {
                 // no JSON!
-                throw new Error("SignalR: No JSON parser found. Please ensure json2.js is referenced before the SignalR.js file if you need to support listPlay without native JSON parsing support, e.g. IE<8.");
+                throw new Error("SignalR: No JSON parser found. Please ensure json2.js is referenced before the SignalR.js file if you need to support listClient without native JSON parsing support, e.g. IE<8.");
             }
 
             if ($.type(options) === "function") {
@@ -594,7 +594,7 @@
                                 signalR.transports._logic.monitorKeepAlive(connection);
                             }
 
-                            // Used to ensure low activity listPlay maintain their authentication.
+                            // Used to ensure low activity listClient maintain their authentication.
                             // Must be configured once a transport has been decided to perform valid ping requests.
                             configurePingInterval(connection);
 
