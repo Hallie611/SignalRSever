@@ -24,6 +24,9 @@ namespace SignalRSever
         {
             listQ.Clear();
             listQ = a;
+            var client = listClient.FirstOrDefault(x => x.ConnectionId == Context.ConnectionId);
+            Clients.Client(client.ConnectionId).getQuestionList(listQ);
+            Clients.Client(client.Opponent.ConnectionId).getQuestionList(listQ);
         }
 
         public Task SendStatsUpdate()
@@ -99,9 +102,6 @@ namespace SignalRSever
                 {
                     Clients.Client(opponent.ConnectionId).createQuestionList();
                 }
-
-                Clients.Client(Context.ConnectionId).getQuestionList(listQ);
-                Clients.Client(opponent.ConnectionId).getQuestionList(listQ);
             }
 
             SendStatsUpdate();
