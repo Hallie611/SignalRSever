@@ -40,6 +40,8 @@ namespace SignalRSever
             var clientWithoutGame = listClient.FirstOrDefault(x => x.connectionId == Context.ConnectionId);
             if (clientWithoutGame != null)
             {
+                clientWithoutGame.opponent.isReady = false;
+                clientWithoutGame.opponent.lookingForOpponent = false;
                 Clients.Client(clientWithoutGame.opponent.connectionId).OpponentDisconnect();
                 listClient.Remove(clientWithoutGame);
                 SendStatsUpdate();
@@ -159,8 +161,8 @@ namespace SignalRSever
                 game.Player2.lookingForOpponent = false;
                 game.Player1.isReady = false;
                 game.Player2.isReady = false;
-                Clients.Client(game.Player1.connectionId).gameOver(new { Name = game.Winner });
-                Clients.Client(game.Player2.connectionId).gameOver(new { Name = game.Winner });
+                Clients.Client(game.Winner.connectionId).gameOver(new { Name = game.Winner.name , Point = "+100" });
+                Clients.Client(game.Winner.opponent.connectionId).gameOver(new { Name = game.Winner.name , Point = "-50"});
                 games.Remove(game);
             }
         }
