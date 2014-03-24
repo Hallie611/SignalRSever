@@ -12,7 +12,6 @@ namespace SignalRSever
     {
         private static object _syncRoot = new object();
         private static readonly List<Client> listClient = new List<Client>();
-        private static int _gamesPlayed = 0;
         /// <summary>
         /// This list is used to keep track of games and their states
         /// </summary>
@@ -20,75 +19,73 @@ namespace SignalRSever
         private static List<Question> listQ = new List<Question>();
 
 
-        public void getValue(List<Question> a)
+        public void postQuestion(List<Question> a)
         {
             listQ.Clear();
             listQ = a;
-            var client = listClient.FirstOrDefault(x => x.ConnectionId == Context.ConnectionId);
-            Clients.Client(client.ConnectionId).getQuestionList(listQ);
-            Clients.Client(client.Opponent.ConnectionId).getQuestionList(listQ);
+            var client = listClient.FirstOrDefault(x => x.connectionId == Context.ConnectionId);
+
+
+            Clients.Client(client.connectionId).getQuestionList(listQ);
+            Clients.Client(client.opponent.connectionId).getQuestionList(listQ);
         }
 
         public Task SendStatsUpdate()
         {
-
             return Clients.All.refeshAmountOfPlayer(new { totalClient = listClient.Count });
         }
 
         public override Task OnDisconnected()
         {
-            var clientWithoutGame = listClient.FirstOrDefault(x => x.ConnectionId == Context.ConnectionId);
+            var clientWithoutGame = listClient.FirstOrDefault(x => x.connectionId == Context.ConnectionId);
             if (clientWithoutGame != null)
             {
+                Clients.Client(clientWithoutGame.opponent.connectionId).OpponentDisconnect();
                 listClient.Remove(clientWithoutGame);
-
                 SendStatsUpdate();
             }
             return null;
         }
 
 
-        public void Register(string name,int level,int point)
+        public void Register(string name, int level, int point)
         {
             lock (_syncRoot)
             {
-                var client = listClient.FirstOrDefault(x => x.ConnectionId == Context.ConnectionId);
+                var client = listClient.FirstOrDefault(x => x.connectionId == Context.ConnectionId);
                 if (client == null)
                 {
-                    client = new Client { ConnectionId = Context.ConnectionId, Name = name,point=point ,};
+                    client = new Client { connectionId = Context.ConnectionId, name = name, point = point, level = level };
                     listClient.Add(client);
                 }
-
-                client.IsPlaying = false;
+                client.isReady = false;
+                client.lookingForOpponent = false;
             }
             SendStatsUpdate();
         }
 
 
-        public void FindOpponent(int level)
+        public void FindOpponent()
         {
-            var player = listClient.FirstOrDefault(x => x.ConnectionId == Context.ConnectionId);
-            if (player == null) return ;
-            player.LookingForOpponent = true;
-            player.level = level;
+            var player = listClient.FirstOrDefault(x => x.connectionId == Context.ConnectionId);
+            if (player == null) return;
+            player.lookingForOpponent = true;
             // Look for a random opponent if there's more than one looking for a game
-            var opponent = listClient.Where(x => x.ConnectionId != Context.ConnectionId && x.LookingForOpponent && !x.IsPlaying).OrderBy(x => Guid.NewGuid()).FirstOrDefault();
+            var opponent = listClient.Where(x => x.connectionId != Context.ConnectionId && x.lookingForOpponent).OrderBy(x => Guid.NewGuid()).FirstOrDefault();
             if (opponent == null)
             {
                 Clients.Client(Context.ConnectionId).noOpponents();
-                return ;
+                return;
             }
             // Set both players as busy
-            player.IsPlaying = true;
-            player.LookingForOpponent = false;
-            opponent.IsPlaying = true;
-            opponent.LookingForOpponent = false;
-            player.Opponent = opponent;
-            opponent.Opponent = player;
-            
+            player.lookingForOpponent = false;
+            opponent.lookingForOpponent = false;
+            player.opponent = opponent;
+            opponent.opponent = player;
+
             // Notify both players that a game was found
-            Clients.Client(Context.ConnectionId).foundOpponent(new { oName =opponent.Name, oLevel = opponent.level ,oPoint= opponent.point  });
-            Clients.Client(opponent.ConnectionId).foundOpponent(new { oName = player.Name, oLevel = player.level, oPoint = player.point });
+            Clients.Client(Context.ConnectionId).foundOpponent(new { oName = opponent.name, oLevel = opponent.level, oPoint = opponent.point });
+            Clients.Client(opponent.connectionId).foundOpponent(new { oName = player.name, oLevel = player.level, oPoint = player.point });
 
             lock (_syncRoot)
             {
@@ -100,30 +97,27 @@ namespace SignalRSever
                 }
                 else
                 {
-                    Clients.Client(opponent.ConnectionId).createQuestionList();
+                    Clients.Client(opponent.connectionId).createQuestionList();
                 }
             }
-
-            SendStatsUpdate();
-
 
         }
 
         public void playerReady()
         {
-            var game = games.FirstOrDefault(x => x.Player1.ConnectionId == Context.ConnectionId || x.Player2.ConnectionId == Context.ConnectionId);
+            var game = games.FirstOrDefault(x => x.Player1.connectionId == Context.ConnectionId || x.Player2.connectionId == Context.ConnectionId);
             if (game == null || game.IsGameOver) return;
 
 
-            if (game.Player1.ConnectionId == Context.ConnectionId)
-                game.Player1.IsReady = true;
+            if (game.Player1.connectionId == Context.ConnectionId)
+                game.Player1.isReady = true;
             else
-                game.Player2.IsReady = true;
+                game.Player2.isReady = true;
 
-            if (game.Player1.IsReady == true && game.Player2.IsReady == true)
+            if (game.Player1.isReady == true && game.Player2.isReady == true)
             {
-                Clients.Client(game.Player1.ConnectionId).gameReady();
-                Clients.Client(game.Player2.ConnectionId).gameReady();
+                Clients.Client(game.Player1.connectionId).gameReady();
+                Clients.Client(game.Player2.connectionId).gameReady();
             }
         }
 
@@ -132,56 +126,43 @@ namespace SignalRSever
         /// Play a marker at a given positon
         /// </summary>
         /// <param name="position">The position where to place the marker</param>
-        public void Play(int position)
+        public void correctQuestion(int position)
         {
             // Find the game where there is a player1 and player2 and either of them have the current connection id
-            var game = games.FirstOrDefault(x => x.Player1.ConnectionId == Context.ConnectionId || x.Player2.ConnectionId == Context.ConnectionId);
+            var game = games.FirstOrDefault(x => x.Player1.connectionId == Context.ConnectionId || x.Player2.connectionId == Context.ConnectionId);
 
             if (game == null || game.IsGameOver) return;
 
             int marker = 0;
 
             // Detect if the player connected is player 1 or player 2
-            if (game.Player2.ConnectionId == Context.ConnectionId)
+            if (game.Player2.connectionId == Context.ConnectionId)
             {
                 marker = 1;
             }
             var player = marker == 0 ? game.Player1 : game.Player2;
 
             // If the player is waiting for the opponent but still tried to make a move, just return
-            if (player.WaitingForMove) return;
+            //if (player.WaitingForMove) return;
 
             // Notify both players that a marker has been placed
-            Clients.Client(game.Player1.ConnectionId).addMarkerPlacement(new GameInformation { OpponentName = player.Name, MarkerPosition = position });
-            Clients.Client(game.Player2.ConnectionId).addMarkerPlacement(new GameInformation { OpponentName = player.Name, MarkerPosition = position });
+            //Clients.Client(game.Player1.ConnectionId).addMarkerPlacement(new GameInformation { OpponentName = player.Name, MarkerPosition = position });
+            //Clients.Client(game.Player2.ConnectionId).addMarkerPlacement(new GameInformation { OpponentName = player.Name, MarkerPosition = position });
+            Clients.Client(game.Player1.connectionId).CorrectedQuestion(player.connectionId, position);
+            Clients.Client(game.Player2.connectionId).CorrectedQuestion(player.connectionId, position);
+
 
             // Place the marker and look for a winner
             if (game.Play(marker, position))
             {
+                game.Player1.lookingForOpponent = false;
+                game.Player2.lookingForOpponent = false;
+                game.Player1.isReady = false;
+                game.Player2.isReady = false;
+                Clients.Client(game.Player1.connectionId).gameOver(new { Name = game.Winner });
+                Clients.Client(game.Player2.connectionId).gameOver(new { Name = game.Winner });
                 games.Remove(game);
-                _gamesPlayed += 1;
-                Clients.Client(game.Player1.ConnectionId).gameOver(player.Name);
-                Clients.Client(game.Player2.ConnectionId).gameOver(player.Name);
             }
-
-            // If it's a draw notify the players that the game is over
-            if (game.IsGameOver && game.IsCorrect)
-            {
-                games.Remove(game);
-                _gamesPlayed += 1;
-                Clients.Client(game.Player1.ConnectionId).gameOver("It's a draw!");
-                Clients.Client(game.Player2.ConnectionId).gameOver("It's a draw!");
-            }
-
-            if (!game.IsGameOver)
-            {
-                player.WaitingForMove = !player.WaitingForMove;
-                player.Opponent.WaitingForMove = !player.Opponent.WaitingForMove;
-
-                Clients.Client(player.Opponent.ConnectionId).waitingForMarkerPlacement(player.Name);
-            }
-
-            SendStatsUpdate();
         }
     }
 }

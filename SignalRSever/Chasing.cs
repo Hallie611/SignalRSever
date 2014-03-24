@@ -9,21 +9,21 @@ namespace SignalRSever
     {
         public bool IsGameOver { get; private set; }
 
-        public bool IsCorrect { get; private set; }
 
         public Client Player1 { get; set; }
 
         public Client Player2 { get; set; }
+        public Client Winner { get; set; }
 
-        private readonly int[] field = new int[5];
-        private int movesLeft = 5;
+        private readonly int[] score = new int[3];
+        private int QuestionLeft = 3;
 
         public Chasing()
         {
             //Reset game
-            for(var i=0;i<field.Length;i++)
+            for (var i = 0; i < score.Length; i++)
             {
-                field[i] = -1;
+                score[i] = -1;
             }
         }
         /// <summary>
@@ -34,36 +34,25 @@ namespace SignalRSever
         /// <returns>True if a winner was found</returns>
         public bool Play(int player ,int posion)
         {
-            if (IsGameOver)
-                return false;
-            PlaceMarker(player,posion);
-            return true;
-        }
-        /// <summary>
-        /// Places a marker at the given position for the given player as long as the position is marked as -1
-        /// </summary>
-        /// <param name="player">The player number should be 0 or 1</param>
-        /// <param name="position">The position where to place the marker, should be between 0 and 5</param>
-        /// <returns>True if the marker position was not already taken</returns>
-        private bool PlaceMarker(int player, int position)
-        {
-            movesLeft -= 1;
-
-            if (movesLeft <= 0)
+            QuestionLeft -= 1;
+            score[posion - 1] = player;
+            if (QuestionLeft <= 0)
             {
+                int player1count=0;
+                for (var i = 0; i < score.Length; i++)
+                {
+                    if (score[i] == 0)
+                        player1count++;
+                }
+                if (player1count >= 2)
+                    Winner = Player1;
+                else
+                    Winner = Player2;
                 IsGameOver = true;
-                IsCorrect = true;
-                return false;
+
+                return true;
             }
-
-            if (position > field.Length)
-                return false;
-            if (field[position] != -1)
-                return false;
-
-            field[position] = player;
-
-            return true;
+            return false;
         }
         
     }

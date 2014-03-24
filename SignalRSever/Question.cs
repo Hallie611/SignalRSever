@@ -10,5 +10,6 @@ namespace SignalRSever
         public int index { get; set; }
         public int questionId { get; set; }
         public string type { get; set; }
+        public string status { get; set; }
     }
 }
