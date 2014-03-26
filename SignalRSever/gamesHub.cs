@@ -17,7 +17,7 @@ namespace SignalRSever
         /// </summary>
         private static readonly List<Chasing> games = new List<Chasing>();
         private static List<Question> listQ = new List<Question>();
-
+        public MistakeGameDataDataContext data = new MistakeGameDataDataContext();
 
         public void postQuestion(List<Question> a)
         {
@@ -49,12 +49,30 @@ namespace SignalRSever
             return null;
         }
 
-
-        public void Register(string name, int level, int point)
+        public void Register(string name)
         {
             lock (_syncRoot)
             {
-                var client = listClient.FirstOrDefault(x => x.connectionId == Context.ConnectionId);
+                var clientdt = data.tblPlayers.FirstOrDefault(x => x.PlayerName == name);
+                if (clientdt == null)
+                {
+                    data.tblPlayers.InsertOnSubmit(new tblPlayer { PlayerName = name, PlayerLevel = 1, PlayerPoint = 100 });
+                    data.SubmitChanges();
+                    Clients.Client(Context.ConnectionId).TrySave(true);
+                }
+                else
+                {
+                    Clients.Client(Context.ConnectionId).TrySave(false);
+                }
+            }
+
+        }
+
+        public void ConnectSever(string name, int level, int point)
+        {
+            lock (_syncRoot)
+            {
+                var client = listClient.FirstOrDefault(x => x.name == name);
                 if (client == null)
                 {
                     client = new Client { connectionId = Context.ConnectionId, name = name, point = point, level = level };

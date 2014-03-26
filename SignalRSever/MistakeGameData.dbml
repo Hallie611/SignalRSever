@@ -1,0 +1,11 @@
+﻿<?xml version="1.0" encoding="utf-8"?><Database Name="Capstone" Class="MistakeGameDataDataContext" xmlns="http://schemas.microsoft.com/linqtosql/dbml/2007">
+  <Connection Mode="WebSettings" ConnectionString="Data Source=Du;Initial Catalog=Capstone;Integrated Security=True" SettingsObjectName="System.Configuration.ConfigurationManager.ConnectionStrings" SettingsPropertyName="CapstoneConnectionString" Provider="System.Data.SqlClient" />
+  <Table Name="dbo.tblPlayer" Member="tblPlayers">
+    <Type Name="tblPlayer">
+      <Column Name="PlayerID" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="PlayerName" Type="System.String" DbType="NChar(10)" CanBeNull="true" />
+      <Column Name="PlayerLevel" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="PlayerPoint" Type="System.Int32" DbType="Int" CanBeNull="true" />
+    </Type>
+  </Table>
+</Database>
