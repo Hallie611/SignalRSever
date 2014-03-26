@@ -51,7 +51,7 @@ namespace SignalRSever
 
         public void Register(string name)
         {
-            lock (_syncRoot)
+            lock (_syncRoot) 
             {
                 var clientdt = data.tblPlayers.FirstOrDefault(x => x.PlayerName == name);
                 if (clientdt == null)
@@ -136,6 +136,9 @@ namespace SignalRSever
 
             if (game.Player1.isReady == true && game.Player2.isReady == true)
             {
+                game.Player1.mathPoint = 0;
+                game.Player2.mathPoint = 0;
+
                 Clients.Client(game.Player1.connectionId).gameReady();
                 Clients.Client(game.Player2.connectionId).gameReady();
             }
@@ -146,7 +149,7 @@ namespace SignalRSever
         /// Play a marker at a given positon
         /// </summary>
         /// <param name="position">The position where to place the marker</param>
-        public void correctQuestion(int position)
+        public void correctQuestion(int position,int mark)
         {
             // Find the game where there is a player1 and player2 and either of them have the current connection id
             var game = games.FirstOrDefault(x => x.Player1.connectionId == Context.ConnectionId || x.Player2.connectionId == Context.ConnectionId);
@@ -158,7 +161,12 @@ namespace SignalRSever
             // Detect if the player connected is player 1 or player 2
             if (game.Player2.connectionId == Context.ConnectionId)
             {
+                game.Player2.mathPoint += mark;
                 marker = 1;
+            }
+            else
+            {
+                game.Player1.mathPoint += mark;
             }
             var player = marker == 0 ? game.Player1 : game.Player2;
 
@@ -168,8 +176,7 @@ namespace SignalRSever
             // Notify both players that a marker has been placed
             //Clients.Client(game.Player1.ConnectionId).addMarkerPlacement(new GameInformation { OpponentName = player.Name, MarkerPosition = position });
             //Clients.Client(game.Player2.ConnectionId).addMarkerPlacement(new GameInformation { OpponentName = player.Name, MarkerPosition = position });
-            Clients.Client(game.Player1.connectionId).CorrectedQuestion(player.connectionId, position);
-            Clients.Client(game.Player2.connectionId).CorrectedQuestion(player.connectionId, position);
+            
 
 
             // Place the marker and look for a winner
@@ -183,6 +190,8 @@ namespace SignalRSever
                 Clients.Client(game.Winner.opponent.connectionId).gameOver(new { Name = game.Winner.name , Point = "-50"});
                 games.Remove(game);
             }
+            Clients.Client(game.Player1.connectionId).CorrectedQuestion(player.name, position,mark);
+            Clients.Client(game.Player2.connectionId).CorrectedQuestion(player.name, position,mark);
         }
     }
 }

@@ -16,7 +16,7 @@ namespace SignalRSever
         public Client Winner { get; set; }
 
         private readonly int[] score = new int[3];
-        private int QuestionLeft = 3;
+        private int QuestionLeft = 4;
 
         public Chasing()
         {
@@ -34,24 +34,23 @@ namespace SignalRSever
         /// <returns>True if a winner was found</returns>
         public bool Play(int player ,int posion)
         {
+            if (posion == 0)
+            {
+                Winner = Player1.mathPoint > Player2.mathPoint ? Player1 : Player2;
+                IsGameOver = true;
+                return true;
+            }
             QuestionLeft -= 1;
-            score[posion - 1] = player;
+            score[posion] = player;
+            
             if (QuestionLeft <= 0)
             {
-                int player1count=0;
-                for (var i = 0; i < score.Length; i++)
-                {
-                    if (score[i] == 0)
-                        player1count++;
-                }
-                if (player1count >= 2)
-                    Winner = Player1;
-                else
-                    Winner = Player2;
+                Winner = Player1.mathPoint > Player2.mathPoint ? Player1 : Player2;
                 IsGameOver = true;
 
                 return true;
             }
+
             return false;
         }
         
