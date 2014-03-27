@@ -17,17 +17,16 @@ namespace SignalRSever
         /// </summary>
         private static readonly List<Chasing> games = new List<Chasing>();
         private static List<Question> listQ = new List<Question>();
-        public MistakeGameDataDataContext data = new MistakeGameDataDataContext();
+        public dataAppHabourDataContext data = new dataAppHabourDataContext();
 
         public void postQuestion(List<Question> a)
         {
             listQ.Clear();
             listQ = a;
-            var client = listClient.FirstOrDefault(x => x.connectionId == Context.ConnectionId);
-
-
-            Clients.Client(client.connectionId).getQuestionList(listQ);
-            Clients.Client(client.opponent.connectionId).getQuestionList(listQ);
+            var game = games.FirstOrDefault(x => x.Player1.connectionId == Context.ConnectionId || x.Player2.connectionId == Context.ConnectionId);
+            
+            Clients.Client(game.Player1.connectionId).getQuestionList(listQ);
+            Clients.Client(game.Player2.connectionId).getQuestionList(listQ);
         }
 
         public Task SendStatsUpdate()
@@ -37,16 +36,49 @@ namespace SignalRSever
 
         public override Task OnDisconnected()
         {
-            var clientWithoutGame = listClient.FirstOrDefault(x => x.connectionId == Context.ConnectionId);
-            if (clientWithoutGame != null)
+            var game = games.FirstOrDefault(x => x.Player1.connectionId == Context.ConnectionId || x.Player2.connectionId == Context.ConnectionId);
+            if (game != null)
             {
-                clientWithoutGame.opponent.isReady = false;
-                clientWithoutGame.opponent.lookingForOpponent = false;
-                Clients.Client(clientWithoutGame.opponent.connectionId).OpponentDisconnect();
-                listClient.Remove(clientWithoutGame);
+                Client playerOut = game.Player1.connectionId == Context.ConnectionId ? game.Player1 : game.Player2;
+
+                playerOut.opponent.isReady = false;
+                playerOut.opponent.lookingForOpponent = false;
+                
+                Clients.Client(playerOut.opponent.connectionId).OpponentDisconnect();
+                playerOut.opponent.point += 5;
+                var opponent = data.tblPlayers.FirstOrDefault(x => x.PlayerName == playerOut.opponent.name);
+                opponent.PlayerPoint += 5;
+                data.SubmitChanges();
+                listClient.Remove(playerOut);
+                games.Remove(game);
                 SendStatsUpdate();
             }
             return null;
+        }
+
+        public void OutOfMath()
+        {
+            var game = games.FirstOrDefault(x => x.Player1.connectionId == Context.ConnectionId || x.Player2.connectionId == Context.ConnectionId);
+            if (game != null)
+            {
+                Client playerOut = game.Player1.connectionId == Context.ConnectionId ? game.Player1 : game.Player2;
+                playerOut.isReady = false;
+                playerOut.lookingForOpponent = false;
+                
+                playerOut.point -= 5;
+                playerOut.opponent.isReady = false;
+                playerOut.opponent.lookingForOpponent = false;
+                playerOut.opponent.point += 5;
+                var opponent = data.tblPlayers.FirstOrDefault(x => x.PlayerName == playerOut.opponent.name);
+                opponent.PlayerPoint += 5;
+                data.SubmitChanges();
+                var player = data.tblPlayers.FirstOrDefault(x => x.PlayerName == playerOut.name);
+                player.PlayerPoint -= 5;
+                data.SubmitChanges();
+                games.Remove(game);
+                Clients.Client(playerOut.opponent.connectionId).OpponentDisconnect();
+            }
+
         }
 
         public void Register(string name)
@@ -73,6 +105,13 @@ namespace SignalRSever
             lock (_syncRoot)
             {
                 var client = listClient.FirstOrDefault(x => x.name == name);
+                var player = data.tblPlayers.FirstOrDefault(x => x.PlayerName == name);
+                if (player != null)
+                {
+                    player.PlayerLevel = level;
+                    player.PlayerPoint = point;
+                    data.SubmitChanges();
+                }
                 if (client == null)
                 {
                     client = new Client { connectionId = Context.ConnectionId, name = name, point = point, level = level };
@@ -192,6 +231,12 @@ namespace SignalRSever
             }
             Clients.Client(game.Player1.connectionId).CorrectedQuestion(player.name, position,mark);
             Clients.Client(game.Player2.connectionId).CorrectedQuestion(player.name, position,mark);
+        }
+
+        public void GameOver()
+        {
+            var game = games.FirstOrDefault(x => x.Player1.connectionId == Context.ConnectionId || x.Player2.connectionId == Context.ConnectionId);
+            
         }
     }
 }

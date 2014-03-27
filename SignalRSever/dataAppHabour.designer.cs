@@ -22,8 +22,8 @@ namespace SignalRSever
 	using System;
 	
 	
-	[global::System.Data.Linq.Mapping.DatabaseAttribute(Name="Capstone")]
-	public partial class MistakeGameDataDataContext : System.Data.Linq.DataContext
+	[global::System.Data.Linq.Mapping.DatabaseAttribute(Name="db7a44969a30f24bdd9762a2fa008c96a5")]
+	public partial class dataAppHabourDataContext : System.Data.Linq.DataContext
 	{
 		
 		private static System.Data.Linq.Mapping.MappingSource mappingSource = new AttributeMappingSource();
@@ -35,31 +35,31 @@ namespace SignalRSever
     partial void DeletetblPlayer(tblPlayer instance);
     #endregion
 		
-		public MistakeGameDataDataContext() : 
-				base(global::System.Configuration.ConfigurationManager.ConnectionStrings["CapstoneConnectionString"].ConnectionString, mappingSource)
+		public dataAppHabourDataContext() : 
+				base(global::System.Configuration.ConfigurationManager.ConnectionStrings["db7a44969a30f24bdd9762a2fa008c96a5ConnectionString"].ConnectionString, mappingSource)
 		{
 			OnCreated();
 		}
 		
-		public MistakeGameDataDataContext(string connection) : 
+		public dataAppHabourDataContext(string connection) : 
 				base(connection, mappingSource)
 		{
 			OnCreated();
 		}
 		
-		public MistakeGameDataDataContext(System.Data.IDbConnection connection) : 
+		public dataAppHabourDataContext(System.Data.IDbConnection connection) : 
 				base(connection, mappingSource)
 		{
 			OnCreated();
 		}
 		
-		public MistakeGameDataDataContext(string connection, System.Data.Linq.Mapping.MappingSource mappingSource) : 
+		public dataAppHabourDataContext(string connection, System.Data.Linq.Mapping.MappingSource mappingSource) : 
 				base(connection, mappingSource)
 		{
 			OnCreated();
 		}
 		
-		public MistakeGameDataDataContext(System.Data.IDbConnection connection, System.Data.Linq.Mapping.MappingSource mappingSource) : 
+		public dataAppHabourDataContext(System.Data.IDbConnection connection, System.Data.Linq.Mapping.MappingSource mappingSource) : 
 				base(connection, mappingSource)
 		{
 			OnCreated();
@@ -127,7 +127,7 @@ namespace SignalRSever
 			}
 		}
 		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_PlayerName", DbType="NChar(10)")]
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_PlayerName", DbType="NVarChar(50)")]
 		public string PlayerName
 		{
 			get

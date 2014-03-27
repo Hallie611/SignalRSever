@@ -1,0 +1,12 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<ordesignerObjectsDiagram dslVersion="1.0.0.0" absoluteBounds="0, 0, 11, 8.5" name="dataAppHabour">
+  <DataContextMoniker Name="/dataAppHabourDataContext" />
+  <nestedChildShapes>
+    <classShape Id="4e452b48-8b14-444e-b33b-f54a8408fc40" absoluteBounds="3.875, 1.75, 2, 1.5785953776041666">
+      <DataClassMoniker Name="/dataAppHabourDataContext/tblPlayer" />
+      <nestedChildShapes>
+        <elementListCompartment Id="ad011606-16dc-4dc3-a177-ba629814e4aa" absoluteBounds="3.89, 2.21, 1.9700000000000002, 1.0185953776041665" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
+      </nestedChildShapes>
+    </classShape>
+  </nestedChildShapes>
+</ordesignerObjectsDiagram>

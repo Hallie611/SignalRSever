@@ -11,12 +11,13 @@ namespace SignalRSever
 
 
         public Client Player1 { get; set; }
-
         public Client Player2 { get; set; }
         public Client Winner { get; set; }
 
-        private readonly int[] score = new int[3];
-        private int QuestionLeft = 4;
+        int maxpoint;
+
+        private readonly int[] score = new int[4];
+        private int QuestionLeft = 3;
 
         public Chasing()
         {
@@ -37,7 +38,6 @@ namespace SignalRSever
             if (posion == 0)
             {
                 Winner = Player1.mathPoint > Player2.mathPoint ? Player1 : Player2;
-                IsGameOver = true;
                 return true;
             }
             QuestionLeft -= 1;
@@ -46,8 +46,6 @@ namespace SignalRSever
             if (QuestionLeft <= 0)
             {
                 Winner = Player1.mathPoint > Player2.mathPoint ? Player1 : Player2;
-                IsGameOver = true;
-
                 return true;
             }
 
