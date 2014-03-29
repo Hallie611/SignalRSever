@@ -1,14 +1,5 @@
-﻿<?xml version="1.0" encoding="utf-8"?><Database Name="Capstone" Class="LocalDataDataContext" xmlns="http://schemas.microsoft.com/linqtosql/dbml/2007">
-  <Connection Mode="WebSettings" ConnectionString="Data Source=Du;Initial Catalog=Capstone;Integrated Security=True" SettingsObjectName="System.Configuration.ConfigurationManager.ConnectionStrings" SettingsPropertyName="CapstoneConnectionString" Provider="System.Data.SqlClient" />
-  <Table Name="dbo.tblPlayer" Member="tblPlayers">
-    <Type Name="tblPlayer">
-      <Column Name="PlayerID" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
-      <Column Name="PlayerName" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
-      <Column Name="PlayerLevel" Type="System.Int32" DbType="Int" CanBeNull="true" />
-      <Column Name="PlayerPoint" Type="System.Int32" DbType="Int" CanBeNull="true" />
-      <Association Name="tblPlayer_tblHistory" Member="tblHistories" ThisKey="PlayerID" OtherKey="PlayerID" Type="tblHistory" />
-    </Type>
-  </Table>
+﻿<?xml version="1.0" encoding="utf-8"?><Database Name="db7a44969a30f24bdd9762a2fa008c96a5" Class="ApphabourSeverDataContext" xmlns="http://schemas.microsoft.com/linqtosql/dbml/2007">
+  <Connection Mode="WebSettings" ConnectionString="Data Source=7a44969a-30f2-4bdd-9762-a2fa008c96a5.sqlserver.sequelizer.com;Initial Catalog=db7a44969a30f24bdd9762a2fa008c96a5;Persist Security Info=True;User ID=hecnpillwnfocgbc" SettingsObjectName="System.Configuration.ConfigurationManager.ConnectionStrings" SettingsPropertyName="db7a44969a30f24bdd9762a2fa008c96a5ConnectionString" Provider="System.Data.SqlClient" />
   <Table Name="dbo.tblHistory" Member="tblHistories">
     <Type Name="tblHistory">
       <Column Name="PlayerID" Type="System.Int32" DbType="Int NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
@@ -16,8 +7,8 @@
       <Column Name="Type" Type="System.Int32" DbType="Int" CanBeNull="true" />
       <Column Name="Rright" Type="System.Int32" DbType="Int" CanBeNull="true" />
       <Column Name="Wrong" Type="System.Int32" DbType="Int" CanBeNull="true" />
-      <Association Name="tblPlayer_tblHistory" Member="tblPlayer" ThisKey="PlayerID" OtherKey="PlayerID" Type="tblPlayer" IsForeignKey="true" />
       <Association Name="tblQuestion_tblHistory" Member="tblQuestion" ThisKey="QuestionID" OtherKey="QuestionID" Type="tblQuestion" IsForeignKey="true" />
+      <Association Name="tblPlayer_tblHistory" Member="tblPlayer" ThisKey="PlayerID" OtherKey="PlayerID" Type="tblPlayer" IsForeignKey="true" />
     </Type>
   </Table>
   <Table Name="dbo.tblQuestion" Member="tblQuestions">
@@ -42,6 +33,25 @@
       <Association Name="tblQuestion_tblHistory" Member="tblHistories" ThisKey="QuestionID" OtherKey="QuestionID" Type="tblHistory" />
     </Type>
   </Table>
+  <Table Name="dbo.tblPlayer" Member="tblPlayers">
+    <Type Name="tblPlayer">
+      <Column Name="PlayerID" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="PlayerName" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
+      <Column Name="PlayerLevel" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="PlayerPoint" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Association Name="tblPlayer_tblHistory" Member="tblHistories" ThisKey="PlayerID" OtherKey="PlayerID" Type="tblHistory" />
+    </Type>
+  </Table>
+  <Function Name="dbo.correctQuestion" Method="correctQuestion">
+    <Parameter Name="PlayerName" Parameter="playerName" Type="System.String" DbType="NVarChar(50)" />
+    <Parameter Name="QuestionID" Parameter="questionID" Type="System.Int32" DbType="Int" />
+    <Return Type="System.Int32" />
+  </Function>
+  <Function Name="dbo.wrongQuestion" Method="wrongQuestion">
+    <Parameter Name="PlayerName" Parameter="playerName" Type="System.String" DbType="NVarChar(50)" />
+    <Parameter Name="QuestionID" Parameter="questionID" Type="System.Int32" DbType="Int" />
+    <Return Type="System.Int32" />
+  </Function>
   <Function Name="dbo.get_history" Method="get_history">
     <ElementType Name="get_historyResult">
       <Column Name="PlayerID" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
@@ -50,11 +60,6 @@
       <Column Name="Rright" Type="System.Int32" DbType="Int" CanBeNull="true" />
       <Column Name="Wrong" Type="System.Int32" DbType="Int" CanBeNull="true" />
     </ElementType>
-  </Function>
-  <Function Name="dbo.Insert_History" Method="Insert_History">
-    <Parameter Name="PlayerID" Parameter="playerID" Type="System.Int32" DbType="Int" />
-    <Parameter Name="QuestionID" Parameter="questionID" Type="System.Int32" DbType="Int" />
-    <Return Type="System.Int32" />
   </Function>
   <Function Name="dbo.get_singel_history" Method="get_singel_history">
     <Parameter Name="PlayerName" Parameter="playerName" Type="System.String" DbType="NVarChar(50)" />
@@ -66,20 +71,15 @@
       <Column Name="Wrong" Type="System.Int32" DbType="Int" CanBeNull="true" />
     </ElementType>
   </Function>
+  <Function Name="dbo.Insert_History" Method="Insert_History">
+    <Parameter Name="PlayerID" Parameter="playerID" Type="System.Int32" DbType="Int" />
+    <Parameter Name="QuestionID" Parameter="questionID" Type="System.Int32" DbType="Int" />
+    <Return Type="System.Int32" />
+  </Function>
   <Function Name="dbo.Insert_Player" Method="Insert_Player">
     <Parameter Name="Name" Parameter="name" Type="System.String" DbType="NVarChar(50)" />
     <Parameter Name="Level" Parameter="level" Type="System.Int32" DbType="Int" />
     <Parameter Name="Point" Parameter="point" Type="System.Int32" DbType="Int" />
-    <Return Type="System.Int32" />
-  </Function>
-  <Function Name="dbo.wrongQuestion" Method="wrongQuestion">
-    <Parameter Name="PlayerName" Parameter="playerName" Type="System.String" DbType="NVarChar(50)" />
-    <Parameter Name="QuestionID" Parameter="questionID" Type="System.Int32" DbType="Int" />
-    <Return Type="System.Int32" />
-  </Function>
-  <Function Name="dbo.correctQuestion" Method="correctQuestion">
-    <Parameter Name="PlayerName" Parameter="playerName" Type="System.String" DbType="NVarChar(50)" />
-    <Parameter Name="QuestionID" Parameter="questionID" Type="System.Int32" DbType="Int" />
     <Return Type="System.Int32" />
   </Function>
 </Database>

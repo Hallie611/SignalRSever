@@ -18,7 +18,9 @@ namespace SignalRSever
         /// This list is used to keep track of games and their states
         /// </summary>
         private static readonly List<Chasing> games = new List<Chasing>();
-        public LocalDataDataContext data = new LocalDataDataContext();
+        //public LocalDataDataContext data = new LocalDataDataContext();
+        public ApphabourSeverDataContext data = new ApphabourSeverDataContext();
+
 
         public void postQuestion(List<Question> a)
         {

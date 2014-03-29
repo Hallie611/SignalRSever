@@ -17,7 +17,9 @@ namespace SignalRSever
 
         public List<Question> listQ { get; set; }
 
-        private LocalDataDataContext data = new LocalDataDataContext();
+       // private LocalDataDataContext data = new LocalDataDataContext();
+        private ApphabourSeverDataContext data = new ApphabourSeverDataContext();
+
         private int QuestionLeft = 3;
         public readonly int[,] score = new int[3,4];
 

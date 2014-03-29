@@ -22,61 +22,53 @@ namespace SignalRSever.DAL
 	using System;
 	
 	
-	[global::System.Data.Linq.Mapping.DatabaseAttribute(Name="Capstone")]
-	public partial class LocalDataDataContext : System.Data.Linq.DataContext
+	[global::System.Data.Linq.Mapping.DatabaseAttribute(Name="db7a44969a30f24bdd9762a2fa008c96a5")]
+	public partial class ApphabourSeverDataContext : System.Data.Linq.DataContext
 	{
 		
 		private static System.Data.Linq.Mapping.MappingSource mappingSource = new AttributeMappingSource();
 		
     #region Extensibility Method Definitions
     partial void OnCreated();
-    partial void InserttblPlayer(tblPlayer instance);
-    partial void UpdatetblPlayer(tblPlayer instance);
-    partial void DeletetblPlayer(tblPlayer instance);
     partial void InserttblHistory(tblHistory instance);
     partial void UpdatetblHistory(tblHistory instance);
     partial void DeletetblHistory(tblHistory instance);
     partial void InserttblQuestion(tblQuestion instance);
     partial void UpdatetblQuestion(tblQuestion instance);
     partial void DeletetblQuestion(tblQuestion instance);
+    partial void InserttblPlayer(tblPlayer instance);
+    partial void UpdatetblPlayer(tblPlayer instance);
+    partial void DeletetblPlayer(tblPlayer instance);
     #endregion
 		
-		public LocalDataDataContext() : 
-				base(global::System.Configuration.ConfigurationManager.ConnectionStrings["CapstoneConnectionString"].ConnectionString, mappingSource)
+		public ApphabourSeverDataContext() : 
+				base(global::System.Configuration.ConfigurationManager.ConnectionStrings["db7a44969a30f24bdd9762a2fa008c96a5ConnectionString"].ConnectionString, mappingSource)
 		{
 			OnCreated();
 		}
 		
-		public LocalDataDataContext(string connection) : 
+		public ApphabourSeverDataContext(string connection) : 
 				base(connection, mappingSource)
 		{
 			OnCreated();
 		}
 		
-		public LocalDataDataContext(System.Data.IDbConnection connection) : 
+		public ApphabourSeverDataContext(System.Data.IDbConnection connection) : 
 				base(connection, mappingSource)
 		{
 			OnCreated();
 		}
 		
-		public LocalDataDataContext(string connection, System.Data.Linq.Mapping.MappingSource mappingSource) : 
+		public ApphabourSeverDataContext(string connection, System.Data.Linq.Mapping.MappingSource mappingSource) : 
 				base(connection, mappingSource)
 		{
 			OnCreated();
 		}
 		
-		public LocalDataDataContext(System.Data.IDbConnection connection, System.Data.Linq.Mapping.MappingSource mappingSource) : 
+		public ApphabourSeverDataContext(System.Data.IDbConnection connection, System.Data.Linq.Mapping.MappingSource mappingSource) : 
 				base(connection, mappingSource)
 		{
 			OnCreated();
-		}
-		
-		public System.Data.Linq.Table<tblPlayer> tblPlayers
-		{
-			get
-			{
-				return this.GetTable<tblPlayer>();
-			}
 		}
 		
 		public System.Data.Linq.Table<tblHistory> tblHistories
@@ -95,31 +87,18 @@ namespace SignalRSever.DAL
 			}
 		}
 		
-		[global::System.Data.Linq.Mapping.FunctionAttribute(Name="dbo.get_history")]
-		public ISingleResult<get_historyResult> get_history()
+		public System.Data.Linq.Table<tblPlayer> tblPlayers
 		{
-			IExecuteResult result = this.ExecuteMethodCall(this, ((MethodInfo)(MethodInfo.GetCurrentMethod())));
-			return ((ISingleResult<get_historyResult>)(result.ReturnValue));
+			get
+			{
+				return this.GetTable<tblPlayer>();
+			}
 		}
 		
-		[global::System.Data.Linq.Mapping.FunctionAttribute(Name="dbo.Insert_History")]
-		public int Insert_History([global::System.Data.Linq.Mapping.ParameterAttribute(Name="PlayerID", DbType="Int")] System.Nullable<int> playerID, [global::System.Data.Linq.Mapping.ParameterAttribute(Name="QuestionID", DbType="Int")] System.Nullable<int> questionID)
-		{
-			IExecuteResult result = this.ExecuteMethodCall(this, ((MethodInfo)(MethodInfo.GetCurrentMethod())), playerID, questionID);
-			return ((int)(result.ReturnValue));
-		}
-		
-		[global::System.Data.Linq.Mapping.FunctionAttribute(Name="dbo.get_singel_history")]
-		public ISingleResult<get_singel_historyResult> get_singel_history([global::System.Data.Linq.Mapping.ParameterAttribute(Name="PlayerName", DbType="NVarChar(50)")] string playerName, [global::System.Data.Linq.Mapping.ParameterAttribute(Name="QuestionID", DbType="Int")] System.Nullable<int> questionID)
+		[global::System.Data.Linq.Mapping.FunctionAttribute(Name="dbo.correctQuestion")]
+		public int correctQuestion([global::System.Data.Linq.Mapping.ParameterAttribute(Name="PlayerName", DbType="NVarChar(50)")] string playerName, [global::System.Data.Linq.Mapping.ParameterAttribute(Name="QuestionID", DbType="Int")] System.Nullable<int> questionID)
 		{
 			IExecuteResult result = this.ExecuteMethodCall(this, ((MethodInfo)(MethodInfo.GetCurrentMethod())), playerName, questionID);
-			return ((ISingleResult<get_singel_historyResult>)(result.ReturnValue));
-		}
-		
-		[global::System.Data.Linq.Mapping.FunctionAttribute(Name="dbo.Insert_Player")]
-		public int Insert_Player([global::System.Data.Linq.Mapping.ParameterAttribute(Name="Name", DbType="NVarChar(50)")] string name, [global::System.Data.Linq.Mapping.ParameterAttribute(Name="Level", DbType="Int")] System.Nullable<int> level, [global::System.Data.Linq.Mapping.ParameterAttribute(Name="Point", DbType="Int")] System.Nullable<int> point)
-		{
-			IExecuteResult result = this.ExecuteMethodCall(this, ((MethodInfo)(MethodInfo.GetCurrentMethod())), name, level, point);
 			return ((int)(result.ReturnValue));
 		}
 		
@@ -130,173 +109,32 @@ namespace SignalRSever.DAL
 			return ((int)(result.ReturnValue));
 		}
 		
-		[global::System.Data.Linq.Mapping.FunctionAttribute(Name="dbo.correctQuestion")]
-		public int correctQuestion([global::System.Data.Linq.Mapping.ParameterAttribute(Name="PlayerName", DbType="NVarChar(50)")] string playerName, [global::System.Data.Linq.Mapping.ParameterAttribute(Name="QuestionID", DbType="Int")] System.Nullable<int> questionID)
+		[global::System.Data.Linq.Mapping.FunctionAttribute(Name="dbo.get_history")]
+		public ISingleResult<get_historyResult> get_history()
+		{
+			IExecuteResult result = this.ExecuteMethodCall(this, ((MethodInfo)(MethodInfo.GetCurrentMethod())));
+			return ((ISingleResult<get_historyResult>)(result.ReturnValue));
+		}
+		
+		[global::System.Data.Linq.Mapping.FunctionAttribute(Name="dbo.get_singel_history")]
+		public ISingleResult<get_singel_historyResult> get_singel_history([global::System.Data.Linq.Mapping.ParameterAttribute(Name="PlayerName", DbType="NVarChar(50)")] string playerName, [global::System.Data.Linq.Mapping.ParameterAttribute(Name="QuestionID", DbType="Int")] System.Nullable<int> questionID)
 		{
 			IExecuteResult result = this.ExecuteMethodCall(this, ((MethodInfo)(MethodInfo.GetCurrentMethod())), playerName, questionID);
+			return ((ISingleResult<get_singel_historyResult>)(result.ReturnValue));
+		}
+		
+		[global::System.Data.Linq.Mapping.FunctionAttribute(Name="dbo.Insert_History")]
+		public int Insert_History([global::System.Data.Linq.Mapping.ParameterAttribute(Name="PlayerID", DbType="Int")] System.Nullable<int> playerID, [global::System.Data.Linq.Mapping.ParameterAttribute(Name="QuestionID", DbType="Int")] System.Nullable<int> questionID)
+		{
+			IExecuteResult result = this.ExecuteMethodCall(this, ((MethodInfo)(MethodInfo.GetCurrentMethod())), playerID, questionID);
 			return ((int)(result.ReturnValue));
 		}
-	}
-	
-	[global::System.Data.Linq.Mapping.TableAttribute(Name="dbo.tblPlayer")]
-	public partial class tblPlayer : INotifyPropertyChanging, INotifyPropertyChanged
-	{
 		
-		private static PropertyChangingEventArgs emptyChangingEventArgs = new PropertyChangingEventArgs(String.Empty);
-		
-		private int _PlayerID;
-		
-		private string _PlayerName;
-		
-		private System.Nullable<int> _PlayerLevel;
-		
-		private System.Nullable<int> _PlayerPoint;
-		
-		private EntitySet<tblHistory> _tblHistories;
-		
-    #region Extensibility Method Definitions
-    partial void OnLoaded();
-    partial void OnValidate(System.Data.Linq.ChangeAction action);
-    partial void OnCreated();
-    partial void OnPlayerIDChanging(int value);
-    partial void OnPlayerIDChanged();
-    partial void OnPlayerNameChanging(string value);
-    partial void OnPlayerNameChanged();
-    partial void OnPlayerLevelChanging(System.Nullable<int> value);
-    partial void OnPlayerLevelChanged();
-    partial void OnPlayerPointChanging(System.Nullable<int> value);
-    partial void OnPlayerPointChanged();
-    #endregion
-		
-		public tblPlayer()
+		[global::System.Data.Linq.Mapping.FunctionAttribute(Name="dbo.Insert_Player")]
+		public int Insert_Player([global::System.Data.Linq.Mapping.ParameterAttribute(Name="Name", DbType="NVarChar(50)")] string name, [global::System.Data.Linq.Mapping.ParameterAttribute(Name="Level", DbType="Int")] System.Nullable<int> level, [global::System.Data.Linq.Mapping.ParameterAttribute(Name="Point", DbType="Int")] System.Nullable<int> point)
 		{
-			this._tblHistories = new EntitySet<tblHistory>(new Action<tblHistory>(this.attach_tblHistories), new Action<tblHistory>(this.detach_tblHistories));
-			OnCreated();
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_PlayerID", AutoSync=AutoSync.OnInsert, DbType="Int NOT NULL IDENTITY", IsPrimaryKey=true, IsDbGenerated=true)]
-		public int PlayerID
-		{
-			get
-			{
-				return this._PlayerID;
-			}
-			set
-			{
-				if ((this._PlayerID != value))
-				{
-					this.OnPlayerIDChanging(value);
-					this.SendPropertyChanging();
-					this._PlayerID = value;
-					this.SendPropertyChanged("PlayerID");
-					this.OnPlayerIDChanged();
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_PlayerName", DbType="NVarChar(50)")]
-		public string PlayerName
-		{
-			get
-			{
-				return this._PlayerName;
-			}
-			set
-			{
-				if ((this._PlayerName != value))
-				{
-					this.OnPlayerNameChanging(value);
-					this.SendPropertyChanging();
-					this._PlayerName = value;
-					this.SendPropertyChanged("PlayerName");
-					this.OnPlayerNameChanged();
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_PlayerLevel", DbType="Int")]
-		public System.Nullable<int> PlayerLevel
-		{
-			get
-			{
-				return this._PlayerLevel;
-			}
-			set
-			{
-				if ((this._PlayerLevel != value))
-				{
-					this.OnPlayerLevelChanging(value);
-					this.SendPropertyChanging();
-					this._PlayerLevel = value;
-					this.SendPropertyChanged("PlayerLevel");
-					this.OnPlayerLevelChanged();
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_PlayerPoint", DbType="Int")]
-		public System.Nullable<int> PlayerPoint
-		{
-			get
-			{
-				return this._PlayerPoint;
-			}
-			set
-			{
-				if ((this._PlayerPoint != value))
-				{
-					this.OnPlayerPointChanging(value);
-					this.SendPropertyChanging();
-					this._PlayerPoint = value;
-					this.SendPropertyChanged("PlayerPoint");
-					this.OnPlayerPointChanged();
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="tblPlayer_tblHistory", Storage="_tblHistories", ThisKey="PlayerID", OtherKey="PlayerID")]
-		public EntitySet<tblHistory> tblHistories
-		{
-			get
-			{
-				return this._tblHistories;
-			}
-			set
-			{
-				this._tblHistories.Assign(value);
-			}
-		}
-		
-		public event PropertyChangingEventHandler PropertyChanging;
-		
-		public event PropertyChangedEventHandler PropertyChanged;
-		
-		protected virtual void SendPropertyChanging()
-		{
-			if ((this.PropertyChanging != null))
-			{
-				this.PropertyChanging(this, emptyChangingEventArgs);
-			}
-		}
-		
-		protected virtual void SendPropertyChanged(String propertyName)
-		{
-			if ((this.PropertyChanged != null))
-			{
-				this.PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
-			}
-		}
-		
-		private void attach_tblHistories(tblHistory entity)
-		{
-			this.SendPropertyChanging();
-			entity.tblPlayer = this;
-		}
-		
-		private void detach_tblHistories(tblHistory entity)
-		{
-			this.SendPropertyChanging();
-			entity.tblPlayer = null;
+			IExecuteResult result = this.ExecuteMethodCall(this, ((MethodInfo)(MethodInfo.GetCurrentMethod())), name, level, point);
+			return ((int)(result.ReturnValue));
 		}
 	}
 	
@@ -316,9 +154,9 @@ namespace SignalRSever.DAL
 		
 		private System.Nullable<int> _Wrong;
 		
-		private EntityRef<tblPlayer> _tblPlayer;
-		
 		private EntityRef<tblQuestion> _tblQuestion;
+		
+		private EntityRef<tblPlayer> _tblPlayer;
 		
     #region Extensibility Method Definitions
     partial void OnLoaded();
@@ -338,8 +176,8 @@ namespace SignalRSever.DAL
 		
 		public tblHistory()
 		{
-			this._tblPlayer = default(EntityRef<tblPlayer>);
 			this._tblQuestion = default(EntityRef<tblQuestion>);
+			this._tblPlayer = default(EntityRef<tblPlayer>);
 			OnCreated();
 		}
 		
@@ -451,40 +289,6 @@ namespace SignalRSever.DAL
 			}
 		}
 		
-		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="tblPlayer_tblHistory", Storage="_tblPlayer", ThisKey="PlayerID", OtherKey="PlayerID", IsForeignKey=true)]
-		public tblPlayer tblPlayer
-		{
-			get
-			{
-				return this._tblPlayer.Entity;
-			}
-			set
-			{
-				tblPlayer previousValue = this._tblPlayer.Entity;
-				if (((previousValue != value) 
-							|| (this._tblPlayer.HasLoadedOrAssignedValue == false)))
-				{
-					this.SendPropertyChanging();
-					if ((previousValue != null))
-					{
-						this._tblPlayer.Entity = null;
-						previousValue.tblHistories.Remove(this);
-					}
-					this._tblPlayer.Entity = value;
-					if ((value != null))
-					{
-						value.tblHistories.Add(this);
-						this._PlayerID = value.PlayerID;
-					}
-					else
-					{
-						this._PlayerID = default(int);
-					}
-					this.SendPropertyChanged("tblPlayer");
-				}
-			}
-		}
-		
 		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="tblQuestion_tblHistory", Storage="_tblQuestion", ThisKey="QuestionID", OtherKey="QuestionID", IsForeignKey=true)]
 		public tblQuestion tblQuestion
 		{
@@ -515,6 +319,40 @@ namespace SignalRSever.DAL
 						this._QuestionID = default(int);
 					}
 					this.SendPropertyChanged("tblQuestion");
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="tblPlayer_tblHistory", Storage="_tblPlayer", ThisKey="PlayerID", OtherKey="PlayerID", IsForeignKey=true)]
+		public tblPlayer tblPlayer
+		{
+			get
+			{
+				return this._tblPlayer.Entity;
+			}
+			set
+			{
+				tblPlayer previousValue = this._tblPlayer.Entity;
+				if (((previousValue != value) 
+							|| (this._tblPlayer.HasLoadedOrAssignedValue == false)))
+				{
+					this.SendPropertyChanging();
+					if ((previousValue != null))
+					{
+						this._tblPlayer.Entity = null;
+						previousValue.tblHistories.Remove(this);
+					}
+					this._tblPlayer.Entity = value;
+					if ((value != null))
+					{
+						value.tblHistories.Add(this);
+						this._PlayerID = value.PlayerID;
+					}
+					else
+					{
+						this._PlayerID = default(int);
+					}
+					this.SendPropertyChanged("tblPlayer");
 				}
 			}
 		}
@@ -1011,6 +849,168 @@ namespace SignalRSever.DAL
 		{
 			this.SendPropertyChanging();
 			entity.tblQuestion = null;
+		}
+	}
+	
+	[global::System.Data.Linq.Mapping.TableAttribute(Name="dbo.tblPlayer")]
+	public partial class tblPlayer : INotifyPropertyChanging, INotifyPropertyChanged
+	{
+		
+		private static PropertyChangingEventArgs emptyChangingEventArgs = new PropertyChangingEventArgs(String.Empty);
+		
+		private int _PlayerID;
+		
+		private string _PlayerName;
+		
+		private System.Nullable<int> _PlayerLevel;
+		
+		private System.Nullable<int> _PlayerPoint;
+		
+		private EntitySet<tblHistory> _tblHistories;
+		
+    #region Extensibility Method Definitions
+    partial void OnLoaded();
+    partial void OnValidate(System.Data.Linq.ChangeAction action);
+    partial void OnCreated();
+    partial void OnPlayerIDChanging(int value);
+    partial void OnPlayerIDChanged();
+    partial void OnPlayerNameChanging(string value);
+    partial void OnPlayerNameChanged();
+    partial void OnPlayerLevelChanging(System.Nullable<int> value);
+    partial void OnPlayerLevelChanged();
+    partial void OnPlayerPointChanging(System.Nullable<int> value);
+    partial void OnPlayerPointChanged();
+    #endregion
+		
+		public tblPlayer()
+		{
+			this._tblHistories = new EntitySet<tblHistory>(new Action<tblHistory>(this.attach_tblHistories), new Action<tblHistory>(this.detach_tblHistories));
+			OnCreated();
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_PlayerID", AutoSync=AutoSync.OnInsert, DbType="Int NOT NULL IDENTITY", IsPrimaryKey=true, IsDbGenerated=true)]
+		public int PlayerID
+		{
+			get
+			{
+				return this._PlayerID;
+			}
+			set
+			{
+				if ((this._PlayerID != value))
+				{
+					this.OnPlayerIDChanging(value);
+					this.SendPropertyChanging();
+					this._PlayerID = value;
+					this.SendPropertyChanged("PlayerID");
+					this.OnPlayerIDChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_PlayerName", DbType="NVarChar(50)")]
+		public string PlayerName
+		{
+			get
+			{
+				return this._PlayerName;
+			}
+			set
+			{
+				if ((this._PlayerName != value))
+				{
+					this.OnPlayerNameChanging(value);
+					this.SendPropertyChanging();
+					this._PlayerName = value;
+					this.SendPropertyChanged("PlayerName");
+					this.OnPlayerNameChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_PlayerLevel", DbType="Int")]
+		public System.Nullable<int> PlayerLevel
+		{
+			get
+			{
+				return this._PlayerLevel;
+			}
+			set
+			{
+				if ((this._PlayerLevel != value))
+				{
+					this.OnPlayerLevelChanging(value);
+					this.SendPropertyChanging();
+					this._PlayerLevel = value;
+					this.SendPropertyChanged("PlayerLevel");
+					this.OnPlayerLevelChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_PlayerPoint", DbType="Int")]
+		public System.Nullable<int> PlayerPoint
+		{
+			get
+			{
+				return this._PlayerPoint;
+			}
+			set
+			{
+				if ((this._PlayerPoint != value))
+				{
+					this.OnPlayerPointChanging(value);
+					this.SendPropertyChanging();
+					this._PlayerPoint = value;
+					this.SendPropertyChanged("PlayerPoint");
+					this.OnPlayerPointChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="tblPlayer_tblHistory", Storage="_tblHistories", ThisKey="PlayerID", OtherKey="PlayerID")]
+		public EntitySet<tblHistory> tblHistories
+		{
+			get
+			{
+				return this._tblHistories;
+			}
+			set
+			{
+				this._tblHistories.Assign(value);
+			}
+		}
+		
+		public event PropertyChangingEventHandler PropertyChanging;
+		
+		public event PropertyChangedEventHandler PropertyChanged;
+		
+		protected virtual void SendPropertyChanging()
+		{
+			if ((this.PropertyChanging != null))
+			{
+				this.PropertyChanging(this, emptyChangingEventArgs);
+			}
+		}
+		
+		protected virtual void SendPropertyChanged(String propertyName)
+		{
+			if ((this.PropertyChanged != null))
+			{
+				this.PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
+			}
+		}
+		
+		private void attach_tblHistories(tblHistory entity)
+		{
+			this.SendPropertyChanging();
+			entity.tblPlayer = this;
+		}
+		
+		private void detach_tblHistories(tblHistory entity)
+		{
+			this.SendPropertyChanging();
+			entity.tblPlayer = null;
 		}
 	}
 	
