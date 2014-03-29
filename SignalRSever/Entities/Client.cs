@@ -11,6 +11,10 @@ namespace SignalRSever
         public int level { get; set; }
         public int point { get; set; }
         public int mathPoint { get; set; }
+
+        public int QuestionLeft = 3;
+        public int[] tempmath { get; set; }
+
         public Client opponent { get; set; }
         public bool isReady { get; set; }
         public bool lookingForOpponent { get; set; }

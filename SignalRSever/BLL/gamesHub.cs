@@ -5,6 +5,8 @@ using System.Web;
 using Microsoft.AspNet.SignalR;
 using System.Threading.Tasks;
 using Newtonsoft.Json;
+using SignalRSever.DAL;
+
 
 namespace SignalRSever
 {
@@ -16,17 +18,15 @@ namespace SignalRSever
         /// This list is used to keep track of games and their states
         /// </summary>
         private static readonly List<Chasing> games = new List<Chasing>();
-        private static List<Question> listQ = new List<Question>();
-        public dataAppHabourDataContext data = new dataAppHabourDataContext();
+        public LocalDataDataContext data = new LocalDataDataContext();
 
         public void postQuestion(List<Question> a)
         {
-            listQ.Clear();
-            listQ = a;
+
             var game = games.FirstOrDefault(x => x.Player1.connectionId == Context.ConnectionId || x.Player2.connectionId == Context.ConnectionId);
-            
-            Clients.Client(game.Player1.connectionId).getQuestionList(listQ);
-            Clients.Client(game.Player2.connectionId).getQuestionList(listQ);
+            game.listQ = a;
+            Clients.Client(game.Player1.connectionId).getQuestionList(game.listQ);
+            Clients.Client(game.Player2.connectionId).getQuestionList(game.listQ);
         }
 
         public Task SendStatsUpdate()
@@ -43,7 +43,7 @@ namespace SignalRSever
 
                 playerOut.opponent.isReady = false;
                 playerOut.opponent.lookingForOpponent = false;
-                
+
                 Clients.Client(playerOut.opponent.connectionId).OpponentDisconnect();
                 playerOut.opponent.point += 5;
                 var opponent = data.tblPlayers.FirstOrDefault(x => x.PlayerName == playerOut.opponent.name);
@@ -64,7 +64,7 @@ namespace SignalRSever
                 Client playerOut = game.Player1.connectionId == Context.ConnectionId ? game.Player1 : game.Player2;
                 playerOut.isReady = false;
                 playerOut.lookingForOpponent = false;
-                
+
                 playerOut.point -= 5;
                 playerOut.opponent.isReady = false;
                 playerOut.opponent.lookingForOpponent = false;
@@ -83,13 +83,12 @@ namespace SignalRSever
 
         public void Register(string name)
         {
-            lock (_syncRoot) 
+            lock (_syncRoot)
             {
                 var clientdt = data.tblPlayers.FirstOrDefault(x => x.PlayerName == name);
                 if (clientdt == null)
                 {
-                    data.tblPlayers.InsertOnSubmit(new tblPlayer { PlayerName = name, PlayerLevel = 1, PlayerPoint = 100 });
-                    data.SubmitChanges();
+                    data.Insert_Player(name, 1, 100);
                     Clients.Client(Context.ConnectionId).TrySave(true);
                 }
                 else
@@ -188,55 +187,51 @@ namespace SignalRSever
         /// Play a marker at a given positon
         /// </summary>
         /// <param name="position">The position where to place the marker</param>
-        public void correctQuestion(int position,int mark)
+        public void correctQuestion(int position, int mark,bool getMaxPoint)
         {
             // Find the game where there is a player1 and player2 and either of them have the current connection id
             var game = games.FirstOrDefault(x => x.Player1.connectionId == Context.ConnectionId || x.Player2.connectionId == Context.ConnectionId);
 
-            if (game == null || game.IsGameOver) return;
-
-            int marker = 0;
-
-            // Detect if the player connected is player 1 or player 2
-            if (game.Player2.connectionId == Context.ConnectionId)
+            if (game == null || game.IsGameOver)
             {
-                game.Player2.mathPoint += mark;
-                marker = 1;
+                games.Remove(game);
+                return; 
             }
-            else
-            {
-                game.Player1.mathPoint += mark;
-            }
-            var player = marker == 0 ? game.Player1 : game.Player2;
 
-            // If the player is waiting for the opponent but still tried to make a move, just return
-            //if (player.WaitingForMove) return;
-
-            // Notify both players that a marker has been placed
-            //Clients.Client(game.Player1.ConnectionId).addMarkerPlacement(new GameInformation { OpponentName = player.Name, MarkerPosition = position });
-            //Clients.Client(game.Player2.ConnectionId).addMarkerPlacement(new GameInformation { OpponentName = player.Name, MarkerPosition = position });
-            
-
+            Client PlayerSummit = game.Player1.connectionId == Context.ConnectionId ? game.Player1 : game.Player2 ;
 
             // Place the marker and look for a winner
-            if (game.Play(marker, position))
+            if (game.Play(PlayerSummit, position, mark, getMaxPoint))
             {
                 game.Player1.lookingForOpponent = false;
                 game.Player2.lookingForOpponent = false;
                 game.Player1.isReady = false;
                 game.Player2.isReady = false;
-                Clients.Client(game.Winner.connectionId).gameOver(new { Name = game.Winner.name , Point = "+100" });
-                Clients.Client(game.Winner.opponent.connectionId).gameOver(new { Name = game.Winner.name , Point = "-50"});
+
+                if (game.Winner == null)
+                {
+                    
+                }
+                else
+                {
+                    Clients.Client(game.Winner.connectionId).gameOver(new { Name = game.Winner.name, Point = "+10" });
+                    Clients.Client(game.Winner.opponent.connectionId).gameOver(new { Name = game.Winner.name, Point = "-5" });
+                }
                 games.Remove(game);
             }
-            Clients.Client(game.Player1.connectionId).CorrectedQuestion(player.name, position,mark);
-            Clients.Client(game.Player2.connectionId).CorrectedQuestion(player.name, position,mark);
+            if (position != 2)
+            {
+                Clients.Client(game.Player1.connectionId).CorrectedQuestion(PlayerSummit.name, position, mark);
+                Clients.Client(game.Player2.connectionId).CorrectedQuestion(PlayerSummit.name, position, mark);
+            }
         }
 
+
+        
         public void GameOver()
         {
             var game = games.FirstOrDefault(x => x.Player1.connectionId == Context.ConnectionId || x.Player2.connectionId == Context.ConnectionId);
-            
+
         }
     }
 }
