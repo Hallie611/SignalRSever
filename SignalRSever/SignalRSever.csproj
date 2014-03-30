@@ -90,9 +90,10 @@
     <Content Include="packages.config" />
     <Content Include="Scripts\jquery-1.10.2.min.map" />
     <Content Include="ClassDiagram1.cd" />
-    <Content Include="DAL\ApphabourSever.dbml">
+    <Content Include="ClassDiagram2.cd" />
+    <Content Include="DAL\SeverData.dbml">
       <Generator>MSLinqToSQLGenerator</Generator>
-      <LastGenOutput>ApphabourSever.designer.cs</LastGenOutput>
+      <LastGenOutput>SeverData.designer.cs</LastGenOutput>
       <SubType>Designer</SubType>
     </Content>
     <None Include="Web.Debug.config">
@@ -111,10 +112,10 @@
     <Content Include="Web.config" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="DAL\ApphabourSever.designer.cs">
+    <Compile Include="DAL\SeverData.designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
-      <DependentUpon>ApphabourSever.dbml</DependentUpon>
+      <DependentUpon>SeverData.dbml</DependentUpon>
     </Compile>
     <Compile Include="Entities\Chasing.cs" />
     <Compile Include="Entities\Client.cs" />
@@ -127,8 +128,8 @@
     <Service Include="{3259AA49-8AA1-44D3-9025-A0B520596A8C}" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="DAL\ApphabourSever.dbml.layout">
-      <DependentUpon>ApphabourSever.dbml</DependentUpon>
+    <None Include="DAL\SeverData.dbml.layout">
+      <DependentUpon>SeverData.dbml</DependentUpon>
     </None>
   </ItemGroup>
   <PropertyGroup>

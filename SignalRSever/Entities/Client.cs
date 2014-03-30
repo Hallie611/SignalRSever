@@ -9,7 +9,6 @@ namespace SignalRSever
     {
         public string name { get; set; }
         public int level { get; set; }
-        public int point { get; set; }
         public int mathPoint { get; set; }
 
         public int QuestionLeft = 3;

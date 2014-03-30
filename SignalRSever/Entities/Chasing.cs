@@ -13,12 +13,11 @@ namespace SignalRSever
         public Client Player1 { get; set; }
         public Client Player2 { get; set; }
         public Client Winner { get; set; }
-        public bool isGameOver { get; set; }
 
         public List<Question> listQ { get; set; }
 
-       // private LocalDataDataContext data = new LocalDataDataContext();
-        private ApphabourSeverDataContext data = new ApphabourSeverDataContext();
+       //private LocalDataDataContext data = new LocalDataDataContext();
+        public SeverDataDataContext severdata = new SeverDataDataContext();
 
         private int QuestionLeft = 3;
         public readonly int[,] score = new int[3,4];
@@ -45,8 +44,8 @@ namespace SignalRSever
             if (posion == 0)
             {
                 Winner = Winner = score[1, 0] > score[2, 0] ? Player1 : Player2;
-                isGameOver = true;
-                UpdateHistory();
+                IsGameOver = true;
+                UpdateData();
                return true;
             }
 
@@ -70,8 +69,8 @@ namespace SignalRSever
             if (QuestionLeft <= 0)
             {
                 Winner = score[1,0] > score[2,0] ? Player1 : Player2;
-                isGameOver = true;
-                UpdateHistory();
+                IsGameOver = true;
+                UpdateData();
                 return true;
             }
 
@@ -79,25 +78,27 @@ namespace SignalRSever
             return false;
         }
 
-        public void UpdateHistory()
+        public void UpdateData()
         {
+
+            severdata.update_point(Winner.name, Winner.level * 10, Winner.opponent.name, Winner.opponent.level * 10);
             for (int i = 1; i < 4; i++)
             {
                 if (score[1, i] == 0)
                 {
-                    data.wrongQuestion(Player1.name, listQ[i - 1].questionId);
+                    severdata.wrongQuestion(Player1.name, listQ[i - 1].questionId);
                 }
                 else
                 {
-                    data.correctQuestion(Player1.name, listQ[i - 1].questionId);
+                    severdata.correctQuestion(Player1.name, listQ[i - 1].questionId);
                 }
                 if (score[2, i] == 0)
                 {
-                    data.wrongQuestion(Player2.name, listQ[i - 1].questionId);
+                    severdata.wrongQuestion(Player2.name, listQ[i - 1].questionId);
                 }
                 else
                 {
-                    data.correctQuestion(Player2.name, listQ[i - 1].questionId);
+                    severdata.correctQuestion(Player2.name, listQ[i - 1].questionId);
                 }
             }
 

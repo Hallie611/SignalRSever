@@ -1,4 +1,4 @@
-﻿<?xml version="1.0" encoding="utf-8"?><Database Name="db7a44969a30f24bdd9762a2fa008c96a5" Class="ApphabourSeverDataContext" xmlns="http://schemas.microsoft.com/linqtosql/dbml/2007">
+﻿<?xml version="1.0" encoding="utf-8"?><Database Name="db7a44969a30f24bdd9762a2fa008c96a5" Class="SeverDataDataContext" xmlns="http://schemas.microsoft.com/linqtosql/dbml/2007">
   <Connection Mode="WebSettings" ConnectionString="Data Source=7a44969a-30f2-4bdd-9762-a2fa008c96a5.sqlserver.sequelizer.com;Initial Catalog=db7a44969a30f24bdd9762a2fa008c96a5;Persist Security Info=True;User ID=hecnpillwnfocgbc" SettingsObjectName="System.Configuration.ConfigurationManager.ConnectionStrings" SettingsPropertyName="db7a44969a30f24bdd9762a2fa008c96a5ConnectionString" Provider="System.Data.SqlClient" />
   <Table Name="dbo.tblHistory" Member="tblHistories">
     <Type Name="tblHistory">
@@ -71,6 +71,15 @@
       <Column Name="Wrong" Type="System.Int32" DbType="Int" CanBeNull="true" />
     </ElementType>
   </Function>
+  <Function Name="dbo.get_user_info" Method="get_user_info">
+    <Parameter Name="UserName" Parameter="userName" Type="System.String" DbType="NVarChar(50)" />
+    <ElementType Name="get_user_infoResult">
+      <Column Name="PlayerID" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="PlayerName" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
+      <Column Name="PlayerLevel" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="PlayerPoint" Type="System.Int32" DbType="Int" CanBeNull="true" />
+    </ElementType>
+  </Function>
   <Function Name="dbo.Insert_History" Method="Insert_History">
     <Parameter Name="PlayerID" Parameter="playerID" Type="System.Int32" DbType="Int" />
     <Parameter Name="QuestionID" Parameter="questionID" Type="System.Int32" DbType="Int" />
@@ -80,6 +89,18 @@
     <Parameter Name="Name" Parameter="name" Type="System.String" DbType="NVarChar(50)" />
     <Parameter Name="Level" Parameter="level" Type="System.Int32" DbType="Int" />
     <Parameter Name="Point" Parameter="point" Type="System.Int32" DbType="Int" />
+    <Return Type="System.Int32" />
+  </Function>
+  <Function Name="dbo.player_disconnect" Method="player_disconnect">
+    <Parameter Name="Player" Parameter="player" Type="System.String" DbType="NVarChar(50)" />
+    <Parameter Name="Opponent" Parameter="opponent" Type="System.String" DbType="NVarChar(50)" />
+    <Return Type="System.Int32" />
+  </Function>
+  <Function Name="dbo.update_point" Method="update_point">
+    <Parameter Name="Winner" Parameter="winner" Type="System.String" DbType="NVarChar(50)" />
+    <Parameter Name="WinPoint" Parameter="winPoint" Type="System.Int32" DbType="Int" />
+    <Parameter Name="Loser" Parameter="loser" Type="System.String" DbType="NVarChar(50)" />
+    <Parameter Name="LossPoint" Parameter="lossPoint" Type="System.Int32" DbType="Int" />
     <Return Type="System.Int32" />
   </Function>
 </Database>

@@ -23,7 +23,7 @@ namespace SignalRSever.DAL
 	
 	
 	[global::System.Data.Linq.Mapping.DatabaseAttribute(Name="db7a44969a30f24bdd9762a2fa008c96a5")]
-	public partial class ApphabourSeverDataContext : System.Data.Linq.DataContext
+	public partial class SeverDataDataContext : System.Data.Linq.DataContext
 	{
 		
 		private static System.Data.Linq.Mapping.MappingSource mappingSource = new AttributeMappingSource();
@@ -41,31 +41,31 @@ namespace SignalRSever.DAL
     partial void DeletetblPlayer(tblPlayer instance);
     #endregion
 		
-		public ApphabourSeverDataContext() : 
+		public SeverDataDataContext() : 
 				base(global::System.Configuration.ConfigurationManager.ConnectionStrings["db7a44969a30f24bdd9762a2fa008c96a5ConnectionString"].ConnectionString, mappingSource)
 		{
 			OnCreated();
 		}
 		
-		public ApphabourSeverDataContext(string connection) : 
+		public SeverDataDataContext(string connection) : 
 				base(connection, mappingSource)
 		{
 			OnCreated();
 		}
 		
-		public ApphabourSeverDataContext(System.Data.IDbConnection connection) : 
+		public SeverDataDataContext(System.Data.IDbConnection connection) : 
 				base(connection, mappingSource)
 		{
 			OnCreated();
 		}
 		
-		public ApphabourSeverDataContext(string connection, System.Data.Linq.Mapping.MappingSource mappingSource) : 
+		public SeverDataDataContext(string connection, System.Data.Linq.Mapping.MappingSource mappingSource) : 
 				base(connection, mappingSource)
 		{
 			OnCreated();
 		}
 		
-		public ApphabourSeverDataContext(System.Data.IDbConnection connection, System.Data.Linq.Mapping.MappingSource mappingSource) : 
+		public SeverDataDataContext(System.Data.IDbConnection connection, System.Data.Linq.Mapping.MappingSource mappingSource) : 
 				base(connection, mappingSource)
 		{
 			OnCreated();
@@ -123,6 +123,13 @@ namespace SignalRSever.DAL
 			return ((ISingleResult<get_singel_historyResult>)(result.ReturnValue));
 		}
 		
+		[global::System.Data.Linq.Mapping.FunctionAttribute(Name="dbo.get_user_info")]
+		public ISingleResult<get_user_infoResult> get_user_info([global::System.Data.Linq.Mapping.ParameterAttribute(Name="UserName", DbType="NVarChar(50)")] string userName)
+		{
+			IExecuteResult result = this.ExecuteMethodCall(this, ((MethodInfo)(MethodInfo.GetCurrentMethod())), userName);
+			return ((ISingleResult<get_user_infoResult>)(result.ReturnValue));
+		}
+		
 		[global::System.Data.Linq.Mapping.FunctionAttribute(Name="dbo.Insert_History")]
 		public int Insert_History([global::System.Data.Linq.Mapping.ParameterAttribute(Name="PlayerID", DbType="Int")] System.Nullable<int> playerID, [global::System.Data.Linq.Mapping.ParameterAttribute(Name="QuestionID", DbType="Int")] System.Nullable<int> questionID)
 		{
@@ -134,6 +141,20 @@ namespace SignalRSever.DAL
 		public int Insert_Player([global::System.Data.Linq.Mapping.ParameterAttribute(Name="Name", DbType="NVarChar(50)")] string name, [global::System.Data.Linq.Mapping.ParameterAttribute(Name="Level", DbType="Int")] System.Nullable<int> level, [global::System.Data.Linq.Mapping.ParameterAttribute(Name="Point", DbType="Int")] System.Nullable<int> point)
 		{
 			IExecuteResult result = this.ExecuteMethodCall(this, ((MethodInfo)(MethodInfo.GetCurrentMethod())), name, level, point);
+			return ((int)(result.ReturnValue));
+		}
+		
+		[global::System.Data.Linq.Mapping.FunctionAttribute(Name="dbo.player_disconnect")]
+		public int player_disconnect([global::System.Data.Linq.Mapping.ParameterAttribute(Name="Player", DbType="NVarChar(50)")] string player, [global::System.Data.Linq.Mapping.ParameterAttribute(Name="Opponent", DbType="NVarChar(50)")] string opponent)
+		{
+			IExecuteResult result = this.ExecuteMethodCall(this, ((MethodInfo)(MethodInfo.GetCurrentMethod())), player, opponent);
+			return ((int)(result.ReturnValue));
+		}
+		
+		[global::System.Data.Linq.Mapping.FunctionAttribute(Name="dbo.update_point")]
+		public int update_point([global::System.Data.Linq.Mapping.ParameterAttribute(Name="Winner", DbType="NVarChar(50)")] string winner, [global::System.Data.Linq.Mapping.ParameterAttribute(Name="WinPoint", DbType="Int")] System.Nullable<int> winPoint, [global::System.Data.Linq.Mapping.ParameterAttribute(Name="Loser", DbType="NVarChar(50)")] string loser, [global::System.Data.Linq.Mapping.ParameterAttribute(Name="LossPoint", DbType="Int")] System.Nullable<int> lossPoint)
+		{
+			IExecuteResult result = this.ExecuteMethodCall(this, ((MethodInfo)(MethodInfo.GetCurrentMethod())), winner, winPoint, loser, lossPoint);
 			return ((int)(result.ReturnValue));
 		}
 	}
@@ -1187,6 +1208,86 @@ namespace SignalRSever.DAL
 				if ((this._Wrong != value))
 				{
 					this._Wrong = value;
+				}
+			}
+		}
+	}
+	
+	public partial class get_user_infoResult
+	{
+		
+		private int _PlayerID;
+		
+		private string _PlayerName;
+		
+		private System.Nullable<int> _PlayerLevel;
+		
+		private System.Nullable<int> _PlayerPoint;
+		
+		public get_user_infoResult()
+		{
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_PlayerID", DbType="Int NOT NULL")]
+		public int PlayerID
+		{
+			get
+			{
+				return this._PlayerID;
+			}
+			set
+			{
+				if ((this._PlayerID != value))
+				{
+					this._PlayerID = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_PlayerName", DbType="NVarChar(50)")]
+		public string PlayerName
+		{
+			get
+			{
+				return this._PlayerName;
+			}
+			set
+			{
+				if ((this._PlayerName != value))
+				{
+					this._PlayerName = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_PlayerLevel", DbType="Int")]
+		public System.Nullable<int> PlayerLevel
+		{
+			get
+			{
+				return this._PlayerLevel;
+			}
+			set
+			{
+				if ((this._PlayerLevel != value))
+				{
+					this._PlayerLevel = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_PlayerPoint", DbType="Int")]
+		public System.Nullable<int> PlayerPoint
+		{
+			get
+			{
+				return this._PlayerPoint;
+			}
+			set
+			{
+				if ((this._PlayerPoint != value))
+				{
+					this._PlayerPoint = value;
 				}
 			}
 		}
