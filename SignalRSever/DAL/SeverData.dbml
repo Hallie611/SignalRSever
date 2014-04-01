@@ -1,106 +1,139 @@
 ﻿<?xml version="1.0" encoding="utf-8"?><Database Name="db7a44969a30f24bdd9762a2fa008c96a5" Class="SeverDataDataContext" xmlns="http://schemas.microsoft.com/linqtosql/dbml/2007">
   <Connection Mode="WebSettings" ConnectionString="Data Source=7a44969a-30f2-4bdd-9762-a2fa008c96a5.sqlserver.sequelizer.com;Initial Catalog=db7a44969a30f24bdd9762a2fa008c96a5;Persist Security Info=True;User ID=hecnpillwnfocgbc" SettingsObjectName="System.Configuration.ConfigurationManager.ConnectionStrings" SettingsPropertyName="db7a44969a30f24bdd9762a2fa008c96a5ConnectionString" Provider="System.Data.SqlClient" />
-  <Table Name="dbo.tblHistory" Member="tblHistories">
-    <Type Name="tblHistory">
+  <Table Name="dbo.AnswerFillBlanks" Member="AnswerFillBlanks">
+    <Type Name="AnswerFillBlank">
+      <Column Name="ID" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="QuestionID" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="AnswerIndex" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="Answer" Type="System.String" DbType="NVarChar(100)" CanBeNull="true" />
+      <Column Name="isTrue" Type="System.Boolean" DbType="Bit" CanBeNull="true" />
+      <Association Name="Question_AnswerFillBlank" Member="Question" ThisKey="QuestionID" OtherKey="QuestionID" Type="Question" IsForeignKey="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.Questions" Member="Questions">
+    <Type Name="Question">
+      <Column Name="QuestionID" Type="System.Int32" DbType="Int NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
+      <Column Name="Type" Type="System.String" DbType="NChar(20)" CanBeNull="true" />
+      <Column Name="QuestionDif" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="SRC" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
+      <Association Name="Question_AnswerFillBlank" Member="AnswerFillBlanks" ThisKey="QuestionID" OtherKey="QuestionID" Type="AnswerFillBlank" />
+      <Association Name="Question_AnswerFindBug" Member="AnswerFindBugs" ThisKey="QuestionID" OtherKey="QuestionID" Type="AnswerFindBug" />
+      <Association Name="Question_AnswerMultiChoice" Member="AnswerMultiChoices" ThisKey="QuestionID" OtherKey="QuestionID" Type="AnswerMultiChoice" />
+      <Association Name="Question_History" Member="Histories" ThisKey="QuestionID" OtherKey="QuestionID" Type="History" />
+    </Type>
+  </Table>
+  <Table Name="dbo.AnswerFindBugs" Member="AnswerFindBugs">
+    <Type Name="AnswerFindBug">
+      <Column Name="ID" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="QuestionID" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="WidthPoint" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="HeightPoint" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="TopPoint" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="LeftPoint" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Association Name="Question_AnswerFindBug" Member="Question" ThisKey="QuestionID" OtherKey="QuestionID" Type="Question" IsForeignKey="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.AnswerMultiChoices" Member="AnswerMultiChoices">
+    <Type Name="AnswerMultiChoice">
+      <Column Name="ID" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="QuestionID" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="Answer" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
+      <Column Name="isTrue" Type="System.Boolean" DbType="Bit" CanBeNull="true" />
+      <Association Name="Question_AnswerMultiChoice" Member="Question" ThisKey="QuestionID" OtherKey="QuestionID" Type="Question" IsForeignKey="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.Games" Member="Games">
+    <Type Name="Game">
+      <Column Name="GameID" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="WinerID" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="LoserID" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Association Name="Player_Game" Member="Player" ThisKey="WinerID" OtherKey="PlayerID" Type="Player" IsForeignKey="true" />
+      <Association Name="Player_Game1" Member="Player1" ThisKey="LoserID" OtherKey="PlayerID" Type="Player" IsForeignKey="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.Histories" Member="Histories">
+    <Type Name="History">
       <Column Name="PlayerID" Type="System.Int32" DbType="Int NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
       <Column Name="QuestionID" Type="System.Int32" DbType="Int NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
-      <Column Name="Type" Type="System.Int32" DbType="Int" CanBeNull="true" />
       <Column Name="Rright" Type="System.Int32" DbType="Int" CanBeNull="true" />
       <Column Name="Wrong" Type="System.Int32" DbType="Int" CanBeNull="true" />
-      <Association Name="tblQuestion_tblHistory" Member="tblQuestion" ThisKey="QuestionID" OtherKey="QuestionID" Type="tblQuestion" IsForeignKey="true" />
-      <Association Name="tblPlayer_tblHistory" Member="tblPlayer" ThisKey="PlayerID" OtherKey="PlayerID" Type="tblPlayer" IsForeignKey="true" />
+      <Association Name="Question_History" Member="Question" ThisKey="QuestionID" OtherKey="QuestionID" Type="Question" IsForeignKey="true" />
+      <Association Name="Player_History" Member="Player" ThisKey="PlayerID" OtherKey="PlayerID" Type="Player" IsForeignKey="true" />
     </Type>
   </Table>
-  <Table Name="dbo.tblQuestion" Member="tblQuestions">
-    <Type Name="tblQuestion">
-      <Column Name="QuestionID" Type="System.Int32" DbType="Int NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
-      <Column Name="QuestionType" Type="System.String" DbType="NChar(10)" CanBeNull="true" />
-      <Column Name="QuestionDif" Type="System.Int32" DbType="Int" CanBeNull="true" />
-      <Column Name="QuestionSrc" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
-      <Column Name="Type" Type="System.String" DbType="NChar(10)" CanBeNull="true" />
-      <Column Name="Positionwidth" Type="System.String" DbType="NChar(10)" CanBeNull="true" />
-      <Column Name="Positionheight" Type="System.String" DbType="NChar(10)" CanBeNull="true" />
-      <Column Name="PositionTop" Type="System.String" DbType="NChar(10)" CanBeNull="true" />
-      <Column Name="PositionLeft" Type="System.String" DbType="NChar(10)" CanBeNull="true" />
-      <Column Name="ListA" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
-      <Column Name="ListB" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
-      <Column Name="ListC" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
-      <Column Name="A" Type="System.String" DbType="NChar(50)" CanBeNull="true" />
-      <Column Name="B" Type="System.String" DbType="NChar(50)" CanBeNull="true" />
-      <Column Name="C" Type="System.String" DbType="NChar(50)" CanBeNull="true" />
-      <Column Name="ListAnswer" Type="System.String" DbType="NVarChar(100)" CanBeNull="true" />
-      <Column Name="Answer" Type="System.String" DbType="NChar(50)" CanBeNull="true" />
-      <Association Name="tblQuestion_tblHistory" Member="tblHistories" ThisKey="QuestionID" OtherKey="QuestionID" Type="tblHistory" />
-    </Type>
-  </Table>
-  <Table Name="dbo.tblPlayer" Member="tblPlayers">
-    <Type Name="tblPlayer">
+  <Table Name="dbo.Players" Member="Players">
+    <Type Name="Player">
       <Column Name="PlayerID" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
       <Column Name="PlayerName" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
       <Column Name="PlayerLevel" Type="System.Int32" DbType="Int" CanBeNull="true" />
       <Column Name="PlayerPoint" Type="System.Int32" DbType="Int" CanBeNull="true" />
-      <Association Name="tblPlayer_tblHistory" Member="tblHistories" ThisKey="PlayerID" OtherKey="PlayerID" Type="tblHistory" />
+      <Column Name="Win" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="Lose" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Association Name="Player_Game" Member="Games" ThisKey="PlayerID" OtherKey="WinerID" Type="Game" />
+      <Association Name="Player_Game1" Member="Games1" ThisKey="PlayerID" OtherKey="LoserID" Type="Game" />
+      <Association Name="Player_History" Member="Histories" ThisKey="PlayerID" OtherKey="PlayerID" Type="History" />
     </Type>
   </Table>
   <Function Name="dbo.correctQuestion" Method="correctQuestion">
-    <Parameter Name="PlayerName" Parameter="playerName" Type="System.String" DbType="NVarChar(50)" />
+    <Parameter Name="Player" Parameter="player" Type="System.String" DbType="NVarChar(50)" />
     <Parameter Name="QuestionID" Parameter="questionID" Type="System.Int32" DbType="Int" />
     <Return Type="System.Int32" />
   </Function>
   <Function Name="dbo.wrongQuestion" Method="wrongQuestion">
-    <Parameter Name="PlayerName" Parameter="playerName" Type="System.String" DbType="NVarChar(50)" />
+    <Parameter Name="Player" Parameter="player" Type="System.String" DbType="NVarChar(50)" />
     <Parameter Name="QuestionID" Parameter="questionID" Type="System.Int32" DbType="Int" />
     <Return Type="System.Int32" />
   </Function>
-  <Function Name="dbo.get_history" Method="get_history">
-    <ElementType Name="get_historyResult">
-      <Column Name="PlayerID" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
-      <Column Name="QuestionID" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
-      <Column Name="Type" Type="System.Int32" DbType="Int" CanBeNull="true" />
-      <Column Name="Rright" Type="System.Int32" DbType="Int" CanBeNull="true" />
-      <Column Name="Wrong" Type="System.Int32" DbType="Int" CanBeNull="true" />
-    </ElementType>
-  </Function>
-  <Function Name="dbo.get_singel_history" Method="get_singel_history">
-    <Parameter Name="PlayerName" Parameter="playerName" Type="System.String" DbType="NVarChar(50)" />
-    <Parameter Name="QuestionID" Parameter="questionID" Type="System.Int32" DbType="Int" />
-    <ElementType Name="get_singel_historyResult">
-      <Column Name="PlayerName" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
-      <Column Name="QuestionID" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
-      <Column Name="Rright" Type="System.Int32" DbType="Int" CanBeNull="true" />
-      <Column Name="Wrong" Type="System.Int32" DbType="Int" CanBeNull="true" />
-    </ElementType>
-  </Function>
-  <Function Name="dbo.get_user_info" Method="get_user_info">
-    <Parameter Name="UserName" Parameter="userName" Type="System.String" DbType="NVarChar(50)" />
-    <ElementType Name="get_user_infoResult">
+  <Function Name="dbo.get_player_info" Method="get_player_info">
+    <Parameter Name="Name" Parameter="name" Type="System.String" DbType="NVarChar(50)" />
+    <ElementType Name="get_player_infoResult">
       <Column Name="PlayerID" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
       <Column Name="PlayerName" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
       <Column Name="PlayerLevel" Type="System.Int32" DbType="Int" CanBeNull="true" />
       <Column Name="PlayerPoint" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="Win" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="Lose" Type="System.Int32" DbType="Int" CanBeNull="true" />
     </ElementType>
   </Function>
-  <Function Name="dbo.Insert_History" Method="Insert_History">
-    <Parameter Name="PlayerID" Parameter="playerID" Type="System.Int32" DbType="Int" />
+  <Function Name="dbo.get_question_byID" Method="get_question_byID">
     <Parameter Name="QuestionID" Parameter="questionID" Type="System.Int32" DbType="Int" />
-    <Return Type="System.Int32" />
+    <ElementType Name="get_question_byIDResult">
+      <Column Name="QuestionID" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="Type" Type="System.String" DbType="NChar(20)" CanBeNull="true" />
+      <Column Name="QuestionDif" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="SRC" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
+      <Column Name="WidthPoint" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="HeightPoint" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="TopPoint" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="LeftPoint" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="QuestionID1" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="Rights" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="Wrongs" Type="System.Int32" DbType="Int" CanBeNull="true" />
+    </ElementType>
   </Function>
   <Function Name="dbo.Insert_Player" Method="Insert_Player">
+    <Parameter Name="Name" Parameter="name" Type="System.String" DbType="NVarChar(50)" />
+    <Return Type="System.Int32" />
+  </Function>
+  <Function Name="dbo.question_report_by_name" Method="question_report_by_name">
+    <Parameter Name="Name" Parameter="name" Type="System.String" DbType="NVarChar(50)" />
+    <ElementType Name="question_report_by_nameResult">
+      <Column Name="QuestionID" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="Rright" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="Wrong" Type="System.Int32" DbType="Int" CanBeNull="true" />
+    </ElementType>
+  </Function>
+  <Function Name="dbo.update_player_info" Method="update_player_info">
     <Parameter Name="Name" Parameter="name" Type="System.String" DbType="NVarChar(50)" />
     <Parameter Name="Level" Parameter="level" Type="System.Int32" DbType="Int" />
     <Parameter Name="Point" Parameter="point" Type="System.Int32" DbType="Int" />
     <Return Type="System.Int32" />
   </Function>
-  <Function Name="dbo.player_disconnect" Method="player_disconnect">
-    <Parameter Name="Player" Parameter="player" Type="System.String" DbType="NVarChar(50)" />
-    <Parameter Name="Opponent" Parameter="opponent" Type="System.String" DbType="NVarChar(50)" />
-    <Return Type="System.Int32" />
-  </Function>
   <Function Name="dbo.update_point" Method="update_point">
-    <Parameter Name="Winner" Parameter="winner" Type="System.String" DbType="NVarChar(50)" />
+    <Parameter Name="Win" Parameter="win" Type="System.String" DbType="NVarChar(50)" />
     <Parameter Name="WinPoint" Parameter="winPoint" Type="System.Int32" DbType="Int" />
     <Parameter Name="Loser" Parameter="loser" Type="System.String" DbType="NVarChar(50)" />
-    <Parameter Name="LossPoint" Parameter="lossPoint" Type="System.Int32" DbType="Int" />
+    <Parameter Name="LosePoint" Parameter="losePoint" Type="System.Int32" DbType="Int" />
     <Return Type="System.Int32" />
   </Function>
 </Database>

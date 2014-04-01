@@ -20,17 +20,11 @@ namespace SignalRSever
         public SeverDataDataContext severdata = new SeverDataDataContext();
 
         private int QuestionLeft = 3;
-        public readonly int[,] score = new int[3,4];
+        public  int[,] score;
 
         public Chasing()
         {
-            //Reset game
-            for (int i = 0; i < 4; i++)
-            {
-                score[1,i] = 0;
-                score[2,i] = 0;
-                
-            }
+            
         }
         /// <summary>
         /// Insert a correct at a given index for a given player

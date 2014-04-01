@@ -30,6 +30,14 @@ namespace SignalRSever
 
             var game = games.FirstOrDefault(x => x.Player1.connectionId == Context.ConnectionId || x.Player2.connectionId == Context.ConnectionId);
             game.listQ = a;
+            game.score = new int[3, a.Count + 1];
+            //Reset game
+            for (int i = 0; i < a.Count + 1; i++)
+            {
+                game.score[1, i] = 0;
+                game.score[2, i] = 0;
+
+            }
             Clients.Client(game.Player1.connectionId).getQuestionList(a);
             Clients.Client(game.Player2.connectionId).getQuestionList(a);
         }
@@ -83,10 +91,10 @@ namespace SignalRSever
         {
             lock (_syncRoot)
             {
-                var clientdt = severdata.tblPlayers.FirstOrDefault(x => x.PlayerName == name);
+                var clientdt = severdata.get_player_info(name).FirstOrDefault();
                 if (clientdt == null)
                 {
-                    severdata.Insert_Player(name, 1, 100);
+                    severdata.Insert_Player(name);
                     Clients.Client(Context.ConnectionId).TrySave(true);
                 }
                 else
@@ -102,11 +110,7 @@ namespace SignalRSever
             lock (_syncRoot)
             {
                 var client = listClient.FirstOrDefault(x => x.name == name);
-                var player = severdata.tblPlayers.FirstOrDefault(x => x.PlayerName == name);
-                player.PlayerLevel = level;
-                player.PlayerPoint = point;
-                severdata.SubmitChanges();
-
+                var player = severdata.update_player_info(name, level, point);
                 if (client == null)
                 {
                     client = new Client { connectionId = Context.ConnectionId, name = name, level = level };
@@ -139,8 +143,8 @@ namespace SignalRSever
             player.opponent = opponent;
             opponent.opponent = player;
 
-            var opInfo = severdata.get_user_info(opponent.name).FirstOrDefault();
-            var playerInfo = severdata.get_user_info(player.name).FirstOrDefault();
+            var opInfo = severdata.get_player_info(opponent.name).FirstOrDefault();
+            var playerInfo = severdata.get_player_info(player.name).FirstOrDefault();
             
 
             // Notify both players that a game was found
@@ -177,8 +181,6 @@ namespace SignalRSever
 
             if (game.Player1.isReady == true && game.Player2.isReady == true)
             {
-                game.Player1.mathPoint = 0;
-                game.Player2.mathPoint = 0;
 
                 Clients.Client(game.Player1.connectionId).gameReady();
                 Clients.Client(game.Player2.connectionId).gameReady();
