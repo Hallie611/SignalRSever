@@ -83,7 +83,7 @@ namespace SignalRSever
         public void UpdateData()
         {
             if(Winner!=null)
-            playerManager.UpdatePoint(Winner.name, Winner.level * 10, Winner.opponent.name, Winner.opponent.level * 10);
+                playerManager.UpdatePoint(Winner.name, Winner.opponent.level * 10, Winner.opponent.name, Winner.opponent.level * 10);
             for (int i = 1; i < 4; i++)
             {
                 if (score[1, i] == 0)
