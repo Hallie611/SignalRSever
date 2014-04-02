@@ -2,7 +2,8 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
-using SignalRSever.DAL;
+using SignalRSever.DataAccess;
+using SignalRSever.Business;
 
 namespace SignalRSever
 {
@@ -13,14 +14,10 @@ namespace SignalRSever
         public Client Player1 { get; set; }
         public Client Player2 { get; set; }
         public Client Winner { get; set; }
-
+        public int[,] score { get; set; }
         public List<Question> listQ { get; set; }
-
-       //private LocalDataDataContext data = new LocalDataDataContext();
-        public SeverDataDataContext severdata = new SeverDataDataContext();
-
+        public PlayerManager playerManager = new PlayerManager();
         private int QuestionLeft = 3;
-        public  int[,] score;
 
         public Chasing()
         {
@@ -37,7 +34,12 @@ namespace SignalRSever
             
             if (posion == 0)
             {
-                Winner = Winner = score[1, 0] > score[2, 0] ? Player1 : Player2;
+                if (score[1, 0] > score[2, 0])
+                    Winner = Player1;
+                else if (score[1, 0] < score[2, 0])
+                    Winner = Player2;
+                else
+                    Winner = null;
                 IsGameOver = true;
                 UpdateData();
                return true;
@@ -62,7 +64,13 @@ namespace SignalRSever
 
             if (QuestionLeft <= 0)
             {
-                Winner = score[1,0] > score[2,0] ? Player1 : Player2;
+                if (score[1, 0] > score[2, 0])
+                    Winner = Player1;
+                else if (score[1, 0] < score[2, 0])
+                    Winner = Player2;
+                else
+                    Winner = null;
+
                 IsGameOver = true;
                 UpdateData();
                 return true;
@@ -74,25 +82,25 @@ namespace SignalRSever
 
         public void UpdateData()
         {
-
-            severdata.update_point(Winner.name, Winner.level * 10, Winner.opponent.name, Winner.opponent.level * 10);
+            if(Winner!=null)
+            playerManager.UpdatePoint(Winner.name, Winner.level * 10, Winner.opponent.name, Winner.opponent.level * 10);
             for (int i = 1; i < 4; i++)
             {
                 if (score[1, i] == 0)
                 {
-                    severdata.wrongQuestion(Player1.name, listQ[i - 1].questionId);
+                    playerManager.WrongQuestion(Player1.name, listQ[i - 1].questionId);
                 }
                 else
                 {
-                    severdata.correctQuestion(Player1.name, listQ[i - 1].questionId);
+                    playerManager.RightQuestion(Player1.name, listQ[i - 1].questionId);
                 }
                 if (score[2, i] == 0)
                 {
-                    severdata.wrongQuestion(Player2.name, listQ[i - 1].questionId);
+                    playerManager.WrongQuestion(Player2.name, listQ[i - 1].questionId);
                 }
                 else
                 {
-                    severdata.correctQuestion(Player2.name, listQ[i - 1].questionId);
+                    playerManager.RightQuestion(Player2.name, listQ[i - 1].questionId);
                 }
             }
 

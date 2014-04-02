@@ -7,14 +7,13 @@ namespace SignalRSever
 {
     public class Client
     {
+        public string connectionId { get; set; }
         public string name { get; set; }
         public int level { get; set; }
-
-        public int QuestionLeft = 3;
-
+        public int point { get; set; }
         public Client opponent { get; set; }
         public bool isReady { get; set; }
         public bool lookingForOpponent { get; set; }
-        public string connectionId { get; set; }
+        
     }
 }

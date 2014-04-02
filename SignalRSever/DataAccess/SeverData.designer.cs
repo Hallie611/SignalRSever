@@ -9,7 +9,7 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace SignalRSever.DAL
+namespace SignalRSever.DataAccess
 {
 	using System.Data.Linq;
 	using System.Data.Linq.Mapping;
@@ -22,7 +22,7 @@ namespace SignalRSever.DAL
 	using System;
 	
 	
-	[global::System.Data.Linq.Mapping.DatabaseAttribute(Name="db7a44969a30f24bdd9762a2fa008c96a5")]
+	[global::System.Data.Linq.Mapping.DatabaseAttribute(Name="DataSource")]
 	public partial class SeverDataDataContext : System.Data.Linq.DataContext
 	{
 		
@@ -33,9 +33,9 @@ namespace SignalRSever.DAL
     partial void InsertAnswerFillBlank(AnswerFillBlank instance);
     partial void UpdateAnswerFillBlank(AnswerFillBlank instance);
     partial void DeleteAnswerFillBlank(AnswerFillBlank instance);
-    partial void InsertQuestion(Question instance);
-    partial void UpdateQuestion(Question instance);
-    partial void DeleteQuestion(Question instance);
+    partial void InsertQuestionType(QuestionType instance);
+    partial void UpdateQuestionType(QuestionType instance);
+    partial void DeleteQuestionType(QuestionType instance);
     partial void InsertAnswerFindBug(AnswerFindBug instance);
     partial void UpdateAnswerFindBug(AnswerFindBug instance);
     partial void DeleteAnswerFindBug(AnswerFindBug instance);
@@ -48,13 +48,19 @@ namespace SignalRSever.DAL
     partial void InsertHistory(History instance);
     partial void UpdateHistory(History instance);
     partial void DeleteHistory(History instance);
+    partial void InsertListAnswerMC(ListAnswerMC instance);
+    partial void UpdateListAnswerMC(ListAnswerMC instance);
+    partial void DeleteListAnswerMC(ListAnswerMC instance);
     partial void InsertPlayer(Player instance);
     partial void UpdatePlayer(Player instance);
     partial void DeletePlayer(Player instance);
+    partial void InsertQuestion(Question instance);
+    partial void UpdateQuestion(Question instance);
+    partial void DeleteQuestion(Question instance);
     #endregion
 		
 		public SeverDataDataContext() : 
-				base(global::System.Configuration.ConfigurationManager.ConnectionStrings["db7a44969a30f24bdd9762a2fa008c96a5ConnectionString"].ConnectionString, mappingSource)
+				base(global::System.Configuration.ConfigurationManager.ConnectionStrings["DataSourceConnectionString"].ConnectionString, mappingSource)
 		{
 			OnCreated();
 		}
@@ -91,11 +97,11 @@ namespace SignalRSever.DAL
 			}
 		}
 		
-		public System.Data.Linq.Table<Question> Questions
+		public System.Data.Linq.Table<QuestionType> QuestionTypes
 		{
 			get
 			{
-				return this.GetTable<Question>();
+				return this.GetTable<QuestionType>();
 			}
 		}
 		
@@ -131,11 +137,27 @@ namespace SignalRSever.DAL
 			}
 		}
 		
+		public System.Data.Linq.Table<ListAnswerMC> ListAnswerMCs
+		{
+			get
+			{
+				return this.GetTable<ListAnswerMC>();
+			}
+		}
+		
 		public System.Data.Linq.Table<Player> Players
 		{
 			get
 			{
 				return this.GetTable<Player>();
+			}
+		}
+		
+		public System.Data.Linq.Table<Question> Questions
+		{
+			get
+			{
+				return this.GetTable<Question>();
 			}
 		}
 		
@@ -208,9 +230,9 @@ namespace SignalRSever.DAL
 		
 		private System.Nullable<int> _AnswerIndex;
 		
-		private string _Answer;
+		private string _ListAnswers;
 		
-		private System.Nullable<bool> _isTrue;
+		private string _CorrectAnswer;
 		
 		private EntityRef<Question> _Question;
 		
@@ -224,10 +246,10 @@ namespace SignalRSever.DAL
     partial void OnQuestionIDChanged();
     partial void OnAnswerIndexChanging(System.Nullable<int> value);
     partial void OnAnswerIndexChanged();
-    partial void OnAnswerChanging(string value);
-    partial void OnAnswerChanged();
-    partial void OnisTrueChanging(System.Nullable<bool> value);
-    partial void OnisTrueChanged();
+    partial void OnListAnswersChanging(string value);
+    partial void OnListAnswersChanged();
+    partial void OnCorrectAnswerChanging(string value);
+    partial void OnCorrectAnswerChanged();
     #endregion
 		
 		public AnswerFillBlank()
@@ -300,42 +322,42 @@ namespace SignalRSever.DAL
 			}
 		}
 		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Answer", DbType="NVarChar(100)")]
-		public string Answer
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_ListAnswers", DbType="NVarChar(100)")]
+		public string ListAnswers
 		{
 			get
 			{
-				return this._Answer;
+				return this._ListAnswers;
 			}
 			set
 			{
-				if ((this._Answer != value))
+				if ((this._ListAnswers != value))
 				{
-					this.OnAnswerChanging(value);
+					this.OnListAnswersChanging(value);
 					this.SendPropertyChanging();
-					this._Answer = value;
-					this.SendPropertyChanged("Answer");
-					this.OnAnswerChanged();
+					this._ListAnswers = value;
+					this.SendPropertyChanged("ListAnswers");
+					this.OnListAnswersChanged();
 				}
 			}
 		}
 		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_isTrue", DbType="Bit")]
-		public System.Nullable<bool> isTrue
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_CorrectAnswer", DbType="NVarChar(50)")]
+		public string CorrectAnswer
 		{
 			get
 			{
-				return this._isTrue;
+				return this._CorrectAnswer;
 			}
 			set
 			{
-				if ((this._isTrue != value))
+				if ((this._CorrectAnswer != value))
 				{
-					this.OnisTrueChanging(value);
+					this.OnCorrectAnswerChanging(value);
 					this.SendPropertyChanging();
-					this._isTrue = value;
-					this.SendPropertyChanged("isTrue");
-					this.OnisTrueChanged();
+					this._CorrectAnswer = value;
+					this.SendPropertyChanged("CorrectAnswer");
+					this.OnCorrectAnswerChanged();
 				}
 			}
 		}
@@ -395,72 +417,55 @@ namespace SignalRSever.DAL
 		}
 	}
 	
-	[global::System.Data.Linq.Mapping.TableAttribute(Name="dbo.Questions")]
-	public partial class Question : INotifyPropertyChanging, INotifyPropertyChanged
+	[global::System.Data.Linq.Mapping.TableAttribute(Name="dbo.QuestionType")]
+	public partial class QuestionType : INotifyPropertyChanging, INotifyPropertyChanged
 	{
 		
 		private static PropertyChangingEventArgs emptyChangingEventArgs = new PropertyChangingEventArgs(String.Empty);
 		
-		private int _QuestionID;
+		private int _TypeID;
 		
 		private string _Type;
 		
-		private System.Nullable<int> _QuestionDif;
-		
-		private string _SRC;
-		
-		private EntitySet<AnswerFillBlank> _AnswerFillBlanks;
-		
-		private EntitySet<AnswerFindBug> _AnswerFindBugs;
-		
-		private EntitySet<AnswerMultiChoice> _AnswerMultiChoices;
-		
-		private EntitySet<History> _Histories;
+		private EntitySet<Question> _Questions;
 		
     #region Extensibility Method Definitions
     partial void OnLoaded();
     partial void OnValidate(System.Data.Linq.ChangeAction action);
     partial void OnCreated();
-    partial void OnQuestionIDChanging(int value);
-    partial void OnQuestionIDChanged();
+    partial void OnTypeIDChanging(int value);
+    partial void OnTypeIDChanged();
     partial void OnTypeChanging(string value);
     partial void OnTypeChanged();
-    partial void OnQuestionDifChanging(System.Nullable<int> value);
-    partial void OnQuestionDifChanged();
-    partial void OnSRCChanging(string value);
-    partial void OnSRCChanged();
     #endregion
 		
-		public Question()
+		public QuestionType()
 		{
-			this._AnswerFillBlanks = new EntitySet<AnswerFillBlank>(new Action<AnswerFillBlank>(this.attach_AnswerFillBlanks), new Action<AnswerFillBlank>(this.detach_AnswerFillBlanks));
-			this._AnswerFindBugs = new EntitySet<AnswerFindBug>(new Action<AnswerFindBug>(this.attach_AnswerFindBugs), new Action<AnswerFindBug>(this.detach_AnswerFindBugs));
-			this._AnswerMultiChoices = new EntitySet<AnswerMultiChoice>(new Action<AnswerMultiChoice>(this.attach_AnswerMultiChoices), new Action<AnswerMultiChoice>(this.detach_AnswerMultiChoices));
-			this._Histories = new EntitySet<History>(new Action<History>(this.attach_Histories), new Action<History>(this.detach_Histories));
+			this._Questions = new EntitySet<Question>(new Action<Question>(this.attach_Questions), new Action<Question>(this.detach_Questions));
 			OnCreated();
 		}
 		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_QuestionID", DbType="Int NOT NULL", IsPrimaryKey=true)]
-		public int QuestionID
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_TypeID", DbType="Int NOT NULL", IsPrimaryKey=true)]
+		public int TypeID
 		{
 			get
 			{
-				return this._QuestionID;
+				return this._TypeID;
 			}
 			set
 			{
-				if ((this._QuestionID != value))
+				if ((this._TypeID != value))
 				{
-					this.OnQuestionIDChanging(value);
+					this.OnTypeIDChanging(value);
 					this.SendPropertyChanging();
-					this._QuestionID = value;
-					this.SendPropertyChanged("QuestionID");
-					this.OnQuestionIDChanged();
+					this._TypeID = value;
+					this.SendPropertyChanged("TypeID");
+					this.OnTypeIDChanged();
 				}
 			}
 		}
 		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Type", DbType="NChar(20)")]
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Type", DbType="NVarChar(50)")]
 		public string Type
 		{
 			get
@@ -480,95 +485,16 @@ namespace SignalRSever.DAL
 			}
 		}
 		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_QuestionDif", DbType="Int")]
-		public System.Nullable<int> QuestionDif
+		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="QuestionType_Question", Storage="_Questions", ThisKey="TypeID", OtherKey="Type")]
+		public EntitySet<Question> Questions
 		{
 			get
 			{
-				return this._QuestionDif;
+				return this._Questions;
 			}
 			set
 			{
-				if ((this._QuestionDif != value))
-				{
-					this.OnQuestionDifChanging(value);
-					this.SendPropertyChanging();
-					this._QuestionDif = value;
-					this.SendPropertyChanged("QuestionDif");
-					this.OnQuestionDifChanged();
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_SRC", DbType="NVarChar(50)")]
-		public string SRC
-		{
-			get
-			{
-				return this._SRC;
-			}
-			set
-			{
-				if ((this._SRC != value))
-				{
-					this.OnSRCChanging(value);
-					this.SendPropertyChanging();
-					this._SRC = value;
-					this.SendPropertyChanged("SRC");
-					this.OnSRCChanged();
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="Question_AnswerFillBlank", Storage="_AnswerFillBlanks", ThisKey="QuestionID", OtherKey="QuestionID")]
-		public EntitySet<AnswerFillBlank> AnswerFillBlanks
-		{
-			get
-			{
-				return this._AnswerFillBlanks;
-			}
-			set
-			{
-				this._AnswerFillBlanks.Assign(value);
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="Question_AnswerFindBug", Storage="_AnswerFindBugs", ThisKey="QuestionID", OtherKey="QuestionID")]
-		public EntitySet<AnswerFindBug> AnswerFindBugs
-		{
-			get
-			{
-				return this._AnswerFindBugs;
-			}
-			set
-			{
-				this._AnswerFindBugs.Assign(value);
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="Question_AnswerMultiChoice", Storage="_AnswerMultiChoices", ThisKey="QuestionID", OtherKey="QuestionID")]
-		public EntitySet<AnswerMultiChoice> AnswerMultiChoices
-		{
-			get
-			{
-				return this._AnswerMultiChoices;
-			}
-			set
-			{
-				this._AnswerMultiChoices.Assign(value);
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="Question_History", Storage="_Histories", ThisKey="QuestionID", OtherKey="QuestionID")]
-		public EntitySet<History> Histories
-		{
-			get
-			{
-				return this._Histories;
-			}
-			set
-			{
-				this._Histories.Assign(value);
+				this._Questions.Assign(value);
 			}
 		}
 		
@@ -592,52 +518,16 @@ namespace SignalRSever.DAL
 			}
 		}
 		
-		private void attach_AnswerFillBlanks(AnswerFillBlank entity)
+		private void attach_Questions(Question entity)
 		{
 			this.SendPropertyChanging();
-			entity.Question = this;
+			entity.QuestionType = this;
 		}
 		
-		private void detach_AnswerFillBlanks(AnswerFillBlank entity)
+		private void detach_Questions(Question entity)
 		{
 			this.SendPropertyChanging();
-			entity.Question = null;
-		}
-		
-		private void attach_AnswerFindBugs(AnswerFindBug entity)
-		{
-			this.SendPropertyChanging();
-			entity.Question = this;
-		}
-		
-		private void detach_AnswerFindBugs(AnswerFindBug entity)
-		{
-			this.SendPropertyChanging();
-			entity.Question = null;
-		}
-		
-		private void attach_AnswerMultiChoices(AnswerMultiChoice entity)
-		{
-			this.SendPropertyChanging();
-			entity.Question = this;
-		}
-		
-		private void detach_AnswerMultiChoices(AnswerMultiChoice entity)
-		{
-			this.SendPropertyChanging();
-			entity.Question = null;
-		}
-		
-		private void attach_Histories(History entity)
-		{
-			this.SendPropertyChanging();
-			entity.Question = this;
-		}
-		
-		private void detach_Histories(History entity)
-		{
-			this.SendPropertyChanging();
-			entity.Question = null;
+			entity.QuestionType = null;
 		}
 	}
 	
@@ -874,9 +764,9 @@ namespace SignalRSever.DAL
 		
 		private System.Nullable<int> _QuestionID;
 		
-		private string _Answer;
+		private System.Nullable<int> _AnswerID;
 		
-		private System.Nullable<bool> _isTrue;
+		private EntityRef<ListAnswerMC> _ListAnswerMC;
 		
 		private EntityRef<Question> _Question;
 		
@@ -888,14 +778,13 @@ namespace SignalRSever.DAL
     partial void OnIDChanged();
     partial void OnQuestionIDChanging(System.Nullable<int> value);
     partial void OnQuestionIDChanged();
-    partial void OnAnswerChanging(string value);
-    partial void OnAnswerChanged();
-    partial void OnisTrueChanging(System.Nullable<bool> value);
-    partial void OnisTrueChanged();
+    partial void OnAnswerIDChanging(System.Nullable<int> value);
+    partial void OnAnswerIDChanged();
     #endregion
 		
 		public AnswerMultiChoice()
 		{
+			this._ListAnswerMC = default(EntityRef<ListAnswerMC>);
 			this._Question = default(EntityRef<Question>);
 			OnCreated();
 		}
@@ -944,42 +833,60 @@ namespace SignalRSever.DAL
 			}
 		}
 		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Answer", DbType="NVarChar(50)")]
-		public string Answer
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_AnswerID", DbType="Int")]
+		public System.Nullable<int> AnswerID
 		{
 			get
 			{
-				return this._Answer;
+				return this._AnswerID;
 			}
 			set
 			{
-				if ((this._Answer != value))
+				if ((this._AnswerID != value))
 				{
-					this.OnAnswerChanging(value);
+					if (this._ListAnswerMC.HasLoadedOrAssignedValue)
+					{
+						throw new System.Data.Linq.ForeignKeyReferenceAlreadyHasValueException();
+					}
+					this.OnAnswerIDChanging(value);
 					this.SendPropertyChanging();
-					this._Answer = value;
-					this.SendPropertyChanged("Answer");
-					this.OnAnswerChanged();
+					this._AnswerID = value;
+					this.SendPropertyChanged("AnswerID");
+					this.OnAnswerIDChanged();
 				}
 			}
 		}
 		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_isTrue", DbType="Bit")]
-		public System.Nullable<bool> isTrue
+		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="ListAnswerMC_AnswerMultiChoice", Storage="_ListAnswerMC", ThisKey="AnswerID", OtherKey="AnswerID", IsForeignKey=true)]
+		public ListAnswerMC ListAnswerMC
 		{
 			get
 			{
-				return this._isTrue;
+				return this._ListAnswerMC.Entity;
 			}
 			set
 			{
-				if ((this._isTrue != value))
+				ListAnswerMC previousValue = this._ListAnswerMC.Entity;
+				if (((previousValue != value) 
+							|| (this._ListAnswerMC.HasLoadedOrAssignedValue == false)))
 				{
-					this.OnisTrueChanging(value);
 					this.SendPropertyChanging();
-					this._isTrue = value;
-					this.SendPropertyChanged("isTrue");
-					this.OnisTrueChanged();
+					if ((previousValue != null))
+					{
+						this._ListAnswerMC.Entity = null;
+						previousValue.AnswerMultiChoices.Remove(this);
+					}
+					this._ListAnswerMC.Entity = value;
+					if ((value != null))
+					{
+						value.AnswerMultiChoices.Add(this);
+						this._AnswerID = value.AnswerID;
+					}
+					else
+					{
+						this._AnswerID = default(Nullable<int>);
+					}
+					this.SendPropertyChanged("ListAnswerMC");
 				}
 			}
 		}
@@ -1245,9 +1152,9 @@ namespace SignalRSever.DAL
 		
 		private System.Nullable<int> _Wrong;
 		
-		private EntityRef<Question> _Question;
-		
 		private EntityRef<Player> _Player;
+		
+		private EntityRef<Question> _Question;
 		
     #region Extensibility Method Definitions
     partial void OnLoaded();
@@ -1265,8 +1172,8 @@ namespace SignalRSever.DAL
 		
 		public History()
 		{
-			this._Question = default(EntityRef<Question>);
 			this._Player = default(EntityRef<Player>);
+			this._Question = default(EntityRef<Question>);
 			OnCreated();
 		}
 		
@@ -1358,40 +1265,6 @@ namespace SignalRSever.DAL
 			}
 		}
 		
-		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="Question_History", Storage="_Question", ThisKey="QuestionID", OtherKey="QuestionID", IsForeignKey=true)]
-		public Question Question
-		{
-			get
-			{
-				return this._Question.Entity;
-			}
-			set
-			{
-				Question previousValue = this._Question.Entity;
-				if (((previousValue != value) 
-							|| (this._Question.HasLoadedOrAssignedValue == false)))
-				{
-					this.SendPropertyChanging();
-					if ((previousValue != null))
-					{
-						this._Question.Entity = null;
-						previousValue.Histories.Remove(this);
-					}
-					this._Question.Entity = value;
-					if ((value != null))
-					{
-						value.Histories.Add(this);
-						this._QuestionID = value.QuestionID;
-					}
-					else
-					{
-						this._QuestionID = default(int);
-					}
-					this.SendPropertyChanged("Question");
-				}
-			}
-		}
-		
 		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="Player_History", Storage="_Player", ThisKey="PlayerID", OtherKey="PlayerID", IsForeignKey=true)]
 		public Player Player
 		{
@@ -1426,6 +1299,40 @@ namespace SignalRSever.DAL
 			}
 		}
 		
+		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="Question_History", Storage="_Question", ThisKey="QuestionID", OtherKey="QuestionID", IsForeignKey=true)]
+		public Question Question
+		{
+			get
+			{
+				return this._Question.Entity;
+			}
+			set
+			{
+				Question previousValue = this._Question.Entity;
+				if (((previousValue != value) 
+							|| (this._Question.HasLoadedOrAssignedValue == false)))
+				{
+					this.SendPropertyChanging();
+					if ((previousValue != null))
+					{
+						this._Question.Entity = null;
+						previousValue.Histories.Remove(this);
+					}
+					this._Question.Entity = value;
+					if ((value != null))
+					{
+						value.Histories.Add(this);
+						this._QuestionID = value.QuestionID;
+					}
+					else
+					{
+						this._QuestionID = default(int);
+					}
+					this.SendPropertyChanged("Question");
+				}
+			}
+		}
+		
 		public event PropertyChangingEventHandler PropertyChanging;
 		
 		public event PropertyChangedEventHandler PropertyChanged;
@@ -1444,6 +1351,144 @@ namespace SignalRSever.DAL
 			{
 				this.PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
 			}
+		}
+	}
+	
+	[global::System.Data.Linq.Mapping.TableAttribute(Name="dbo.ListAnswerMC")]
+	public partial class ListAnswerMC : INotifyPropertyChanging, INotifyPropertyChanged
+	{
+		
+		private static PropertyChangingEventArgs emptyChangingEventArgs = new PropertyChangingEventArgs(String.Empty);
+		
+		private int _AnswerID;
+		
+		private string _Answer;
+		
+		private string _Description;
+		
+		private EntitySet<AnswerMultiChoice> _AnswerMultiChoices;
+		
+    #region Extensibility Method Definitions
+    partial void OnLoaded();
+    partial void OnValidate(System.Data.Linq.ChangeAction action);
+    partial void OnCreated();
+    partial void OnAnswerIDChanging(int value);
+    partial void OnAnswerIDChanged();
+    partial void OnAnswerChanging(string value);
+    partial void OnAnswerChanged();
+    partial void OnDescriptionChanging(string value);
+    partial void OnDescriptionChanged();
+    #endregion
+		
+		public ListAnswerMC()
+		{
+			this._AnswerMultiChoices = new EntitySet<AnswerMultiChoice>(new Action<AnswerMultiChoice>(this.attach_AnswerMultiChoices), new Action<AnswerMultiChoice>(this.detach_AnswerMultiChoices));
+			OnCreated();
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_AnswerID", DbType="Int NOT NULL", IsPrimaryKey=true)]
+		public int AnswerID
+		{
+			get
+			{
+				return this._AnswerID;
+			}
+			set
+			{
+				if ((this._AnswerID != value))
+				{
+					this.OnAnswerIDChanging(value);
+					this.SendPropertyChanging();
+					this._AnswerID = value;
+					this.SendPropertyChanged("AnswerID");
+					this.OnAnswerIDChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Answer", DbType="NVarChar(50)")]
+		public string Answer
+		{
+			get
+			{
+				return this._Answer;
+			}
+			set
+			{
+				if ((this._Answer != value))
+				{
+					this.OnAnswerChanging(value);
+					this.SendPropertyChanging();
+					this._Answer = value;
+					this.SendPropertyChanged("Answer");
+					this.OnAnswerChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Description", DbType="NVarChar(100)")]
+		public string Description
+		{
+			get
+			{
+				return this._Description;
+			}
+			set
+			{
+				if ((this._Description != value))
+				{
+					this.OnDescriptionChanging(value);
+					this.SendPropertyChanging();
+					this._Description = value;
+					this.SendPropertyChanged("Description");
+					this.OnDescriptionChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="ListAnswerMC_AnswerMultiChoice", Storage="_AnswerMultiChoices", ThisKey="AnswerID", OtherKey="AnswerID")]
+		public EntitySet<AnswerMultiChoice> AnswerMultiChoices
+		{
+			get
+			{
+				return this._AnswerMultiChoices;
+			}
+			set
+			{
+				this._AnswerMultiChoices.Assign(value);
+			}
+		}
+		
+		public event PropertyChangingEventHandler PropertyChanging;
+		
+		public event PropertyChangedEventHandler PropertyChanged;
+		
+		protected virtual void SendPropertyChanging()
+		{
+			if ((this.PropertyChanging != null))
+			{
+				this.PropertyChanging(this, emptyChangingEventArgs);
+			}
+		}
+		
+		protected virtual void SendPropertyChanged(String propertyName)
+		{
+			if ((this.PropertyChanged != null))
+			{
+				this.PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
+			}
+		}
+		
+		private void attach_AnswerMultiChoices(AnswerMultiChoice entity)
+		{
+			this.SendPropertyChanging();
+			entity.ListAnswerMC = this;
+		}
+		
+		private void detach_AnswerMultiChoices(AnswerMultiChoice entity)
+		{
+			this.SendPropertyChanging();
+			entity.ListAnswerMC = null;
 		}
 	}
 	
@@ -1713,6 +1758,293 @@ namespace SignalRSever.DAL
 		}
 	}
 	
+	[global::System.Data.Linq.Mapping.TableAttribute(Name="dbo.Questions")]
+	public partial class Question : INotifyPropertyChanging, INotifyPropertyChanged
+	{
+		
+		private static PropertyChangingEventArgs emptyChangingEventArgs = new PropertyChangingEventArgs(String.Empty);
+		
+		private int _QuestionID;
+		
+		private System.Nullable<int> _Type;
+		
+		private System.Nullable<int> _QuestionDif;
+		
+		private string _SRC;
+		
+		private EntitySet<AnswerFillBlank> _AnswerFillBlanks;
+		
+		private EntitySet<AnswerFindBug> _AnswerFindBugs;
+		
+		private EntitySet<AnswerMultiChoice> _AnswerMultiChoices;
+		
+		private EntitySet<History> _Histories;
+		
+		private EntityRef<QuestionType> _QuestionType;
+		
+    #region Extensibility Method Definitions
+    partial void OnLoaded();
+    partial void OnValidate(System.Data.Linq.ChangeAction action);
+    partial void OnCreated();
+    partial void OnQuestionIDChanging(int value);
+    partial void OnQuestionIDChanged();
+    partial void OnTypeChanging(System.Nullable<int> value);
+    partial void OnTypeChanged();
+    partial void OnQuestionDifChanging(System.Nullable<int> value);
+    partial void OnQuestionDifChanged();
+    partial void OnSRCChanging(string value);
+    partial void OnSRCChanged();
+    #endregion
+		
+		public Question()
+		{
+			this._AnswerFillBlanks = new EntitySet<AnswerFillBlank>(new Action<AnswerFillBlank>(this.attach_AnswerFillBlanks), new Action<AnswerFillBlank>(this.detach_AnswerFillBlanks));
+			this._AnswerFindBugs = new EntitySet<AnswerFindBug>(new Action<AnswerFindBug>(this.attach_AnswerFindBugs), new Action<AnswerFindBug>(this.detach_AnswerFindBugs));
+			this._AnswerMultiChoices = new EntitySet<AnswerMultiChoice>(new Action<AnswerMultiChoice>(this.attach_AnswerMultiChoices), new Action<AnswerMultiChoice>(this.detach_AnswerMultiChoices));
+			this._Histories = new EntitySet<History>(new Action<History>(this.attach_Histories), new Action<History>(this.detach_Histories));
+			this._QuestionType = default(EntityRef<QuestionType>);
+			OnCreated();
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_QuestionID", DbType="Int NOT NULL", IsPrimaryKey=true)]
+		public int QuestionID
+		{
+			get
+			{
+				return this._QuestionID;
+			}
+			set
+			{
+				if ((this._QuestionID != value))
+				{
+					this.OnQuestionIDChanging(value);
+					this.SendPropertyChanging();
+					this._QuestionID = value;
+					this.SendPropertyChanged("QuestionID");
+					this.OnQuestionIDChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Type", DbType="Int")]
+		public System.Nullable<int> Type
+		{
+			get
+			{
+				return this._Type;
+			}
+			set
+			{
+				if ((this._Type != value))
+				{
+					if (this._QuestionType.HasLoadedOrAssignedValue)
+					{
+						throw new System.Data.Linq.ForeignKeyReferenceAlreadyHasValueException();
+					}
+					this.OnTypeChanging(value);
+					this.SendPropertyChanging();
+					this._Type = value;
+					this.SendPropertyChanged("Type");
+					this.OnTypeChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_QuestionDif", DbType="Int")]
+		public System.Nullable<int> QuestionDif
+		{
+			get
+			{
+				return this._QuestionDif;
+			}
+			set
+			{
+				if ((this._QuestionDif != value))
+				{
+					this.OnQuestionDifChanging(value);
+					this.SendPropertyChanging();
+					this._QuestionDif = value;
+					this.SendPropertyChanged("QuestionDif");
+					this.OnQuestionDifChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_SRC", DbType="NVarChar(50)")]
+		public string SRC
+		{
+			get
+			{
+				return this._SRC;
+			}
+			set
+			{
+				if ((this._SRC != value))
+				{
+					this.OnSRCChanging(value);
+					this.SendPropertyChanging();
+					this._SRC = value;
+					this.SendPropertyChanged("SRC");
+					this.OnSRCChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="Question_AnswerFillBlank", Storage="_AnswerFillBlanks", ThisKey="QuestionID", OtherKey="QuestionID")]
+		public EntitySet<AnswerFillBlank> AnswerFillBlanks
+		{
+			get
+			{
+				return this._AnswerFillBlanks;
+			}
+			set
+			{
+				this._AnswerFillBlanks.Assign(value);
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="Question_AnswerFindBug", Storage="_AnswerFindBugs", ThisKey="QuestionID", OtherKey="QuestionID")]
+		public EntitySet<AnswerFindBug> AnswerFindBugs
+		{
+			get
+			{
+				return this._AnswerFindBugs;
+			}
+			set
+			{
+				this._AnswerFindBugs.Assign(value);
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="Question_AnswerMultiChoice", Storage="_AnswerMultiChoices", ThisKey="QuestionID", OtherKey="QuestionID")]
+		public EntitySet<AnswerMultiChoice> AnswerMultiChoices
+		{
+			get
+			{
+				return this._AnswerMultiChoices;
+			}
+			set
+			{
+				this._AnswerMultiChoices.Assign(value);
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="Question_History", Storage="_Histories", ThisKey="QuestionID", OtherKey="QuestionID")]
+		public EntitySet<History> Histories
+		{
+			get
+			{
+				return this._Histories;
+			}
+			set
+			{
+				this._Histories.Assign(value);
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="QuestionType_Question", Storage="_QuestionType", ThisKey="Type", OtherKey="TypeID", IsForeignKey=true)]
+		public QuestionType QuestionType
+		{
+			get
+			{
+				return this._QuestionType.Entity;
+			}
+			set
+			{
+				QuestionType previousValue = this._QuestionType.Entity;
+				if (((previousValue != value) 
+							|| (this._QuestionType.HasLoadedOrAssignedValue == false)))
+				{
+					this.SendPropertyChanging();
+					if ((previousValue != null))
+					{
+						this._QuestionType.Entity = null;
+						previousValue.Questions.Remove(this);
+					}
+					this._QuestionType.Entity = value;
+					if ((value != null))
+					{
+						value.Questions.Add(this);
+						this._Type = value.TypeID;
+					}
+					else
+					{
+						this._Type = default(Nullable<int>);
+					}
+					this.SendPropertyChanged("QuestionType");
+				}
+			}
+		}
+		
+		public event PropertyChangingEventHandler PropertyChanging;
+		
+		public event PropertyChangedEventHandler PropertyChanged;
+		
+		protected virtual void SendPropertyChanging()
+		{
+			if ((this.PropertyChanging != null))
+			{
+				this.PropertyChanging(this, emptyChangingEventArgs);
+			}
+		}
+		
+		protected virtual void SendPropertyChanged(String propertyName)
+		{
+			if ((this.PropertyChanged != null))
+			{
+				this.PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
+			}
+		}
+		
+		private void attach_AnswerFillBlanks(AnswerFillBlank entity)
+		{
+			this.SendPropertyChanging();
+			entity.Question = this;
+		}
+		
+		private void detach_AnswerFillBlanks(AnswerFillBlank entity)
+		{
+			this.SendPropertyChanging();
+			entity.Question = null;
+		}
+		
+		private void attach_AnswerFindBugs(AnswerFindBug entity)
+		{
+			this.SendPropertyChanging();
+			entity.Question = this;
+		}
+		
+		private void detach_AnswerFindBugs(AnswerFindBug entity)
+		{
+			this.SendPropertyChanging();
+			entity.Question = null;
+		}
+		
+		private void attach_AnswerMultiChoices(AnswerMultiChoice entity)
+		{
+			this.SendPropertyChanging();
+			entity.Question = this;
+		}
+		
+		private void detach_AnswerMultiChoices(AnswerMultiChoice entity)
+		{
+			this.SendPropertyChanging();
+			entity.Question = null;
+		}
+		
+		private void attach_Histories(History entity)
+		{
+			this.SendPropertyChanging();
+			entity.Question = this;
+		}
+		
+		private void detach_Histories(History entity)
+		{
+			this.SendPropertyChanging();
+			entity.Question = null;
+		}
+	}
+	
 	public partial class get_player_infoResult
 	{
 		
@@ -1834,7 +2166,7 @@ namespace SignalRSever.DAL
 		
 		private int _QuestionID;
 		
-		private string _Type;
+		private System.Nullable<int> _Type;
 		
 		private System.Nullable<int> _QuestionDif;
 		
@@ -1847,12 +2179,6 @@ namespace SignalRSever.DAL
 		private System.Nullable<int> _TopPoint;
 		
 		private System.Nullable<int> _LeftPoint;
-		
-		private int _QuestionID1;
-		
-		private System.Nullable<int> _Rights;
-		
-		private System.Nullable<int> _Wrongs;
 		
 		public get_question_byIDResult()
 		{
@@ -1874,8 +2200,8 @@ namespace SignalRSever.DAL
 			}
 		}
 		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Type", DbType="NChar(20)")]
-		public string Type
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Type", DbType="Int")]
+		public System.Nullable<int> Type
 		{
 			get
 			{
@@ -1982,54 +2308,6 @@ namespace SignalRSever.DAL
 				if ((this._LeftPoint != value))
 				{
 					this._LeftPoint = value;
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_QuestionID1", DbType="Int NOT NULL")]
-		public int QuestionID1
-		{
-			get
-			{
-				return this._QuestionID1;
-			}
-			set
-			{
-				if ((this._QuestionID1 != value))
-				{
-					this._QuestionID1 = value;
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Rights", DbType="Int")]
-		public System.Nullable<int> Rights
-		{
-			get
-			{
-				return this._Rights;
-			}
-			set
-			{
-				if ((this._Rights != value))
-				{
-					this._Rights = value;
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Wrongs", DbType="Int")]
-		public System.Nullable<int> Wrongs
-		{
-			get
-			{
-				return this._Wrongs;
-			}
-			set
-			{
-				if ((this._Wrongs != value))
-				{
-					this._Wrongs = value;
 				}
 			}
 		}

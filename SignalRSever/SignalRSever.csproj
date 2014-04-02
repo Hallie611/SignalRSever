@@ -336,7 +336,8 @@
     </Content>
     <Content Include="Scripts\jquery-1.10.2.min.map" />
     <Content Include="ClassDiagram1.cd" />
-    <Content Include="DAL\SeverData.dbml">
+    <Content Include="ClassDiagram2.cd" />
+    <Content Include="DataAccess\SeverData.dbml">
       <Generator>MSLinqToSQLGenerator</Generator>
       <LastGenOutput>SeverData.designer.cs</LastGenOutput>
       <SubType>Designer</SubType>
@@ -357,23 +358,27 @@
     <Content Include="Web.config" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="DAL\SeverData.designer.cs">
+    <Compile Include="Business\PlayerManager.cs" />
+    <Compile Include="DataAccess\SeverData.designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
       <DependentUpon>SeverData.dbml</DependentUpon>
     </Compile>
     <Compile Include="Entities\Chasing.cs" />
     <Compile Include="Entities\Client.cs" />
-    <Compile Include="BLL\gamesHub.cs" />
+    <Compile Include="Business\gamesHub.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Entities\Question.cs" />
-    <Compile Include="BLL\Startup.cs" />
+    <Compile Include="Business\Startup.cs" />
   </ItemGroup>
   <ItemGroup>
     <Service Include="{3259AA49-8AA1-44D3-9025-A0B520596A8C}" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="DAL\SeverData.dbml.layout">
+    <Folder Include="Web\" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="DataAccess\SeverData.dbml.layout">
       <DependentUpon>SeverData.dbml</DependentUpon>
     </None>
   </ItemGroup>
