@@ -3,6 +3,8 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using SignalRSever.DataAccess;
+using System.Web.UI.WebControls;
+using System.Data;
 
 namespace SignalRSever.Business
 {
@@ -49,6 +51,57 @@ namespace SignalRSever.Business
             return new Client { name = player.PlayerName, level = (int)player.PlayerLevel, point = (int)player.PlayerPoint };
         }
 
+        public DataTable Get_allPlayer()
+        {
+            DataTable result = new DataTable();
 
+
+            result.Columns.Add(new DataColumn("Name", typeof(string)));
+            result.Columns.Add(new DataColumn("Level", typeof(int)));
+            result.Columns.Add(new DataColumn("Point", typeof(int)));
+            result.Columns.Add(new DataColumn("Win", typeof(int)));
+            result.Columns.Add(new DataColumn("Lose", typeof(int)));
+
+
+            var players = severdata.get_all_player();
+
+            foreach (var p in players)
+            {
+                DataRow dr;
+                dr = result.NewRow();
+
+                dr["Name"] = p.PlayerName;
+                dr["Level"] = p.PlayerLevel;
+                dr["Point"] = p.PlayerPoint;
+                dr["Win"] = p.Win;
+                dr["Lose"] = p.Lose;
+                result.Rows.Add(dr);
+            }
+            return result;
+        }
+
+        public DataTable GetQuestionsByUser(string name)
+        {
+            DataTable result = new DataTable();
+            result.Columns.Add(new DataColumn("QuestionID", typeof(int)));
+            result.Columns.Add(new DataColumn("Type", typeof(string)));
+            result.Columns.Add(new DataColumn("Right", typeof(int)));
+            result.Columns.Add(new DataColumn("Wrong", typeof(int)));
+
+            var players = severdata.question_report_by_name(name);
+
+            foreach (var p in players)
+            {
+                DataRow dr;
+                dr = result.NewRow();
+                dr["QuestionID"] = p.QuestionID;
+                dr["Type"] = p.Type;
+                dr["Right"] = p.Rright;
+                dr["Wrong"] = p.Wrong;
+                result.Rows.Add(dr);
+            }
+
+            return result;
+        }
     }
 }

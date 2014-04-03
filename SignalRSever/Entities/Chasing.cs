@@ -48,7 +48,6 @@ namespace SignalRSever
             if (getMaxPoint)
             {
                 QuestionLeft--;
-
             }
 
             if (player == Player1)

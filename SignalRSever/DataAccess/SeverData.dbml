@@ -1,8 +1,8 @@
 ﻿<?xml version="1.0" encoding="utf-8"?><Database Name="DataSource" Class="SeverDataDataContext" xmlns="http://schemas.microsoft.com/linqtosql/dbml/2007">
-  <Connection Mode="WebSettings" ConnectionString="Data Source=9469c000-60ca-4303-987c-a3010057b724.sqlserver.sequelizer.com;Persist Security Info=True;User ID=lvtresqnmqlgcugf" SettingsObjectName="System.Configuration.ConfigurationManager.ConnectionStrings" SettingsPropertyName="DataSourceConnectionString" Provider="System.Data.SqlClient" />
+  <Connection Mode="WebSettings" ConnectionString="Data Source=ae659b64-39d4-4e4c-ab01-a30200dd1f52.sqlserver.sequelizer.com;Persist Security Info=True;User ID=byddnjvjybfymsnq" SettingsObjectName="System.Configuration.ConfigurationManager.ConnectionStrings" SettingsPropertyName="DataSourceConnectionString1" Provider="System.Data.SqlClient" />
   <Table Name="dbo.AnswerFillBlanks" Member="AnswerFillBlanks">
     <Type Name="AnswerFillBlank">
-      <Column Name="ID" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="ID" Type="System.Int32" DbType="Int NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
       <Column Name="QuestionID" Type="System.Int32" DbType="Int" CanBeNull="true" />
       <Column Name="AnswerIndex" Type="System.Int32" DbType="Int" CanBeNull="true" />
       <Column Name="ListAnswers" Type="System.String" DbType="NVarChar(100)" CanBeNull="true" />
@@ -19,18 +19,18 @@
   </Table>
   <Table Name="dbo.AnswerFindBugs" Member="AnswerFindBugs">
     <Type Name="AnswerFindBug">
-      <Column Name="ID" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="ID" Type="System.Int32" DbType="Int NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
       <Column Name="QuestionID" Type="System.Int32" DbType="Int" CanBeNull="true" />
-      <Column Name="WidthPoint" Type="System.Int32" DbType="Int" CanBeNull="true" />
-      <Column Name="HeightPoint" Type="System.Int32" DbType="Int" CanBeNull="true" />
-      <Column Name="TopPoint" Type="System.Int32" DbType="Int" CanBeNull="true" />
-      <Column Name="LeftPoint" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="WidthPoint" Type="System.String" DbType="NChar(10)" CanBeNull="true" />
+      <Column Name="HeightPoint" Type="System.String" DbType="NChar(10)" CanBeNull="true" />
+      <Column Name="TopPoint" Type="System.String" DbType="NChar(10)" CanBeNull="true" />
+      <Column Name="LeftPoint" Type="System.String" DbType="NChar(10)" CanBeNull="true" />
       <Association Name="Question_AnswerFindBug" Member="Question" ThisKey="QuestionID" OtherKey="QuestionID" Type="Question" IsForeignKey="true" />
     </Type>
   </Table>
   <Table Name="dbo.AnswerMultiChoices" Member="AnswerMultiChoices">
     <Type Name="AnswerMultiChoice">
-      <Column Name="ID" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="ID" Type="System.Int32" DbType="Int NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
       <Column Name="QuestionID" Type="System.Int32" DbType="Int" CanBeNull="true" />
       <Column Name="AnswerID" Type="System.Int32" DbType="Int" CanBeNull="true" />
       <Association Name="ListAnswerMC_AnswerMultiChoice" Member="ListAnswerMC" ThisKey="AnswerID" OtherKey="AnswerID" Type="ListAnswerMC" IsForeignKey="true" />
@@ -100,6 +100,60 @@
     <Parameter Name="QuestionID" Parameter="questionID" Type="System.Int32" DbType="Int" />
     <Return Type="System.Int32" />
   </Function>
+  <Function Name="dbo.get_all_player" Method="get_all_player">
+    <ElementType Name="get_all_playerResult">
+      <Column Name="PlayerID" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="PlayerName" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
+      <Column Name="PlayerLevel" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="PlayerPoint" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="Win" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="Lose" Type="System.Int32" DbType="Int" CanBeNull="true" />
+    </ElementType>
+  </Function>
+  <Function Name="dbo.get_all_questions_history" Method="get_all_questions_history">
+    <ElementType Name="get_all_questions_historyResult">
+      <Column Name="QuestionID" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="Type" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
+      <Column Name="QuestionDif" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="Correct" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="Wrong" Type="System.Int32" DbType="Int" CanBeNull="true" />
+    </ElementType>
+  </Function>
+  <Function Name="dbo.get_fillBlank_byID" Method="get_fillBlank_byID">
+    <Parameter Name="QuestionID" Parameter="questionID" Type="System.Int32" DbType="Int" />
+    <ElementType Name="get_fillBlank_byIDResult">
+      <Column Name="QuestionID" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="Type" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
+      <Column Name="QuestionDif" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="SRC" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
+      <Column Name="AnswerIndex" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="ListAnswers" Type="System.String" DbType="NVarChar(100)" CanBeNull="true" />
+      <Column Name="CorrectAnswer" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
+    </ElementType>
+  </Function>
+  <Function Name="dbo.get_findbugs_byID" Method="get_findbugs_byID">
+    <Parameter Name="QuestionID" Parameter="questionID" Type="System.Int32" DbType="Int" />
+    <ElementType Name="get_findbugs_byIDResult">
+      <Column Name="QuestionID" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="Type" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
+      <Column Name="QuestionDif" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="SRC" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
+      <Column Name="WidthPoint" Type="System.String" DbType="NChar(10)" CanBeNull="true" />
+      <Column Name="HeightPoint" Type="System.String" DbType="NChar(10)" CanBeNull="true" />
+      <Column Name="TopPoint" Type="System.String" DbType="NChar(10)" CanBeNull="true" />
+      <Column Name="LeftPoint" Type="System.String" DbType="NChar(10)" CanBeNull="true" />
+    </ElementType>
+  </Function>
+  <Function Name="dbo.get_mulichoice_byID" Method="get_mulichoice_byID">
+    <Parameter Name="QuestionID" Parameter="questionID" Type="System.Int32" DbType="Int" />
+    <ElementType Name="get_mulichoice_byIDResult">
+      <Column Name="QuestionID" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="Type" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
+      <Column Name="QuestionDif" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="SRC" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
+      <Column Name="Answer" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
+    </ElementType>
+  </Function>
   <Function Name="dbo.get_player_info" Method="get_player_info">
     <Parameter Name="Name" Parameter="name" Type="System.String" DbType="NVarChar(50)" />
     <ElementType Name="get_player_infoResult">
@@ -118,20 +172,57 @@
       <Column Name="Type" Type="System.Int32" DbType="Int" CanBeNull="true" />
       <Column Name="QuestionDif" Type="System.Int32" DbType="Int" CanBeNull="true" />
       <Column Name="SRC" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
-      <Column Name="WidthPoint" Type="System.Int32" DbType="Int" CanBeNull="true" />
-      <Column Name="HeightPoint" Type="System.Int32" DbType="Int" CanBeNull="true" />
-      <Column Name="TopPoint" Type="System.Int32" DbType="Int" CanBeNull="true" />
-      <Column Name="LeftPoint" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="WidthPoint" Type="System.String" DbType="NChar(10)" CanBeNull="true" />
+      <Column Name="HeightPoint" Type="System.String" DbType="NChar(10)" CanBeNull="true" />
+      <Column Name="TopPoint" Type="System.String" DbType="NChar(10)" CanBeNull="true" />
+      <Column Name="LeftPoint" Type="System.String" DbType="NChar(10)" CanBeNull="true" />
     </ElementType>
+  </Function>
+  <Function Name="dbo.get_question_type" Method="get_question_type">
+    <Parameter Name="QuestionID" Parameter="questionID" Type="System.Int32" DbType="Int" />
+    <ElementType Name="get_question_typeResult">
+      <Column Name="Type" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
+    </ElementType>
+  </Function>
+  <Function Name="dbo.inser_FindBugs" Method="inser_FindBugs">
+    <Parameter Name="id" Type="System.Int32" DbType="Int" />
+    <Parameter Name="qid" Type="System.Int32" DbType="Int" />
+    <Parameter Name="width" Type="System.String" DbType="NChar(10)" />
+    <Parameter Name="heigh" Type="System.String" DbType="NChar(10)" />
+    <Parameter Name="top" Type="System.String" DbType="NChar(10)" />
+    <Parameter Name="left" Type="System.String" DbType="NChar(10)" />
+    <Return Type="System.Int32" />
+  </Function>
+  <Function Name="dbo.inser_MultiChoice" Method="inser_MultiChoice">
+    <Parameter Name="id" Type="System.Int32" DbType="Int" />
+    <Parameter Name="qid" Type="System.Int32" DbType="Int" />
+    <Parameter Name="AnsID" Parameter="ansID" Type="System.Int32" DbType="Int" />
+    <Return Type="System.Int32" />
+  </Function>
+  <Function Name="dbo.insert_fillBlanks" Method="insert_fillBlanks">
+    <Parameter Name="ID" Parameter="iD" Type="System.Int32" DbType="Int" />
+    <Parameter Name="qID" Type="System.Int32" DbType="Int" />
+    <Parameter Name="index" Type="System.Int32" DbType="Int" />
+    <Parameter Name="listAns" Type="System.String" DbType="NVarChar(100)" />
+    <Parameter Name="answ" Type="System.String" DbType="NVarChar(50)" />
+    <Return Type="System.Int32" />
   </Function>
   <Function Name="dbo.Insert_Player" Method="Insert_Player">
     <Parameter Name="Name" Parameter="name" Type="System.String" DbType="NVarChar(50)" />
+    <Return Type="System.Int32" />
+  </Function>
+  <Function Name="dbo.insert_question" Method="insert_question">
+    <Parameter Name="id" Type="System.Int32" DbType="Int" />
+    <Parameter Name="type" Type="System.Int32" DbType="Int" />
+    <Parameter Name="dif" Type="System.Int32" DbType="Int" />
+    <Parameter Name="src" Type="System.String" DbType="NVarChar(50)" />
     <Return Type="System.Int32" />
   </Function>
   <Function Name="dbo.question_report_by_name" Method="question_report_by_name">
     <Parameter Name="Name" Parameter="name" Type="System.String" DbType="NVarChar(50)" />
     <ElementType Name="question_report_by_nameResult">
       <Column Name="QuestionID" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="Type" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
       <Column Name="Rright" Type="System.Int32" DbType="Int" CanBeNull="true" />
       <Column Name="Wrong" Type="System.Int32" DbType="Int" CanBeNull="true" />
     </ElementType>

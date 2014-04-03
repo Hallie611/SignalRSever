@@ -60,7 +60,7 @@ namespace SignalRSever.DataAccess
     #endregion
 		
 		public SeverDataDataContext() : 
-				base(global::System.Configuration.ConfigurationManager.ConnectionStrings["DataSourceConnectionString"].ConnectionString, mappingSource)
+				base(global::System.Configuration.ConfigurationManager.ConnectionStrings["DataSourceConnectionString1"].ConnectionString, mappingSource)
 		{
 			OnCreated();
 		}
@@ -175,6 +175,41 @@ namespace SignalRSever.DataAccess
 			return ((int)(result.ReturnValue));
 		}
 		
+		[global::System.Data.Linq.Mapping.FunctionAttribute(Name="dbo.get_all_player")]
+		public ISingleResult<get_all_playerResult> get_all_player()
+		{
+			IExecuteResult result = this.ExecuteMethodCall(this, ((MethodInfo)(MethodInfo.GetCurrentMethod())));
+			return ((ISingleResult<get_all_playerResult>)(result.ReturnValue));
+		}
+		
+		[global::System.Data.Linq.Mapping.FunctionAttribute(Name="dbo.get_all_questions_history")]
+		public ISingleResult<get_all_questions_historyResult> get_all_questions_history()
+		{
+			IExecuteResult result = this.ExecuteMethodCall(this, ((MethodInfo)(MethodInfo.GetCurrentMethod())));
+			return ((ISingleResult<get_all_questions_historyResult>)(result.ReturnValue));
+		}
+		
+		[global::System.Data.Linq.Mapping.FunctionAttribute(Name="dbo.get_fillBlank_byID")]
+		public ISingleResult<get_fillBlank_byIDResult> get_fillBlank_byID([global::System.Data.Linq.Mapping.ParameterAttribute(Name="QuestionID", DbType="Int")] System.Nullable<int> questionID)
+		{
+			IExecuteResult result = this.ExecuteMethodCall(this, ((MethodInfo)(MethodInfo.GetCurrentMethod())), questionID);
+			return ((ISingleResult<get_fillBlank_byIDResult>)(result.ReturnValue));
+		}
+		
+		[global::System.Data.Linq.Mapping.FunctionAttribute(Name="dbo.get_findbugs_byID")]
+		public ISingleResult<get_findbugs_byIDResult> get_findbugs_byID([global::System.Data.Linq.Mapping.ParameterAttribute(Name="QuestionID", DbType="Int")] System.Nullable<int> questionID)
+		{
+			IExecuteResult result = this.ExecuteMethodCall(this, ((MethodInfo)(MethodInfo.GetCurrentMethod())), questionID);
+			return ((ISingleResult<get_findbugs_byIDResult>)(result.ReturnValue));
+		}
+		
+		[global::System.Data.Linq.Mapping.FunctionAttribute(Name="dbo.get_mulichoice_byID")]
+		public ISingleResult<get_mulichoice_byIDResult> get_mulichoice_byID([global::System.Data.Linq.Mapping.ParameterAttribute(Name="QuestionID", DbType="Int")] System.Nullable<int> questionID)
+		{
+			IExecuteResult result = this.ExecuteMethodCall(this, ((MethodInfo)(MethodInfo.GetCurrentMethod())), questionID);
+			return ((ISingleResult<get_mulichoice_byIDResult>)(result.ReturnValue));
+		}
+		
 		[global::System.Data.Linq.Mapping.FunctionAttribute(Name="dbo.get_player_info")]
 		public ISingleResult<get_player_infoResult> get_player_info([global::System.Data.Linq.Mapping.ParameterAttribute(Name="Name", DbType="NVarChar(50)")] string name)
 		{
@@ -189,10 +224,45 @@ namespace SignalRSever.DataAccess
 			return ((ISingleResult<get_question_byIDResult>)(result.ReturnValue));
 		}
 		
+		[global::System.Data.Linq.Mapping.FunctionAttribute(Name="dbo.get_question_type")]
+		public ISingleResult<get_question_typeResult> get_question_type([global::System.Data.Linq.Mapping.ParameterAttribute(Name="QuestionID", DbType="Int")] System.Nullable<int> questionID)
+		{
+			IExecuteResult result = this.ExecuteMethodCall(this, ((MethodInfo)(MethodInfo.GetCurrentMethod())), questionID);
+			return ((ISingleResult<get_question_typeResult>)(result.ReturnValue));
+		}
+		
+		[global::System.Data.Linq.Mapping.FunctionAttribute(Name="dbo.inser_FindBugs")]
+		public int inser_FindBugs([global::System.Data.Linq.Mapping.ParameterAttribute(DbType="Int")] System.Nullable<int> id, [global::System.Data.Linq.Mapping.ParameterAttribute(DbType="Int")] System.Nullable<int> qid, [global::System.Data.Linq.Mapping.ParameterAttribute(DbType="NChar(10)")] string width, [global::System.Data.Linq.Mapping.ParameterAttribute(DbType="NChar(10)")] string heigh, [global::System.Data.Linq.Mapping.ParameterAttribute(DbType="NChar(10)")] string top, [global::System.Data.Linq.Mapping.ParameterAttribute(DbType="NChar(10)")] string left)
+		{
+			IExecuteResult result = this.ExecuteMethodCall(this, ((MethodInfo)(MethodInfo.GetCurrentMethod())), id, qid, width, heigh, top, left);
+			return ((int)(result.ReturnValue));
+		}
+		
+		[global::System.Data.Linq.Mapping.FunctionAttribute(Name="dbo.inser_MultiChoice")]
+		public int inser_MultiChoice([global::System.Data.Linq.Mapping.ParameterAttribute(DbType="Int")] System.Nullable<int> id, [global::System.Data.Linq.Mapping.ParameterAttribute(DbType="Int")] System.Nullable<int> qid, [global::System.Data.Linq.Mapping.ParameterAttribute(Name="AnsID", DbType="Int")] System.Nullable<int> ansID)
+		{
+			IExecuteResult result = this.ExecuteMethodCall(this, ((MethodInfo)(MethodInfo.GetCurrentMethod())), id, qid, ansID);
+			return ((int)(result.ReturnValue));
+		}
+		
+		[global::System.Data.Linq.Mapping.FunctionAttribute(Name="dbo.insert_fillBlanks")]
+		public int insert_fillBlanks([global::System.Data.Linq.Mapping.ParameterAttribute(Name="ID", DbType="Int")] System.Nullable<int> iD, [global::System.Data.Linq.Mapping.ParameterAttribute(DbType="Int")] System.Nullable<int> qID, [global::System.Data.Linq.Mapping.ParameterAttribute(DbType="Int")] System.Nullable<int> index, [global::System.Data.Linq.Mapping.ParameterAttribute(DbType="NVarChar(100)")] string listAns, [global::System.Data.Linq.Mapping.ParameterAttribute(DbType="NVarChar(50)")] string answ)
+		{
+			IExecuteResult result = this.ExecuteMethodCall(this, ((MethodInfo)(MethodInfo.GetCurrentMethod())), iD, qID, index, listAns, answ);
+			return ((int)(result.ReturnValue));
+		}
+		
 		[global::System.Data.Linq.Mapping.FunctionAttribute(Name="dbo.Insert_Player")]
 		public int Insert_Player([global::System.Data.Linq.Mapping.ParameterAttribute(Name="Name", DbType="NVarChar(50)")] string name)
 		{
 			IExecuteResult result = this.ExecuteMethodCall(this, ((MethodInfo)(MethodInfo.GetCurrentMethod())), name);
+			return ((int)(result.ReturnValue));
+		}
+		
+		[global::System.Data.Linq.Mapping.FunctionAttribute(Name="dbo.insert_question")]
+		public int insert_question([global::System.Data.Linq.Mapping.ParameterAttribute(DbType="Int")] System.Nullable<int> id, [global::System.Data.Linq.Mapping.ParameterAttribute(DbType="Int")] System.Nullable<int> type, [global::System.Data.Linq.Mapping.ParameterAttribute(DbType="Int")] System.Nullable<int> dif, [global::System.Data.Linq.Mapping.ParameterAttribute(DbType="NVarChar(50)")] string src)
+		{
+			IExecuteResult result = this.ExecuteMethodCall(this, ((MethodInfo)(MethodInfo.GetCurrentMethod())), id, type, dif, src);
 			return ((int)(result.ReturnValue));
 		}
 		
@@ -258,7 +328,7 @@ namespace SignalRSever.DataAccess
 			OnCreated();
 		}
 		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_ID", AutoSync=AutoSync.OnInsert, DbType="Int NOT NULL IDENTITY", IsPrimaryKey=true, IsDbGenerated=true)]
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_ID", DbType="Int NOT NULL", IsPrimaryKey=true)]
 		public int ID
 		{
 			get
@@ -541,13 +611,13 @@ namespace SignalRSever.DataAccess
 		
 		private System.Nullable<int> _QuestionID;
 		
-		private System.Nullable<int> _WidthPoint;
+		private string _WidthPoint;
 		
-		private System.Nullable<int> _HeightPoint;
+		private string _HeightPoint;
 		
-		private System.Nullable<int> _TopPoint;
+		private string _TopPoint;
 		
-		private System.Nullable<int> _LeftPoint;
+		private string _LeftPoint;
 		
 		private EntityRef<Question> _Question;
 		
@@ -559,13 +629,13 @@ namespace SignalRSever.DataAccess
     partial void OnIDChanged();
     partial void OnQuestionIDChanging(System.Nullable<int> value);
     partial void OnQuestionIDChanged();
-    partial void OnWidthPointChanging(System.Nullable<int> value);
+    partial void OnWidthPointChanging(string value);
     partial void OnWidthPointChanged();
-    partial void OnHeightPointChanging(System.Nullable<int> value);
+    partial void OnHeightPointChanging(string value);
     partial void OnHeightPointChanged();
-    partial void OnTopPointChanging(System.Nullable<int> value);
+    partial void OnTopPointChanging(string value);
     partial void OnTopPointChanged();
-    partial void OnLeftPointChanging(System.Nullable<int> value);
+    partial void OnLeftPointChanging(string value);
     partial void OnLeftPointChanged();
     #endregion
 		
@@ -575,7 +645,7 @@ namespace SignalRSever.DataAccess
 			OnCreated();
 		}
 		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_ID", AutoSync=AutoSync.OnInsert, DbType="Int NOT NULL IDENTITY", IsPrimaryKey=true, IsDbGenerated=true)]
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_ID", DbType="Int NOT NULL", IsPrimaryKey=true)]
 		public int ID
 		{
 			get
@@ -619,8 +689,8 @@ namespace SignalRSever.DataAccess
 			}
 		}
 		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_WidthPoint", DbType="Int")]
-		public System.Nullable<int> WidthPoint
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_WidthPoint", DbType="NChar(10)")]
+		public string WidthPoint
 		{
 			get
 			{
@@ -639,8 +709,8 @@ namespace SignalRSever.DataAccess
 			}
 		}
 		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_HeightPoint", DbType="Int")]
-		public System.Nullable<int> HeightPoint
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_HeightPoint", DbType="NChar(10)")]
+		public string HeightPoint
 		{
 			get
 			{
@@ -659,8 +729,8 @@ namespace SignalRSever.DataAccess
 			}
 		}
 		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_TopPoint", DbType="Int")]
-		public System.Nullable<int> TopPoint
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_TopPoint", DbType="NChar(10)")]
+		public string TopPoint
 		{
 			get
 			{
@@ -679,8 +749,8 @@ namespace SignalRSever.DataAccess
 			}
 		}
 		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_LeftPoint", DbType="Int")]
-		public System.Nullable<int> LeftPoint
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_LeftPoint", DbType="NChar(10)")]
+		public string LeftPoint
 		{
 			get
 			{
@@ -789,7 +859,7 @@ namespace SignalRSever.DataAccess
 			OnCreated();
 		}
 		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_ID", AutoSync=AutoSync.OnInsert, DbType="Int NOT NULL IDENTITY", IsPrimaryKey=true, IsDbGenerated=true)]
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_ID", DbType="Int NOT NULL", IsPrimaryKey=true)]
 		public int ID
 		{
 			get
@@ -2045,6 +2115,604 @@ namespace SignalRSever.DataAccess
 		}
 	}
 	
+	public partial class get_all_playerResult
+	{
+		
+		private int _PlayerID;
+		
+		private string _PlayerName;
+		
+		private System.Nullable<int> _PlayerLevel;
+		
+		private System.Nullable<int> _PlayerPoint;
+		
+		private System.Nullable<int> _Win;
+		
+		private System.Nullable<int> _Lose;
+		
+		public get_all_playerResult()
+		{
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_PlayerID", DbType="Int NOT NULL")]
+		public int PlayerID
+		{
+			get
+			{
+				return this._PlayerID;
+			}
+			set
+			{
+				if ((this._PlayerID != value))
+				{
+					this._PlayerID = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_PlayerName", DbType="NVarChar(50)")]
+		public string PlayerName
+		{
+			get
+			{
+				return this._PlayerName;
+			}
+			set
+			{
+				if ((this._PlayerName != value))
+				{
+					this._PlayerName = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_PlayerLevel", DbType="Int")]
+		public System.Nullable<int> PlayerLevel
+		{
+			get
+			{
+				return this._PlayerLevel;
+			}
+			set
+			{
+				if ((this._PlayerLevel != value))
+				{
+					this._PlayerLevel = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_PlayerPoint", DbType="Int")]
+		public System.Nullable<int> PlayerPoint
+		{
+			get
+			{
+				return this._PlayerPoint;
+			}
+			set
+			{
+				if ((this._PlayerPoint != value))
+				{
+					this._PlayerPoint = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Win", DbType="Int")]
+		public System.Nullable<int> Win
+		{
+			get
+			{
+				return this._Win;
+			}
+			set
+			{
+				if ((this._Win != value))
+				{
+					this._Win = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Lose", DbType="Int")]
+		public System.Nullable<int> Lose
+		{
+			get
+			{
+				return this._Lose;
+			}
+			set
+			{
+				if ((this._Lose != value))
+				{
+					this._Lose = value;
+				}
+			}
+		}
+	}
+	
+	public partial class get_all_questions_historyResult
+	{
+		
+		private int _QuestionID;
+		
+		private string _Type;
+		
+		private System.Nullable<int> _QuestionDif;
+		
+		private System.Nullable<int> _Correct;
+		
+		private System.Nullable<int> _Wrong;
+		
+		public get_all_questions_historyResult()
+		{
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_QuestionID", DbType="Int NOT NULL")]
+		public int QuestionID
+		{
+			get
+			{
+				return this._QuestionID;
+			}
+			set
+			{
+				if ((this._QuestionID != value))
+				{
+					this._QuestionID = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Type", DbType="NVarChar(50)")]
+		public string Type
+		{
+			get
+			{
+				return this._Type;
+			}
+			set
+			{
+				if ((this._Type != value))
+				{
+					this._Type = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_QuestionDif", DbType="Int")]
+		public System.Nullable<int> QuestionDif
+		{
+			get
+			{
+				return this._QuestionDif;
+			}
+			set
+			{
+				if ((this._QuestionDif != value))
+				{
+					this._QuestionDif = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Correct", DbType="Int")]
+		public System.Nullable<int> Correct
+		{
+			get
+			{
+				return this._Correct;
+			}
+			set
+			{
+				if ((this._Correct != value))
+				{
+					this._Correct = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Wrong", DbType="Int")]
+		public System.Nullable<int> Wrong
+		{
+			get
+			{
+				return this._Wrong;
+			}
+			set
+			{
+				if ((this._Wrong != value))
+				{
+					this._Wrong = value;
+				}
+			}
+		}
+	}
+	
+	public partial class get_fillBlank_byIDResult
+	{
+		
+		private int _QuestionID;
+		
+		private string _Type;
+		
+		private System.Nullable<int> _QuestionDif;
+		
+		private string _SRC;
+		
+		private System.Nullable<int> _AnswerIndex;
+		
+		private string _ListAnswers;
+		
+		private string _CorrectAnswer;
+		
+		public get_fillBlank_byIDResult()
+		{
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_QuestionID", DbType="Int NOT NULL")]
+		public int QuestionID
+		{
+			get
+			{
+				return this._QuestionID;
+			}
+			set
+			{
+				if ((this._QuestionID != value))
+				{
+					this._QuestionID = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Type", DbType="NVarChar(50)")]
+		public string Type
+		{
+			get
+			{
+				return this._Type;
+			}
+			set
+			{
+				if ((this._Type != value))
+				{
+					this._Type = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_QuestionDif", DbType="Int")]
+		public System.Nullable<int> QuestionDif
+		{
+			get
+			{
+				return this._QuestionDif;
+			}
+			set
+			{
+				if ((this._QuestionDif != value))
+				{
+					this._QuestionDif = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_SRC", DbType="NVarChar(50)")]
+		public string SRC
+		{
+			get
+			{
+				return this._SRC;
+			}
+			set
+			{
+				if ((this._SRC != value))
+				{
+					this._SRC = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_AnswerIndex", DbType="Int")]
+		public System.Nullable<int> AnswerIndex
+		{
+			get
+			{
+				return this._AnswerIndex;
+			}
+			set
+			{
+				if ((this._AnswerIndex != value))
+				{
+					this._AnswerIndex = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_ListAnswers", DbType="NVarChar(100)")]
+		public string ListAnswers
+		{
+			get
+			{
+				return this._ListAnswers;
+			}
+			set
+			{
+				if ((this._ListAnswers != value))
+				{
+					this._ListAnswers = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_CorrectAnswer", DbType="NVarChar(50)")]
+		public string CorrectAnswer
+		{
+			get
+			{
+				return this._CorrectAnswer;
+			}
+			set
+			{
+				if ((this._CorrectAnswer != value))
+				{
+					this._CorrectAnswer = value;
+				}
+			}
+		}
+	}
+	
+	public partial class get_findbugs_byIDResult
+	{
+		
+		private int _QuestionID;
+		
+		private string _Type;
+		
+		private System.Nullable<int> _QuestionDif;
+		
+		private string _SRC;
+		
+		private string _WidthPoint;
+		
+		private string _HeightPoint;
+		
+		private string _TopPoint;
+		
+		private string _LeftPoint;
+		
+		public get_findbugs_byIDResult()
+		{
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_QuestionID", DbType="Int NOT NULL")]
+		public int QuestionID
+		{
+			get
+			{
+				return this._QuestionID;
+			}
+			set
+			{
+				if ((this._QuestionID != value))
+				{
+					this._QuestionID = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Type", DbType="NVarChar(50)")]
+		public string Type
+		{
+			get
+			{
+				return this._Type;
+			}
+			set
+			{
+				if ((this._Type != value))
+				{
+					this._Type = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_QuestionDif", DbType="Int")]
+		public System.Nullable<int> QuestionDif
+		{
+			get
+			{
+				return this._QuestionDif;
+			}
+			set
+			{
+				if ((this._QuestionDif != value))
+				{
+					this._QuestionDif = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_SRC", DbType="NVarChar(50)")]
+		public string SRC
+		{
+			get
+			{
+				return this._SRC;
+			}
+			set
+			{
+				if ((this._SRC != value))
+				{
+					this._SRC = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_WidthPoint", DbType="NChar(10)")]
+		public string WidthPoint
+		{
+			get
+			{
+				return this._WidthPoint;
+			}
+			set
+			{
+				if ((this._WidthPoint != value))
+				{
+					this._WidthPoint = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_HeightPoint", DbType="NChar(10)")]
+		public string HeightPoint
+		{
+			get
+			{
+				return this._HeightPoint;
+			}
+			set
+			{
+				if ((this._HeightPoint != value))
+				{
+					this._HeightPoint = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_TopPoint", DbType="NChar(10)")]
+		public string TopPoint
+		{
+			get
+			{
+				return this._TopPoint;
+			}
+			set
+			{
+				if ((this._TopPoint != value))
+				{
+					this._TopPoint = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_LeftPoint", DbType="NChar(10)")]
+		public string LeftPoint
+		{
+			get
+			{
+				return this._LeftPoint;
+			}
+			set
+			{
+				if ((this._LeftPoint != value))
+				{
+					this._LeftPoint = value;
+				}
+			}
+		}
+	}
+	
+	public partial class get_mulichoice_byIDResult
+	{
+		
+		private int _QuestionID;
+		
+		private string _Type;
+		
+		private System.Nullable<int> _QuestionDif;
+		
+		private string _SRC;
+		
+		private string _Answer;
+		
+		public get_mulichoice_byIDResult()
+		{
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_QuestionID", DbType="Int NOT NULL")]
+		public int QuestionID
+		{
+			get
+			{
+				return this._QuestionID;
+			}
+			set
+			{
+				if ((this._QuestionID != value))
+				{
+					this._QuestionID = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Type", DbType="NVarChar(50)")]
+		public string Type
+		{
+			get
+			{
+				return this._Type;
+			}
+			set
+			{
+				if ((this._Type != value))
+				{
+					this._Type = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_QuestionDif", DbType="Int")]
+		public System.Nullable<int> QuestionDif
+		{
+			get
+			{
+				return this._QuestionDif;
+			}
+			set
+			{
+				if ((this._QuestionDif != value))
+				{
+					this._QuestionDif = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_SRC", DbType="NVarChar(50)")]
+		public string SRC
+		{
+			get
+			{
+				return this._SRC;
+			}
+			set
+			{
+				if ((this._SRC != value))
+				{
+					this._SRC = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Answer", DbType="NVarChar(50)")]
+		public string Answer
+		{
+			get
+			{
+				return this._Answer;
+			}
+			set
+			{
+				if ((this._Answer != value))
+				{
+					this._Answer = value;
+				}
+			}
+		}
+	}
+	
 	public partial class get_player_infoResult
 	{
 		
@@ -2172,13 +2840,13 @@ namespace SignalRSever.DataAccess
 		
 		private string _SRC;
 		
-		private System.Nullable<int> _WidthPoint;
+		private string _WidthPoint;
 		
-		private System.Nullable<int> _HeightPoint;
+		private string _HeightPoint;
 		
-		private System.Nullable<int> _TopPoint;
+		private string _TopPoint;
 		
-		private System.Nullable<int> _LeftPoint;
+		private string _LeftPoint;
 		
 		public get_question_byIDResult()
 		{
@@ -2248,8 +2916,8 @@ namespace SignalRSever.DataAccess
 			}
 		}
 		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_WidthPoint", DbType="Int")]
-		public System.Nullable<int> WidthPoint
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_WidthPoint", DbType="NChar(10)")]
+		public string WidthPoint
 		{
 			get
 			{
@@ -2264,8 +2932,8 @@ namespace SignalRSever.DataAccess
 			}
 		}
 		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_HeightPoint", DbType="Int")]
-		public System.Nullable<int> HeightPoint
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_HeightPoint", DbType="NChar(10)")]
+		public string HeightPoint
 		{
 			get
 			{
@@ -2280,8 +2948,8 @@ namespace SignalRSever.DataAccess
 			}
 		}
 		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_TopPoint", DbType="Int")]
-		public System.Nullable<int> TopPoint
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_TopPoint", DbType="NChar(10)")]
+		public string TopPoint
 		{
 			get
 			{
@@ -2296,8 +2964,8 @@ namespace SignalRSever.DataAccess
 			}
 		}
 		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_LeftPoint", DbType="Int")]
-		public System.Nullable<int> LeftPoint
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_LeftPoint", DbType="NChar(10)")]
+		public string LeftPoint
 		{
 			get
 			{
@@ -2313,10 +2981,38 @@ namespace SignalRSever.DataAccess
 		}
 	}
 	
+	public partial class get_question_typeResult
+	{
+		
+		private string _Type;
+		
+		public get_question_typeResult()
+		{
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Type", DbType="NVarChar(50)")]
+		public string Type
+		{
+			get
+			{
+				return this._Type;
+			}
+			set
+			{
+				if ((this._Type != value))
+				{
+					this._Type = value;
+				}
+			}
+		}
+	}
+	
 	public partial class question_report_by_nameResult
 	{
 		
 		private int _QuestionID;
+		
+		private string _Type;
 		
 		private System.Nullable<int> _Rright;
 		
@@ -2338,6 +3034,22 @@ namespace SignalRSever.DataAccess
 				if ((this._QuestionID != value))
 				{
 					this._QuestionID = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Type", DbType="NVarChar(50)")]
+		public string Type
+		{
+			get
+			{
+				return this._Type;
+			}
+			set
+			{
+				if ((this._Type != value))
+				{
+					this._Type = value;
 				}
 			}
 		}

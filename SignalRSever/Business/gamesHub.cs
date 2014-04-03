@@ -105,17 +105,22 @@ namespace SignalRSever
         {
             lock (_syncRoot)
             {
-                var client = listClient.FirstOrDefault(x => x.name == name);
                 playerManager.UpdateUser(name, level, point);
+                var client = listClient.FirstOrDefault(x => x.name == name);
                 if (client == null)
                 {
-                    client = new Client { connectionId = Context.ConnectionId, name = name, level = level };
+                    client = new Client();
+                    client.connectionId = Context.ConnectionId;
+                    client.name = name;
+                    client.level = level;
                     listClient.Add(client);
+
+
                 }
                 client.isReady = false;
                 client.lookingForOpponent = false;
             }
-            
+
         }
 
 
@@ -199,8 +204,8 @@ namespace SignalRSever
                 return;
             }
 
-            Client PlayerSummit = game.Player1.connectionId == Context.ConnectionId ? game.Player1 : game.Player2;
 
+            Client PlayerSummit = game.Player1.connectionId == Context.ConnectionId ? game.Player1 : game.Player2;
             // Place the marker and look for a winner
             if (game.Play(PlayerSummit, position, mark, getMaxPoint))
             {
@@ -221,9 +226,12 @@ namespace SignalRSever
                 }
                 games.Remove(game);
             }
+            else
+            {
 
-            Clients.Client(game.Player1.connectionId).updateCorrectedQuestion(new { Name = PlayerSummit.name, index = position, point = mark, isMax = getMaxPoint });
-            Clients.Client(game.Player2.connectionId).updateCorrectedQuestion(new { Name = PlayerSummit.name, index = position, point = mark, isMax = getMaxPoint });
+                Clients.Client(game.Player1.connectionId).updateCorrectedQuestion(new { Name = PlayerSummit.name, index = position, point = mark, isMax = getMaxPoint });
+                Clients.Client(game.Player2.connectionId).updateCorrectedQuestion(new { Name = PlayerSummit.name, index = position, point = mark, isMax = getMaxPoint });
+            }
 
         }
 
