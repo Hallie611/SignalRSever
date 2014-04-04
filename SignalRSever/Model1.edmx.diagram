@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+ <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+      <Diagram DiagramId="91ef990f960042a09ec97de6d31a8216" Name="Diagram1" ZoomLevel="85" DisplayType="false">
+        <EntityTypeShape EntityType="CapstoneModel.AnswerFillBlanks" Width="1.5" PointX="7.75" PointY="10" IsExpanded="true" />
+        <EntityTypeShape EntityType="CapstoneModel.AnswerFindBugs" Width="1.5" PointX="1.75" PointY="10" IsExpanded="true" />
+        <EntityTypeShape EntityType="CapstoneModel.AnswerMultiChoices" Width="1.5" PointX="4.625" PointY="10.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="CapstoneModel.listMatches" Width="1.5" PointX="10.375" PointY="10.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="CapstoneModel.Histories" Width="1.5" PointX="8" PointY="4.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="CapstoneModel.ListAnswerMC" Width="1.5" PointX="4.5" PointY="13" IsExpanded="true" />
+        <EntityTypeShape EntityType="CapstoneModel.Players" Width="1.5" PointX="9.75" PointY="6.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="CapstoneModel.Questions" Width="1.5" PointX="4.875" PointY="6.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="CapstoneModel.QuestionType" Width="1.5" PointX="2.625" PointY="7.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="CapstoneModel.sysdiagrams" Width="1.5" PointX="7.75" PointY="0.75" IsExpanded="true" />
+        <AssociationConnector Association="CapstoneModel.FK_tblFillBlank_tblQuestionB" ManuallyRouted="false" />
+        <AssociationConnector Association="CapstoneModel.FK_tblFindBug_tblQuestionB" ManuallyRouted="false" />
+        <AssociationConnector Association="CapstoneModel.FK_AnswerMultiChoices_ListAnswerMC" ManuallyRouted="false" />
+        <AssociationConnector Association="CapstoneModel.FK_AnswerMultiChoices_Questions" ManuallyRouted="false" />
+        <AssociationConnector Association="CapstoneModel.FK_listMatches_Players" ManuallyRouted="false" />
+        <AssociationConnector Association="CapstoneModel.FK_listMatches_Players1" ManuallyRouted="false" />
+        <AssociationConnector Association="CapstoneModel.FK_tblHistory_tblQuestionB" ManuallyRouted="false" />
+        <AssociationConnector Association="CapstoneModel.FK_tblReport_tblPlayer1" ManuallyRouted="false" />
+        <AssociationConnector Association="CapstoneModel.FK_Questions_QuestionType" ManuallyRouted="false" />
+      </Diagram>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>

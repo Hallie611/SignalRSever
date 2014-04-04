@@ -5,6 +5,7 @@ using System.Web;
 using SignalRSever.DataAccess;
 using System.Data;
 
+
 namespace SignalRSever.Business
 {
     public class QuestionManagers
@@ -40,10 +41,10 @@ namespace SignalRSever.Business
                             dr["Type"] = q.Type;
                             dr["Difficulty"] = q.QuestionDif;
                             dr["SRC"] = q.SRC;
-                            dr["Width"] = q.QuestionID;
-                            dr["Height"] = q.Type;
-                            dr["Top"] = q.QuestionDif;
-                            dr["Left"] = q.SRC;
+                            dr["Width"] = q.WidthPoint;
+                            dr["Height"] = q.HeightPoint;
+                            dr["Top"] = q.TopPoint;
+                            dr["Left"] = q.LeftPoint;
 
                             result.Rows.Add(dr);
                         }
@@ -78,7 +79,7 @@ namespace SignalRSever.Business
 
 
                         break;
-                    case "Multiple Choice":
+                    case "Single Choice":
                         result.Columns.Add(new DataColumn("QuestionID", typeof(int)));
                         result.Columns.Add(new DataColumn("Type", typeof(string)));
                         result.Columns.Add(new DataColumn("Difficulty", typeof(int)));
@@ -129,6 +130,25 @@ namespace SignalRSever.Business
                 dr["Correct"] = h.Correct;
                 dr["Wrong"] = h.Wrong;
                 result.Rows.Add(dr);
+            }
+
+            return result;
+        }
+
+        public List<Entities.Question> RandomQuestion(int dif)
+        {
+
+            List<Entities.Question> result = new List<Entities.Question>();
+            var listRandom = severdata.Random_question_by_dif(dif);
+            int i=1;
+            foreach(var q in listRandom)
+            {
+                Entities.Question question = new Entities.Question();
+                question.questionId = q.QuestionID;
+                question.type = q.Type;
+                question.index = i;
+                i++;
+                result.Add(question);
             }
 
             return result;

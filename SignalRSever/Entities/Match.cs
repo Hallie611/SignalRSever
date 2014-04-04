@@ -5,9 +5,9 @@ using System.Web;
 using SignalRSever.DataAccess;
 using SignalRSever.Business;
 
-namespace SignalRSever
+namespace SignalRSever.Entities
 {
-    public class Chasing
+    public class Match
     {
         public bool IsGameOver { get; private set; }
         
@@ -19,7 +19,7 @@ namespace SignalRSever
         public PlayerManager playerManager = new PlayerManager();
         private int QuestionLeft = 3;
 
-        public Chasing()
+        public Match()
         {
             
         }

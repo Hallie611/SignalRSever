@@ -1,0 +1,642 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+      <Schema Namespace="CapstoneModel.Store" Alias="Self" Provider="System.Data.SqlClient" ProviderManifestToken="2008" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityContainer Name="CapstoneModelStoreContainer">
+          <EntitySet Name="AnswerFillBlanks" EntityType="CapstoneModel.Store.AnswerFillBlanks" store:Type="Tables" Schema="dbo" />
+          <EntitySet Name="AnswerFindBugs" EntityType="CapstoneModel.Store.AnswerFindBugs" store:Type="Tables" Schema="dbo" />
+          <EntitySet Name="AnswerMultiChoices" EntityType="CapstoneModel.Store.AnswerMultiChoices" store:Type="Tables" Schema="dbo" />
+          <EntitySet Name="listMatches" EntityType="CapstoneModel.Store.listMatches" store:Type="Tables" Schema="dbo" />
+          <EntitySet Name="Histories" EntityType="CapstoneModel.Store.Histories" store:Type="Tables" Schema="dbo" />
+          <EntitySet Name="ListAnswerMC" EntityType="CapstoneModel.Store.ListAnswerMC" store:Type="Tables" Schema="dbo" />
+          <EntitySet Name="Players" EntityType="CapstoneModel.Store.Players" store:Type="Tables" Schema="dbo" />
+          <EntitySet Name="Questions" EntityType="CapstoneModel.Store.Questions" store:Type="Tables" Schema="dbo" />
+          <EntitySet Name="QuestionType" EntityType="CapstoneModel.Store.QuestionType" store:Type="Tables" Schema="dbo" />
+          <EntitySet Name="sysdiagrams" EntityType="CapstoneModel.Store.sysdiagrams" store:Type="Tables" Schema="dbo" />
+          <AssociationSet Name="FK_AnswerMultiChoices_ListAnswerMC" Association="CapstoneModel.Store.FK_AnswerMultiChoices_ListAnswerMC">
+            <End Role="ListAnswerMC" EntitySet="ListAnswerMC" />
+            <End Role="AnswerMultiChoices" EntitySet="AnswerMultiChoices" />
+          </AssociationSet>
+          <AssociationSet Name="FK_AnswerMultiChoices_Questions" Association="CapstoneModel.Store.FK_AnswerMultiChoices_Questions">
+            <End Role="Questions" EntitySet="Questions" />
+            <End Role="AnswerMultiChoices" EntitySet="AnswerMultiChoices" />
+          </AssociationSet>
+          <AssociationSet Name="FK_listMatches_Players" Association="CapstoneModel.Store.FK_listMatches_Players">
+            <End Role="Players" EntitySet="Players" />
+            <End Role="listMatches" EntitySet="listMatches" />
+          </AssociationSet>
+          <AssociationSet Name="FK_listMatches_Players1" Association="CapstoneModel.Store.FK_listMatches_Players1">
+            <End Role="Players" EntitySet="Players" />
+            <End Role="listMatches" EntitySet="listMatches" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Questions_QuestionType" Association="CapstoneModel.Store.FK_Questions_QuestionType">
+            <End Role="QuestionType" EntitySet="QuestionType" />
+            <End Role="Questions" EntitySet="Questions" />
+          </AssociationSet>
+          <AssociationSet Name="FK_tblFillBlank_tblQuestionB" Association="CapstoneModel.Store.FK_tblFillBlank_tblQuestionB">
+            <End Role="Questions" EntitySet="Questions" />
+            <End Role="AnswerFillBlanks" EntitySet="AnswerFillBlanks" />
+          </AssociationSet>
+          <AssociationSet Name="FK_tblFindBug_tblQuestionB" Association="CapstoneModel.Store.FK_tblFindBug_tblQuestionB">
+            <End Role="Questions" EntitySet="Questions" />
+            <End Role="AnswerFindBugs" EntitySet="AnswerFindBugs" />
+          </AssociationSet>
+          <AssociationSet Name="FK_tblHistory_tblQuestionB" Association="CapstoneModel.Store.FK_tblHistory_tblQuestionB">
+            <End Role="Questions" EntitySet="Questions" />
+            <End Role="Histories" EntitySet="Histories" />
+          </AssociationSet>
+          <AssociationSet Name="FK_tblReport_tblPlayer1" Association="CapstoneModel.Store.FK_tblReport_tblPlayer1">
+            <End Role="Players" EntitySet="Players" />
+            <End Role="Histories" EntitySet="Histories" />
+          </AssociationSet>
+        </EntityContainer>
+        <EntityType Name="AnswerFillBlanks">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" Nullable="false" />
+          <Property Name="QuestionID" Type="int" Nullable="false" />
+          <Property Name="AnswerIndex" Type="int" />
+          <Property Name="ListAnswers" Type="nvarchar" MaxLength="100" />
+          <Property Name="CorrectAnswer" Type="nvarchar" MaxLength="50" />
+        </EntityType>
+        <EntityType Name="AnswerFindBugs">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" Nullable="false" />
+          <Property Name="QuestionID" Type="int" Nullable="false" />
+          <Property Name="WidthPoint" Type="nchar" MaxLength="10" />
+          <Property Name="HeightPoint" Type="nchar" MaxLength="10" />
+          <Property Name="TopPoint" Type="nchar" MaxLength="10" />
+          <Property Name="LeftPoint" Type="nchar" MaxLength="10" />
+        </EntityType>
+        <EntityType Name="AnswerMultiChoices">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" Nullable="false" />
+          <Property Name="QuestionID" Type="int" Nullable="false" />
+          <Property Name="AnswerID" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="listMatches">
+          <Key>
+            <PropertyRef Name="GameID" />
+          </Key>
+          <Property Name="GameID" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+          <Property Name="WinerID" Type="int" Nullable="false" />
+          <Property Name="LoserID" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Histories">
+          <Key>
+            <PropertyRef Name="PlayerID" />
+            <PropertyRef Name="QuestionID" />
+          </Key>
+          <Property Name="PlayerID" Type="int" Nullable="false" />
+          <Property Name="QuestionID" Type="int" Nullable="false" />
+          <Property Name="Rright" Type="int" />
+          <Property Name="Wrong" Type="int" />
+        </EntityType>
+        <EntityType Name="ListAnswerMC">
+          <Key>
+            <PropertyRef Name="AnswerID" />
+          </Key>
+          <Property Name="AnswerID" Type="int" Nullable="false" />
+          <Property Name="Answer" Type="nvarchar" MaxLength="50" />
+          <Property Name="Description" Type="nvarchar" MaxLength="100" />
+        </EntityType>
+        <EntityType Name="Players">
+          <Key>
+            <PropertyRef Name="PlayerID" />
+          </Key>
+          <Property Name="PlayerID" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+          <Property Name="PlayerName" Type="nvarchar" Nullable="false" MaxLength="50" />
+          <Property Name="PlayerLevel" Type="int" Nullable="false" />
+          <Property Name="PlayerPoint" Type="int" Nullable="false" />
+          <Property Name="Win" Type="int" />
+          <Property Name="Lose" Type="int" />
+        </EntityType>
+        <EntityType Name="Questions">
+          <Key>
+            <PropertyRef Name="QuestionID" />
+          </Key>
+          <Property Name="QuestionID" Type="int" Nullable="false" />
+          <Property Name="Type" Type="int" Nullable="false" />
+          <Property Name="QuestionDif" Type="int" />
+          <Property Name="SRC" Type="nvarchar" MaxLength="50" />
+        </EntityType>
+        <EntityType Name="QuestionType">
+          <Key>
+            <PropertyRef Name="TypeID" />
+          </Key>
+          <Property Name="TypeID" Type="int" Nullable="false" />
+          <Property Name="Type" Type="nvarchar" MaxLength="50" />
+        </EntityType>
+        <EntityType Name="sysdiagrams">
+          <Key>
+            <PropertyRef Name="diagram_id" />
+          </Key>
+          <Property Name="name" Type="nvarchar" Nullable="false" MaxLength="128" />
+          <Property Name="principal_id" Type="int" Nullable="false" />
+          <Property Name="diagram_id" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+          <Property Name="version" Type="int" />
+          <Property Name="definition" Type="varbinary(max)" />
+        </EntityType>
+        <Association Name="FK_AnswerMultiChoices_ListAnswerMC">
+          <End Role="ListAnswerMC" Type="CapstoneModel.Store.ListAnswerMC" Multiplicity="1" />
+          <End Role="AnswerMultiChoices" Type="CapstoneModel.Store.AnswerMultiChoices" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="ListAnswerMC">
+              <PropertyRef Name="AnswerID" />
+            </Principal>
+            <Dependent Role="AnswerMultiChoices">
+              <PropertyRef Name="AnswerID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_AnswerMultiChoices_Questions">
+          <End Role="Questions" Type="CapstoneModel.Store.Questions" Multiplicity="1" />
+          <End Role="AnswerMultiChoices" Type="CapstoneModel.Store.AnswerMultiChoices" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Questions">
+              <PropertyRef Name="QuestionID" />
+            </Principal>
+            <Dependent Role="AnswerMultiChoices">
+              <PropertyRef Name="QuestionID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_listMatches_Players">
+          <End Role="Players" Type="CapstoneModel.Store.Players" Multiplicity="1" />
+          <End Role="listMatches" Type="CapstoneModel.Store.listMatches" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Players">
+              <PropertyRef Name="PlayerID" />
+            </Principal>
+            <Dependent Role="listMatches">
+              <PropertyRef Name="WinerID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_listMatches_Players1">
+          <End Role="Players" Type="CapstoneModel.Store.Players" Multiplicity="1" />
+          <End Role="listMatches" Type="CapstoneModel.Store.listMatches" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Players">
+              <PropertyRef Name="PlayerID" />
+            </Principal>
+            <Dependent Role="listMatches">
+              <PropertyRef Name="LoserID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Questions_QuestionType">
+          <End Role="QuestionType" Type="CapstoneModel.Store.QuestionType" Multiplicity="1" />
+          <End Role="Questions" Type="CapstoneModel.Store.Questions" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="QuestionType">
+              <PropertyRef Name="TypeID" />
+            </Principal>
+            <Dependent Role="Questions">
+              <PropertyRef Name="Type" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_tblFillBlank_tblQuestionB">
+          <End Role="Questions" Type="CapstoneModel.Store.Questions" Multiplicity="1" />
+          <End Role="AnswerFillBlanks" Type="CapstoneModel.Store.AnswerFillBlanks" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Questions">
+              <PropertyRef Name="QuestionID" />
+            </Principal>
+            <Dependent Role="AnswerFillBlanks">
+              <PropertyRef Name="QuestionID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_tblFindBug_tblQuestionB">
+          <End Role="Questions" Type="CapstoneModel.Store.Questions" Multiplicity="1" />
+          <End Role="AnswerFindBugs" Type="CapstoneModel.Store.AnswerFindBugs" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Questions">
+              <PropertyRef Name="QuestionID" />
+            </Principal>
+            <Dependent Role="AnswerFindBugs">
+              <PropertyRef Name="QuestionID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_tblHistory_tblQuestionB">
+          <End Role="Questions" Type="CapstoneModel.Store.Questions" Multiplicity="1" />
+          <End Role="Histories" Type="CapstoneModel.Store.Histories" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Questions">
+              <PropertyRef Name="QuestionID" />
+            </Principal>
+            <Dependent Role="Histories">
+              <PropertyRef Name="QuestionID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_tblReport_tblPlayer1">
+          <End Role="Players" Type="CapstoneModel.Store.Players" Multiplicity="1" />
+          <End Role="Histories" Type="CapstoneModel.Store.Histories" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Players">
+              <PropertyRef Name="PlayerID" />
+            </Principal>
+            <Dependent Role="Histories">
+              <PropertyRef Name="PlayerID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+      </Schema>
+    </edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="CapstoneModel" Alias="Self" p1:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:p1="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityContainer Name="CapstoneEntities4" p1:LazyLoadingEnabled="true">
+          <EntitySet Name="AnswerFillBlanks" EntityType="CapstoneModel.AnswerFillBlanks" />
+          <EntitySet Name="AnswerFindBugs" EntityType="CapstoneModel.AnswerFindBugs" />
+          <EntitySet Name="AnswerMultiChoices" EntityType="CapstoneModel.AnswerMultiChoices" />
+          <EntitySet Name="listMatches" EntityType="CapstoneModel.listMatches" />
+          <EntitySet Name="Histories" EntityType="CapstoneModel.Histories" />
+          <EntitySet Name="ListAnswerMC" EntityType="CapstoneModel.ListAnswerMC" />
+          <EntitySet Name="Players" EntityType="CapstoneModel.Players" />
+          <EntitySet Name="Questions" EntityType="CapstoneModel.Questions" />
+          <EntitySet Name="QuestionType" EntityType="CapstoneModel.QuestionType" />
+          <EntitySet Name="sysdiagrams" EntityType="CapstoneModel.sysdiagrams" />
+          <AssociationSet Name="FK_tblFillBlank_tblQuestionB" Association="CapstoneModel.FK_tblFillBlank_tblQuestionB">
+            <End Role="Questions" EntitySet="Questions" />
+            <End Role="AnswerFillBlanks" EntitySet="AnswerFillBlanks" />
+          </AssociationSet>
+          <AssociationSet Name="FK_tblFindBug_tblQuestionB" Association="CapstoneModel.FK_tblFindBug_tblQuestionB">
+            <End Role="Questions" EntitySet="Questions" />
+            <End Role="AnswerFindBugs" EntitySet="AnswerFindBugs" />
+          </AssociationSet>
+          <AssociationSet Name="FK_AnswerMultiChoices_ListAnswerMC" Association="CapstoneModel.FK_AnswerMultiChoices_ListAnswerMC">
+            <End Role="ListAnswerMC" EntitySet="ListAnswerMC" />
+            <End Role="AnswerMultiChoices" EntitySet="AnswerMultiChoices" />
+          </AssociationSet>
+          <AssociationSet Name="FK_AnswerMultiChoices_Questions" Association="CapstoneModel.FK_AnswerMultiChoices_Questions">
+            <End Role="Questions" EntitySet="Questions" />
+            <End Role="AnswerMultiChoices" EntitySet="AnswerMultiChoices" />
+          </AssociationSet>
+          <AssociationSet Name="FK_listMatches_Players" Association="CapstoneModel.FK_listMatches_Players">
+            <End Role="Players" EntitySet="Players" />
+            <End Role="listMatches" EntitySet="listMatches" />
+          </AssociationSet>
+          <AssociationSet Name="FK_listMatches_Players1" Association="CapstoneModel.FK_listMatches_Players1">
+            <End Role="Players" EntitySet="Players" />
+            <End Role="listMatches" EntitySet="listMatches" />
+          </AssociationSet>
+          <AssociationSet Name="FK_tblHistory_tblQuestionB" Association="CapstoneModel.FK_tblHistory_tblQuestionB">
+            <End Role="Questions" EntitySet="Questions" />
+            <End Role="Histories" EntitySet="Histories" />
+          </AssociationSet>
+          <AssociationSet Name="FK_tblReport_tblPlayer1" Association="CapstoneModel.FK_tblReport_tblPlayer1">
+            <End Role="Players" EntitySet="Players" />
+            <End Role="Histories" EntitySet="Histories" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Questions_QuestionType" Association="CapstoneModel.FK_Questions_QuestionType">
+            <End Role="QuestionType" EntitySet="QuestionType" />
+            <End Role="Questions" EntitySet="Questions" />
+          </AssociationSet>
+        </EntityContainer>
+        <EntityType Name="AnswerFillBlanks">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" />
+          <Property Name="AnswerIndex" Type="Int32" />
+          <Property Name="ListAnswers" Type="String" MaxLength="100" Unicode="true" FixedLength="false" />
+          <Property Name="CorrectAnswer" Type="String" MaxLength="50" Unicode="true" FixedLength="false" />
+          <NavigationProperty Name="Questions" Relationship="CapstoneModel.FK_tblFillBlank_tblQuestionB" FromRole="AnswerFillBlanks" ToRole="Questions" />
+        </EntityType>
+        <EntityType Name="AnswerFindBugs">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" />
+          <Property Name="WidthPoint" Type="String" MaxLength="10" Unicode="true" FixedLength="true" />
+          <Property Name="HeightPoint" Type="String" MaxLength="10" Unicode="true" FixedLength="true" />
+          <Property Name="TopPoint" Type="String" MaxLength="10" Unicode="true" FixedLength="true" />
+          <Property Name="LeftPoint" Type="String" MaxLength="10" Unicode="true" FixedLength="true" />
+          <NavigationProperty Name="Questions" Relationship="CapstoneModel.FK_tblFindBug_tblQuestionB" FromRole="AnswerFindBugs" ToRole="Questions" />
+        </EntityType>
+        <EntityType Name="AnswerMultiChoices">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="ListAnswerMC" Relationship="CapstoneModel.FK_AnswerMultiChoices_ListAnswerMC" FromRole="AnswerMultiChoices" ToRole="ListAnswerMC" />
+          <NavigationProperty Name="Questions" Relationship="CapstoneModel.FK_AnswerMultiChoices_Questions" FromRole="AnswerMultiChoices" ToRole="Questions" />
+        </EntityType>
+        <EntityType Name="listMatches">
+          <Key>
+            <PropertyRef Name="GameID" />
+          </Key>
+          <Property Name="GameID" Type="Int32" Nullable="false" p1:StoreGeneratedPattern="Identity" />
+          <NavigationProperty Name="Players" Relationship="CapstoneModel.FK_listMatches_Players" FromRole="listMatches" ToRole="Players" />
+          <NavigationProperty Name="Players1" Relationship="CapstoneModel.FK_listMatches_Players1" FromRole="listMatches" ToRole="Players" />
+        </EntityType>
+        <EntityType Name="Histories">
+          <Key>
+            <PropertyRef Name="PlayerID" />
+            <PropertyRef Name="QuestionID" />
+          </Key>
+          <Property Name="PlayerID" Type="Int32" Nullable="false" />
+          <Property Name="QuestionID" Type="Int32" Nullable="false" />
+          <Property Name="Rright" Type="Int32" />
+          <Property Name="Wrong" Type="Int32" />
+          <NavigationProperty Name="Questions" Relationship="CapstoneModel.FK_tblHistory_tblQuestionB" FromRole="Histories" ToRole="Questions" />
+          <NavigationProperty Name="Players" Relationship="CapstoneModel.FK_tblReport_tblPlayer1" FromRole="Histories" ToRole="Players" />
+        </EntityType>
+        <EntityType Name="ListAnswerMC">
+          <Key>
+            <PropertyRef Name="AnswerID" />
+          </Key>
+          <Property Name="AnswerID" Type="Int32" Nullable="false" />
+          <Property Name="Answer" Type="String" MaxLength="50" Unicode="true" FixedLength="false" />
+          <Property Name="Description" Type="String" MaxLength="100" Unicode="true" FixedLength="false" />
+          <NavigationProperty Name="AnswerMultiChoices" Relationship="CapstoneModel.FK_AnswerMultiChoices_ListAnswerMC" FromRole="ListAnswerMC" ToRole="AnswerMultiChoices" />
+        </EntityType>
+        <EntityType Name="Players">
+          <Key>
+            <PropertyRef Name="PlayerID" />
+          </Key>
+          <Property Name="PlayerID" Type="Int32" Nullable="false" p1:StoreGeneratedPattern="Identity" />
+          <Property Name="PlayerName" Type="String" Nullable="false" MaxLength="50" Unicode="true" FixedLength="false" />
+          <Property Name="PlayerLevel" Type="Int32" Nullable="false" />
+          <Property Name="PlayerPoint" Type="Int32" Nullable="false" />
+          <Property Name="Win" Type="Int32" />
+          <Property Name="Lose" Type="Int32" />
+          <NavigationProperty Name="listMatches" Relationship="CapstoneModel.FK_listMatches_Players" FromRole="Players" ToRole="listMatches" />
+          <NavigationProperty Name="listMatches1" Relationship="CapstoneModel.FK_listMatches_Players1" FromRole="Players" ToRole="listMatches" />
+          <NavigationProperty Name="Histories" Relationship="CapstoneModel.FK_tblReport_tblPlayer1" FromRole="Players" ToRole="Histories" />
+        </EntityType>
+        <EntityType Name="Questions">
+          <Key>
+            <PropertyRef Name="QuestionID" />
+          </Key>
+          <Property Name="QuestionID" Type="Int32" Nullable="false" />
+          <Property Name="QuestionDif" Type="Int32" />
+          <Property Name="SRC" Type="String" MaxLength="50" Unicode="true" FixedLength="false" />
+          <NavigationProperty Name="AnswerFillBlanks" Relationship="CapstoneModel.FK_tblFillBlank_tblQuestionB" FromRole="Questions" ToRole="AnswerFillBlanks" />
+          <NavigationProperty Name="AnswerFindBugs" Relationship="CapstoneModel.FK_tblFindBug_tblQuestionB" FromRole="Questions" ToRole="AnswerFindBugs" />
+          <NavigationProperty Name="AnswerMultiChoices" Relationship="CapstoneModel.FK_AnswerMultiChoices_Questions" FromRole="Questions" ToRole="AnswerMultiChoices" />
+          <NavigationProperty Name="Histories" Relationship="CapstoneModel.FK_tblHistory_tblQuestionB" FromRole="Questions" ToRole="Histories" />
+          <NavigationProperty Name="QuestionType" Relationship="CapstoneModel.FK_Questions_QuestionType" FromRole="Questions" ToRole="QuestionType" />
+        </EntityType>
+        <EntityType Name="QuestionType">
+          <Key>
+            <PropertyRef Name="TypeID" />
+          </Key>
+          <Property Name="TypeID" Type="Int32" Nullable="false" />
+          <Property Name="Type" Type="String" MaxLength="50" Unicode="true" FixedLength="false" />
+          <NavigationProperty Name="Questions" Relationship="CapstoneModel.FK_Questions_QuestionType" FromRole="QuestionType" ToRole="Questions" />
+        </EntityType>
+        <EntityType Name="sysdiagrams">
+          <Key>
+            <PropertyRef Name="diagram_id" />
+          </Key>
+          <Property Name="name" Type="String" Nullable="false" MaxLength="128" Unicode="true" FixedLength="false" />
+          <Property Name="principal_id" Type="Int32" Nullable="false" />
+          <Property Name="diagram_id" Type="Int32" Nullable="false" p1:StoreGeneratedPattern="Identity" />
+          <Property Name="version" Type="Int32" />
+          <Property Name="definition" Type="Binary" MaxLength="Max" FixedLength="false" />
+        </EntityType>
+        <Association Name="FK_tblFillBlank_tblQuestionB">
+          <End Role="Questions" Type="CapstoneModel.Questions" Multiplicity="1" />
+          <End Role="AnswerFillBlanks" Type="CapstoneModel.AnswerFillBlanks" Multiplicity="*" />
+        </Association>
+        <Association Name="FK_tblFindBug_tblQuestionB">
+          <End Role="Questions" Type="CapstoneModel.Questions" Multiplicity="1" />
+          <End Role="AnswerFindBugs" Type="CapstoneModel.AnswerFindBugs" Multiplicity="*" />
+        </Association>
+        <Association Name="FK_AnswerMultiChoices_ListAnswerMC">
+          <End Role="ListAnswerMC" Type="CapstoneModel.ListAnswerMC" Multiplicity="1" />
+          <End Role="AnswerMultiChoices" Type="CapstoneModel.AnswerMultiChoices" Multiplicity="*" />
+        </Association>
+        <Association Name="FK_AnswerMultiChoices_Questions">
+          <End Role="Questions" Type="CapstoneModel.Questions" Multiplicity="1" />
+          <End Role="AnswerMultiChoices" Type="CapstoneModel.AnswerMultiChoices" Multiplicity="*" />
+        </Association>
+        <Association Name="FK_listMatches_Players">
+          <End Role="Players" Type="CapstoneModel.Players" Multiplicity="1" />
+          <End Role="listMatches" Type="CapstoneModel.listMatches" Multiplicity="*" />
+        </Association>
+        <Association Name="FK_listMatches_Players1">
+          <End Role="Players" Type="CapstoneModel.Players" Multiplicity="1" />
+          <End Role="listMatches" Type="CapstoneModel.listMatches" Multiplicity="*" />
+        </Association>
+        <Association Name="FK_tblHistory_tblQuestionB">
+          <End Role="Questions" Type="CapstoneModel.Questions" Multiplicity="1" />
+          <End Role="Histories" Type="CapstoneModel.Histories" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Questions">
+              <PropertyRef Name="QuestionID" />
+            </Principal>
+            <Dependent Role="Histories">
+              <PropertyRef Name="QuestionID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_tblReport_tblPlayer1">
+          <End Role="Players" Type="CapstoneModel.Players" Multiplicity="1" />
+          <End Role="Histories" Type="CapstoneModel.Histories" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Players">
+              <PropertyRef Name="PlayerID" />
+            </Principal>
+            <Dependent Role="Histories">
+              <PropertyRef Name="PlayerID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Questions_QuestionType">
+          <End Role="QuestionType" Type="CapstoneModel.QuestionType" Multiplicity="1" />
+          <End Role="Questions" Type="CapstoneModel.Questions" Multiplicity="*" />
+        </Association>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="CapstoneModelStoreContainer" CdmEntityContainer="CapstoneEntities4">
+          <EntitySetMapping Name="AnswerFillBlanks">
+            <EntityTypeMapping TypeName="CapstoneModel.AnswerFillBlanks">
+              <MappingFragment StoreEntitySet="AnswerFillBlanks">
+                <ScalarProperty Name="ID" ColumnName="ID" />
+                <ScalarProperty Name="AnswerIndex" ColumnName="AnswerIndex" />
+                <ScalarProperty Name="ListAnswers" ColumnName="ListAnswers" />
+                <ScalarProperty Name="CorrectAnswer" ColumnName="CorrectAnswer" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="AnswerFindBugs">
+            <EntityTypeMapping TypeName="CapstoneModel.AnswerFindBugs">
+              <MappingFragment StoreEntitySet="AnswerFindBugs">
+                <ScalarProperty Name="ID" ColumnName="ID" />
+                <ScalarProperty Name="WidthPoint" ColumnName="WidthPoint" />
+                <ScalarProperty Name="HeightPoint" ColumnName="HeightPoint" />
+                <ScalarProperty Name="TopPoint" ColumnName="TopPoint" />
+                <ScalarProperty Name="LeftPoint" ColumnName="LeftPoint" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="AnswerMultiChoices">
+            <EntityTypeMapping TypeName="CapstoneModel.AnswerMultiChoices">
+              <MappingFragment StoreEntitySet="AnswerMultiChoices">
+                <ScalarProperty Name="ID" ColumnName="ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="listMatches">
+            <EntityTypeMapping TypeName="CapstoneModel.listMatches">
+              <MappingFragment StoreEntitySet="listMatches">
+                <ScalarProperty Name="GameID" ColumnName="GameID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Histories">
+            <EntityTypeMapping TypeName="CapstoneModel.Histories">
+              <MappingFragment StoreEntitySet="Histories">
+                <ScalarProperty Name="PlayerID" ColumnName="PlayerID" />
+                <ScalarProperty Name="QuestionID" ColumnName="QuestionID" />
+                <ScalarProperty Name="Rright" ColumnName="Rright" />
+                <ScalarProperty Name="Wrong" ColumnName="Wrong" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="ListAnswerMC">
+            <EntityTypeMapping TypeName="CapstoneModel.ListAnswerMC">
+              <MappingFragment StoreEntitySet="ListAnswerMC">
+                <ScalarProperty Name="AnswerID" ColumnName="AnswerID" />
+                <ScalarProperty Name="Answer" ColumnName="Answer" />
+                <ScalarProperty Name="Description" ColumnName="Description" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Players">
+            <EntityTypeMapping TypeName="CapstoneModel.Players">
+              <MappingFragment StoreEntitySet="Players">
+                <ScalarProperty Name="PlayerID" ColumnName="PlayerID" />
+                <ScalarProperty Name="PlayerName" ColumnName="PlayerName" />
+                <ScalarProperty Name="PlayerLevel" ColumnName="PlayerLevel" />
+                <ScalarProperty Name="PlayerPoint" ColumnName="PlayerPoint" />
+                <ScalarProperty Name="Win" ColumnName="Win" />
+                <ScalarProperty Name="Lose" ColumnName="Lose" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Questions">
+            <EntityTypeMapping TypeName="CapstoneModel.Questions">
+              <MappingFragment StoreEntitySet="Questions">
+                <ScalarProperty Name="QuestionID" ColumnName="QuestionID" />
+                <ScalarProperty Name="QuestionDif" ColumnName="QuestionDif" />
+                <ScalarProperty Name="SRC" ColumnName="SRC" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="QuestionType">
+            <EntityTypeMapping TypeName="CapstoneModel.QuestionType">
+              <MappingFragment StoreEntitySet="QuestionType">
+                <ScalarProperty Name="TypeID" ColumnName="TypeID" />
+                <ScalarProperty Name="Type" ColumnName="Type" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="sysdiagrams">
+            <EntityTypeMapping TypeName="CapstoneModel.sysdiagrams">
+              <MappingFragment StoreEntitySet="sysdiagrams">
+                <ScalarProperty Name="name" ColumnName="name" />
+                <ScalarProperty Name="principal_id" ColumnName="principal_id" />
+                <ScalarProperty Name="diagram_id" ColumnName="diagram_id" />
+                <ScalarProperty Name="version" ColumnName="version" />
+                <ScalarProperty Name="definition" ColumnName="definition" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <AssociationSetMapping Name="FK_tblFillBlank_tblQuestionB" TypeName="CapstoneModel.FK_tblFillBlank_tblQuestionB" StoreEntitySet="AnswerFillBlanks">
+            <EndProperty Name="Questions">
+              <ScalarProperty Name="QuestionID" ColumnName="QuestionID" />
+            </EndProperty>
+            <EndProperty Name="AnswerFillBlanks">
+              <ScalarProperty Name="ID" ColumnName="ID" />
+            </EndProperty>
+          </AssociationSetMapping>
+          <AssociationSetMapping Name="FK_tblFindBug_tblQuestionB" TypeName="CapstoneModel.FK_tblFindBug_tblQuestionB" StoreEntitySet="AnswerFindBugs">
+            <EndProperty Name="Questions">
+              <ScalarProperty Name="QuestionID" ColumnName="QuestionID" />
+            </EndProperty>
+            <EndProperty Name="AnswerFindBugs">
+              <ScalarProperty Name="ID" ColumnName="ID" />
+            </EndProperty>
+          </AssociationSetMapping>
+          <AssociationSetMapping Name="FK_AnswerMultiChoices_ListAnswerMC" TypeName="CapstoneModel.FK_AnswerMultiChoices_ListAnswerMC" StoreEntitySet="AnswerMultiChoices">
+            <EndProperty Name="ListAnswerMC">
+              <ScalarProperty Name="AnswerID" ColumnName="AnswerID" />
+            </EndProperty>
+            <EndProperty Name="AnswerMultiChoices">
+              <ScalarProperty Name="ID" ColumnName="ID" />
+            </EndProperty>
+          </AssociationSetMapping>
+          <AssociationSetMapping Name="FK_AnswerMultiChoices_Questions" TypeName="CapstoneModel.FK_AnswerMultiChoices_Questions" StoreEntitySet="AnswerMultiChoices">
+            <EndProperty Name="Questions">
+              <ScalarProperty Name="QuestionID" ColumnName="QuestionID" />
+            </EndProperty>
+            <EndProperty Name="AnswerMultiChoices">
+              <ScalarProperty Name="ID" ColumnName="ID" />
+            </EndProperty>
+          </AssociationSetMapping>
+          <AssociationSetMapping Name="FK_listMatches_Players" TypeName="CapstoneModel.FK_listMatches_Players" StoreEntitySet="listMatches">
+            <EndProperty Name="Players">
+              <ScalarProperty Name="PlayerID" ColumnName="WinerID" />
+            </EndProperty>
+            <EndProperty Name="listMatches">
+              <ScalarProperty Name="GameID" ColumnName="GameID" />
+            </EndProperty>
+          </AssociationSetMapping>
+          <AssociationSetMapping Name="FK_listMatches_Players1" TypeName="CapstoneModel.FK_listMatches_Players1" StoreEntitySet="listMatches">
+            <EndProperty Name="Players">
+              <ScalarProperty Name="PlayerID" ColumnName="LoserID" />
+            </EndProperty>
+            <EndProperty Name="listMatches">
+              <ScalarProperty Name="GameID" ColumnName="GameID" />
+            </EndProperty>
+          </AssociationSetMapping>
+          <AssociationSetMapping Name="FK_Questions_QuestionType" TypeName="CapstoneModel.FK_Questions_QuestionType" StoreEntitySet="Questions">
+            <EndProperty Name="QuestionType">
+              <ScalarProperty Name="TypeID" ColumnName="Type" />
+            </EndProperty>
+            <EndProperty Name="Questions">
+              <ScalarProperty Name="QuestionID" ColumnName="QuestionID" />
+            </EndProperty>
+          </AssociationSetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="True" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="False" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>

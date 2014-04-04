@@ -5,6 +5,7 @@ using System.Web;
 using SignalRSever.DataAccess;
 using System.Web.UI.WebControls;
 using System.Data;
+using SignalRSever.Entities;
 
 namespace SignalRSever.Business
 {

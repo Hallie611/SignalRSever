@@ -37,7 +37,7 @@
       <Association Name="Question_AnswerMultiChoice" Member="Question" ThisKey="QuestionID" OtherKey="QuestionID" Type="Question" IsForeignKey="true" />
     </Type>
   </Table>
-  <Table Name="dbo.Games" Member="Games">
+  <Table Name="dbo.listMatches" Member="listMatches">
     <Type Name="Game">
       <Column Name="GameID" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
       <Column Name="WinerID" Type="System.Int32" DbType="Int" CanBeNull="true" />
@@ -72,8 +72,8 @@
       <Column Name="PlayerPoint" Type="System.Int32" DbType="Int" CanBeNull="true" />
       <Column Name="Win" Type="System.Int32" DbType="Int" CanBeNull="true" />
       <Column Name="Lose" Type="System.Int32" DbType="Int" CanBeNull="true" />
-      <Association Name="Player_Game" Member="Games" ThisKey="PlayerID" OtherKey="WinerID" Type="Game" />
-      <Association Name="Player_Game1" Member="Games1" ThisKey="PlayerID" OtherKey="LoserID" Type="Game" />
+      <Association Name="Player_Game" Member="listMatches" ThisKey="PlayerID" OtherKey="WinerID" Type="Game" />
+      <Association Name="Player_Game1" Member="listMatches1" ThisKey="PlayerID" OtherKey="LoserID" Type="Game" />
       <Association Name="Player_History" Member="Histories" ThisKey="PlayerID" OtherKey="PlayerID" Type="History" />
     </Type>
   </Table>
@@ -165,19 +165,6 @@
       <Column Name="Lose" Type="System.Int32" DbType="Int" CanBeNull="true" />
     </ElementType>
   </Function>
-  <Function Name="dbo.get_question_byID" Method="get_question_byID">
-    <Parameter Name="QuestionID" Parameter="questionID" Type="System.Int32" DbType="Int" />
-    <ElementType Name="get_question_byIDResult">
-      <Column Name="QuestionID" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
-      <Column Name="Type" Type="System.Int32" DbType="Int" CanBeNull="true" />
-      <Column Name="QuestionDif" Type="System.Int32" DbType="Int" CanBeNull="true" />
-      <Column Name="SRC" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
-      <Column Name="WidthPoint" Type="System.String" DbType="NChar(10)" CanBeNull="true" />
-      <Column Name="HeightPoint" Type="System.String" DbType="NChar(10)" CanBeNull="true" />
-      <Column Name="TopPoint" Type="System.String" DbType="NChar(10)" CanBeNull="true" />
-      <Column Name="LeftPoint" Type="System.String" DbType="NChar(10)" CanBeNull="true" />
-    </ElementType>
-  </Function>
   <Function Name="dbo.get_question_type" Method="get_question_type">
     <Parameter Name="QuestionID" Parameter="questionID" Type="System.Int32" DbType="Int" />
     <ElementType Name="get_question_typeResult">
@@ -239,5 +226,12 @@
     <Parameter Name="Loser" Parameter="loser" Type="System.String" DbType="NVarChar(50)" />
     <Parameter Name="LosePoint" Parameter="losePoint" Type="System.Int32" DbType="Int" />
     <Return Type="System.Int32" />
+  </Function>
+  <Function Name="dbo.Random_question_by_dif" Method="Random_question_by_dif">
+    <Parameter Name="dif" Type="System.Int32" DbType="Int" />
+    <ElementType Name="Random_question_by_difResult">
+      <Column Name="QuestionID" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="Type" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
+    </ElementType>
   </Function>
 </Database>

@@ -121,7 +121,7 @@ namespace SignalRSever.DataAccess
 			}
 		}
 		
-		public System.Data.Linq.Table<Game> Games
+		public System.Data.Linq.Table<Game> listMatches
 		{
 			get
 			{
@@ -217,13 +217,6 @@ namespace SignalRSever.DataAccess
 			return ((ISingleResult<get_player_infoResult>)(result.ReturnValue));
 		}
 		
-		[global::System.Data.Linq.Mapping.FunctionAttribute(Name="dbo.get_question_byID")]
-		public ISingleResult<get_question_byIDResult> get_question_byID([global::System.Data.Linq.Mapping.ParameterAttribute(Name="QuestionID", DbType="Int")] System.Nullable<int> questionID)
-		{
-			IExecuteResult result = this.ExecuteMethodCall(this, ((MethodInfo)(MethodInfo.GetCurrentMethod())), questionID);
-			return ((ISingleResult<get_question_byIDResult>)(result.ReturnValue));
-		}
-		
 		[global::System.Data.Linq.Mapping.FunctionAttribute(Name="dbo.get_question_type")]
 		public ISingleResult<get_question_typeResult> get_question_type([global::System.Data.Linq.Mapping.ParameterAttribute(Name="QuestionID", DbType="Int")] System.Nullable<int> questionID)
 		{
@@ -285,6 +278,13 @@ namespace SignalRSever.DataAccess
 		{
 			IExecuteResult result = this.ExecuteMethodCall(this, ((MethodInfo)(MethodInfo.GetCurrentMethod())), win, winPoint, loser, losePoint);
 			return ((int)(result.ReturnValue));
+		}
+		
+		[global::System.Data.Linq.Mapping.FunctionAttribute(Name="dbo.Random_question_by_dif")]
+		public ISingleResult<Random_question_by_difResult> Random_question_by_dif([global::System.Data.Linq.Mapping.ParameterAttribute(DbType="Int")] System.Nullable<int> dif)
+		{
+			IExecuteResult result = this.ExecuteMethodCall(this, ((MethodInfo)(MethodInfo.GetCurrentMethod())), dif);
+			return ((ISingleResult<Random_question_by_difResult>)(result.ReturnValue));
 		}
 	}
 	
@@ -1016,7 +1016,7 @@ namespace SignalRSever.DataAccess
 		}
 	}
 	
-	[global::System.Data.Linq.Mapping.TableAttribute(Name="dbo.Games")]
+	[global::System.Data.Linq.Mapping.TableAttribute(Name="dbo.listMatches")]
 	public partial class Game : INotifyPropertyChanging, INotifyPropertyChanged
 	{
 		
@@ -1136,12 +1136,12 @@ namespace SignalRSever.DataAccess
 					if ((previousValue != null))
 					{
 						this._Player.Entity = null;
-						previousValue.Games.Remove(this);
+						previousValue.listMatches.Remove(this);
 					}
 					this._Player.Entity = value;
 					if ((value != null))
 					{
-						value.Games.Add(this);
+						value.listMatches.Add(this);
 						this._WinerID = value.PlayerID;
 					}
 					else
@@ -1170,12 +1170,12 @@ namespace SignalRSever.DataAccess
 					if ((previousValue != null))
 					{
 						this._Player1.Entity = null;
-						previousValue.Games1.Remove(this);
+						previousValue.listMatches1.Remove(this);
 					}
 					this._Player1.Entity = value;
 					if ((value != null))
 					{
-						value.Games1.Add(this);
+						value.listMatches1.Add(this);
 						this._LoserID = value.PlayerID;
 					}
 					else
@@ -1580,9 +1580,9 @@ namespace SignalRSever.DataAccess
 		
 		private System.Nullable<int> _Lose;
 		
-		private EntitySet<Game> _Games;
+		private EntitySet<Game> _listMatches;
 		
-		private EntitySet<Game> _Games1;
+		private EntitySet<Game> _listMatches1;
 		
 		private EntitySet<History> _Histories;
 		
@@ -1606,8 +1606,8 @@ namespace SignalRSever.DataAccess
 		
 		public Player()
 		{
-			this._Games = new EntitySet<Game>(new Action<Game>(this.attach_Games), new Action<Game>(this.detach_Games));
-			this._Games1 = new EntitySet<Game>(new Action<Game>(this.attach_Games1), new Action<Game>(this.detach_Games1));
+			this._listMatches = new EntitySet<Game>(new Action<Game>(this.attach_listMatches), new Action<Game>(this.detach_listMatches));
+			this._listMatches1 = new EntitySet<Game>(new Action<Game>(this.attach_listMatches1), new Action<Game>(this.detach_listMatches1));
 			this._Histories = new EntitySet<History>(new Action<History>(this.attach_Histories), new Action<History>(this.detach_Histories));
 			OnCreated();
 		}
@@ -1732,29 +1732,29 @@ namespace SignalRSever.DataAccess
 			}
 		}
 		
-		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="Player_Game", Storage="_Games", ThisKey="PlayerID", OtherKey="WinerID")]
-		public EntitySet<Game> Games
+		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="Player_Game", Storage="_listMatches", ThisKey="PlayerID", OtherKey="WinerID")]
+		public EntitySet<Game> listMatches
 		{
 			get
 			{
-				return this._Games;
+				return this._listMatches;
 			}
 			set
 			{
-				this._Games.Assign(value);
+				this._listMatches.Assign(value);
 			}
 		}
 		
-		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="Player_Game1", Storage="_Games1", ThisKey="PlayerID", OtherKey="LoserID")]
-		public EntitySet<Game> Games1
+		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="Player_Game1", Storage="_listMatches1", ThisKey="PlayerID", OtherKey="LoserID")]
+		public EntitySet<Game> listMatches1
 		{
 			get
 			{
-				return this._Games1;
+				return this._listMatches1;
 			}
 			set
 			{
-				this._Games1.Assign(value);
+				this._listMatches1.Assign(value);
 			}
 		}
 		
@@ -1791,25 +1791,25 @@ namespace SignalRSever.DataAccess
 			}
 		}
 		
-		private void attach_Games(Game entity)
+		private void attach_listMatches(Game entity)
 		{
 			this.SendPropertyChanging();
 			entity.Player = this;
 		}
 		
-		private void detach_Games(Game entity)
+		private void detach_listMatches(Game entity)
 		{
 			this.SendPropertyChanging();
 			entity.Player = null;
 		}
 		
-		private void attach_Games1(Game entity)
+		private void attach_listMatches1(Game entity)
 		{
 			this.SendPropertyChanging();
 			entity.Player1 = this;
 		}
 		
-		private void detach_Games1(Game entity)
+		private void detach_listMatches1(Game entity)
 		{
 			this.SendPropertyChanging();
 			entity.Player1 = null;
@@ -2829,158 +2829,6 @@ namespace SignalRSever.DataAccess
 		}
 	}
 	
-	public partial class get_question_byIDResult
-	{
-		
-		private int _QuestionID;
-		
-		private System.Nullable<int> _Type;
-		
-		private System.Nullable<int> _QuestionDif;
-		
-		private string _SRC;
-		
-		private string _WidthPoint;
-		
-		private string _HeightPoint;
-		
-		private string _TopPoint;
-		
-		private string _LeftPoint;
-		
-		public get_question_byIDResult()
-		{
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_QuestionID", DbType="Int NOT NULL")]
-		public int QuestionID
-		{
-			get
-			{
-				return this._QuestionID;
-			}
-			set
-			{
-				if ((this._QuestionID != value))
-				{
-					this._QuestionID = value;
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Type", DbType="Int")]
-		public System.Nullable<int> Type
-		{
-			get
-			{
-				return this._Type;
-			}
-			set
-			{
-				if ((this._Type != value))
-				{
-					this._Type = value;
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_QuestionDif", DbType="Int")]
-		public System.Nullable<int> QuestionDif
-		{
-			get
-			{
-				return this._QuestionDif;
-			}
-			set
-			{
-				if ((this._QuestionDif != value))
-				{
-					this._QuestionDif = value;
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_SRC", DbType="NVarChar(50)")]
-		public string SRC
-		{
-			get
-			{
-				return this._SRC;
-			}
-			set
-			{
-				if ((this._SRC != value))
-				{
-					this._SRC = value;
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_WidthPoint", DbType="NChar(10)")]
-		public string WidthPoint
-		{
-			get
-			{
-				return this._WidthPoint;
-			}
-			set
-			{
-				if ((this._WidthPoint != value))
-				{
-					this._WidthPoint = value;
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_HeightPoint", DbType="NChar(10)")]
-		public string HeightPoint
-		{
-			get
-			{
-				return this._HeightPoint;
-			}
-			set
-			{
-				if ((this._HeightPoint != value))
-				{
-					this._HeightPoint = value;
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_TopPoint", DbType="NChar(10)")]
-		public string TopPoint
-		{
-			get
-			{
-				return this._TopPoint;
-			}
-			set
-			{
-				if ((this._TopPoint != value))
-				{
-					this._TopPoint = value;
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_LeftPoint", DbType="NChar(10)")]
-		public string LeftPoint
-		{
-			get
-			{
-				return this._LeftPoint;
-			}
-			set
-			{
-				if ((this._LeftPoint != value))
-				{
-					this._LeftPoint = value;
-				}
-			}
-		}
-	}
-	
 	public partial class get_question_typeResult
 	{
 		
@@ -3082,6 +2930,50 @@ namespace SignalRSever.DataAccess
 				if ((this._Wrong != value))
 				{
 					this._Wrong = value;
+				}
+			}
+		}
+	}
+	
+	public partial class Random_question_by_difResult
+	{
+		
+		private int _QuestionID;
+		
+		private string _Type;
+		
+		public Random_question_by_difResult()
+		{
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_QuestionID", DbType="Int NOT NULL")]
+		public int QuestionID
+		{
+			get
+			{
+				return this._QuestionID;
+			}
+			set
+			{
+				if ((this._QuestionID != value))
+				{
+					this._QuestionID = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Type", DbType="NVarChar(50)")]
+		public string Type
+		{
+			get
+			{
+				return this._Type;
+			}
+			set
+			{
+				if ((this._Type != value))
+				{
+					this._Type = value;
 				}
 			}
 		}
