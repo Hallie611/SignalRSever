@@ -1,18 +1,17 @@
-﻿<%@ Page Language="C#" AutoEventWireup="true" CodeBehind="PlayerDetail.aspx.cs" Inherits="SignalRSever.Web.Player.PlayerDetail"   EnableEventValidation="true" %>
+﻿<%@ Page Title="Player Detail" Language="C#" MasterPageFile="~/Web/MasterPage.Master" AutoEventWireup="true" CodeBehind="PlayerDetail.aspx.cs" Inherits="SignalRSever.Web.Player.PlayerDetail" %>
+<asp:Content ID="Content1" ContentPlaceHolderID="head" runat="server">
+</asp:Content>
 
-<!DOCTYPE html>
-
-<html xmlns="http://www.w3.org/1999/xhtml">
-<head runat="server">
-    <title></title>
-</head>
-<body>
-    <form id="form1" runat="server">
-    <div>
-        <asp:Label ID="lblname" runat="server" Text="Label"></asp:Label>
-        <asp:GridView ID="GVPlayer_Detail" runat="server" OnRowDataBound="GVPlayer_Detail_RowDataBound" OnSelectedIndexChanged="GVPlayer_Detail_SelectedIndexChanged" AutoGenerateSelectButton="True"></asp:GridView>
-        <a href='javascript:history.go(-1)'>Go Back to Previous Page</a>
-    </div>
-    </form>
-</body>
-</html>
+<asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" runat="server">
+    <div class="art-layout-cell art-content"><article class="art-post art-article">
+         <h2 class="art-postheader">Player Detail</h2>                      
+         <div class="art-postcontent art-postcontent-0 clearfix"><p><br/></p></div> 
+         <div>
+            <asp:Label ID="lblname" runat="server" Text="Label"></asp:Label>
+             <asp:GridView ID="GVPlayer_Detail" runat="server" CssClass="EU_DataTable" AllowPaging="true"
+                PageSize="10" OnRowDataBound="GVPlayer_Detail_RowDataBound" OnSelectedIndexChanged="GVPlayer_Detail_SelectedIndexChanged" AutoGenerateSelectButton="True" OnPageIndexChanging="GridView1_PageIndexChanging">
+             </asp:GridView>
+             <a href='javascript:history.go(-1)'>Go Back to Previous Page</a>
+         </div>           
+    </article></div>
+</asp:Content>

@@ -11,16 +11,27 @@ namespace SignalRSever.Web.Player
     public partial class PlayerDetail : System.Web.UI.Page
     {
         PlayerManager manager = new PlayerManager();
+        static string name;
         protected void Page_Load(object sender, EventArgs e)
         {
-            
-            string name = Request.QueryString["name"];
+            name = Request.QueryString["name"];
             lblname.Text = name;
             if (!IsPostBack)
             {
-                GVPlayer_Detail.DataSource = manager.GetQuestionsByUser(name);
-                GVPlayer_Detail.DataBind();
+                BindData(name);
             }
+        }
+
+        void BindData(string name)
+        {
+            GVPlayer_Detail.DataSource = manager.GetQuestionsByUser(name);
+            GVPlayer_Detail.DataBind();
+        }
+
+        protected void GridView1_PageIndexChanging(object sender, GridViewPageEventArgs e)
+        {
+            GVPlayer_Detail.PageIndex = e.NewPageIndex;
+            BindData(name);
         }
 
         protected void GVPlayer_Detail_SelectedIndexChanged(object sender, EventArgs e)

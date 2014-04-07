@@ -1,18 +1,12 @@
-﻿<%@ Page Language="C#" AutoEventWireup="true" CodeBehind="Home.aspx.cs" Inherits="SignalRSever.Web.Home" %>
+﻿<%@ Page Title="Home" Language="C#" MasterPageFile="~/Web/MasterPage.Master" AutoEventWireup="true" CodeBehind="Home.aspx.cs" Inherits="SignalRSever.Web.Home" %>
+<asp:Content ID="Content1" ContentPlaceHolderID="head" runat="server">
+</asp:Content>
 
-<!DOCTYPE html>
+<asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" runat="server">
+    <div class="art-layout-cell art-content"><article class="art-post art-article">
+         <h2 class="art-postheader">About Us</h2>                      
+         <div class="art-postcontent art-postcontent-0 clearfix"><p><br/></p></div> 
+                    
+    </article></div>
+</asp:Content>
 
-<html xmlns="http://www.w3.org/1999/xhtml">
-<head runat="server">
-    <title></title>
-</head>
-<body>
-    <form id="form1" runat="server">
-    <div>
-        <asp:HyperLink ID="HyperLink1" runat="server">Player Report</asp:HyperLink>
-        <br />
-        <asp:HyperLink ID="HyperLink2" runat="server">Question Report</asp:HyperLink>
-    </div>
-    </form>
-</body>
-</html>

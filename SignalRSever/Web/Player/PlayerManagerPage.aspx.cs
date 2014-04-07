@@ -16,17 +16,26 @@ namespace SignalRSever.Web
         {
             if (!IsPostBack)
             {
-                
-                GVPlayer.DataSource = manager.Get_allPlayer();
-                GVPlayer.DataBind();
+                BindData();
             }
+        }
+
+        void BindData()
+        {
+            GVPlayer.DataSource = manager.Get_allPlayer();
+            GVPlayer.DataBind();
+        }
+
+        protected void GridView1_PageIndexChanging(object sender, GridViewPageEventArgs e)
+        {
+            GVPlayer.PageIndex = e.NewPageIndex;
+            BindData();
         }
 
         protected void GVPlayer_SelectedIndexChanged(object sender, EventArgs e)
         {
-            GridViewRow gr= GVPlayer.SelectedRow;
+            GridViewRow gr = GVPlayer.SelectedRow;
             Response.Redirect("PlayerDetail.aspx?name=" + gr.Cells[1].Text);
-
         }
 
         protected void GVPlayer_RowDataBound(object sender, GridViewRowEventArgs e)

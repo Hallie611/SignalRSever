@@ -1,16 +1,15 @@
-﻿<%@ Page Language="C#" AutoEventWireup="true" CodeBehind="QuestionHistory.aspx.cs" Inherits="SignalRSever.Web.Question.QuestionManager" %>
+﻿<%@ Page Title="Question History" Language="C#" MasterPageFile="~/Web/MasterPage.Master" AutoEventWireup="true" CodeBehind="QuestionHistory.aspx.cs" Inherits="SignalRSever.Web.Question.QuestionManager" %>
+<asp:Content ID="Content1" ContentPlaceHolderID="head" runat="server">
+</asp:Content>
 
-<!DOCTYPE html>
-
-<html xmlns="http://www.w3.org/1999/xhtml">
-<head runat="server">
-    <title></title>
-</head>
-<body>
-    <form id="form1" runat="server">
-    <div>
-        <asp:GridView ID="GV_historyQuestion" runat="server" AutoGenerateSelectButton="True" OnRowDataBound="GV_historyQuestion_RowDataBound" OnSelectedIndexChanged="GV_historyQuestion_SelectedIndexChanged"></asp:GridView>
-    </div>
-    </form>
-</body>
-</html>
+<asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" runat="server">
+    <div class="art-layout-cell art-content"><article class="art-post art-article">
+         <h2 class="art-postheader">Question History</h2>                      
+         <div class="art-postcontent art-postcontent-0 clearfix"><p><br/></p></div> 
+         <div>
+             <asp:GridView ID="GV_historyQuestion" runat="server" CssClass="EU_DataTable" AllowPaging="true"
+                PageSize="10" AutoGenerateSelectButton="True" OnRowDataBound="GV_historyQuestion_RowDataBound" OnSelectedIndexChanged="GV_historyQuestion_SelectedIndexChanged" OnPageIndexChanging="GridView1_PageIndexChanging">
+             </asp:GridView>
+        </div>           
+    </article></div>
+</asp:Content>

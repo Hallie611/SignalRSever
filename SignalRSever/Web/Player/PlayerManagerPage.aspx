@@ -1,27 +1,18 @@
-﻿<%@ Page Language="C#" AutoEventWireup="true" CodeBehind="PlayerManagerPage.aspx.cs" Inherits="SignalRSever.Web.UserManagerPage" %>
+﻿<%@ Page Title="Player Management" Language="C#" MasterPageFile="~/Web/MasterPage.Master" AutoEventWireup="true" CodeBehind="PlayerManagerPage.aspx.cs" Inherits="SignalRSever.Web.UserManagerPage" %>
+<asp:Content ID="Content1" ContentPlaceHolderID="head" runat="server">
 
-<!DOCTYPE html>
+</asp:Content>
 
-<html xmlns="http://www.w3.org/1999/xhtml">
-<head runat="server">
-    <title></title>
-</head>
-<body>
-    <form id="form1" runat="server">
-    <div>
-        <asp:GridView ID="GVPlayer" runat="server" OnSelectedIndexChanged="GVPlayer_SelectedIndexChanged" AutoGenerateSelectButton="True" BackColor="LightGoldenrodYellow" BorderColor="Tan" BorderWidth="1px" CellPadding="2" ForeColor="Black" GridLines="None" OnRowDataBound="GVPlayer_RowDataBound">
-            <AlternatingRowStyle BackColor="PaleGoldenrod" />
-            <FooterStyle BackColor="Tan" />
-            <HeaderStyle BackColor="Tan" Font-Bold="True" />
-            <PagerStyle BackColor="PaleGoldenrod" ForeColor="DarkSlateBlue" HorizontalAlign="Center" />
-            <SelectedRowStyle BackColor="DarkSlateBlue" ForeColor="GhostWhite" />
-            <SortedAscendingCellStyle BackColor="#FAFAE7" />
-            <SortedAscendingHeaderStyle BackColor="#DAC09E" />
-            <SortedDescendingCellStyle BackColor="#E1DB9C" />
-            <SortedDescendingHeaderStyle BackColor="#C2A47B" />
-        </asp:GridView>
-        <asp:Label ID="lblName" runat="server" Text="Label"></asp:Label>
-    </div>
-    </form>
-</body>
-</html>
+<asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" runat="server">
+    <div class="art-layout-cell art-content"><article class="art-post art-article">
+         <h2 class="art-postheader">Player Management</h2>                      
+         <div class="art-postcontent art-postcontent-0 clearfix"><p><br/></p></div> 
+
+         <div>
+            <asp:GridView ID="GVPlayer" runat="server" CssClass="EU_DataTable" AllowPaging="true"
+                PageSize="10" OnSelectedIndexChanged="GVPlayer_SelectedIndexChanged" AutoGenerateSelectButton="True" OnRowDataBound="GVPlayer_RowDataBound" OnPageIndexChanging="GridView1_PageIndexChanging">
+            </asp:GridView>
+        </div> 
+                  
+    </article></div>
+</asp:Content>

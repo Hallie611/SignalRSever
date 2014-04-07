@@ -16,10 +16,21 @@ namespace SignalRSever.Web.Question
 
             if (!IsPostBack)
             {
-                GV_historyQuestion.DataSource = manager.GetQuestionHistory();
-                GV_historyQuestion.DataBind();
+                BindData();
 
             }
+        }
+
+        void BindData()
+        {
+            GV_historyQuestion.DataSource = manager.GetQuestionHistory();
+            GV_historyQuestion.DataBind();
+        }
+
+        protected void GridView1_PageIndexChanging(object sender, GridViewPageEventArgs e)
+        {
+            GV_historyQuestion.PageIndex = e.NewPageIndex;
+            BindData();
         }
 
         protected void GV_historyQuestion_SelectedIndexChanged(object sender, EventArgs e)
