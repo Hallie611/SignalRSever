@@ -374,12 +374,6 @@
     <Content Include="Web\Player\PlayerManagerPage.aspx" />
     <Content Include="Web\Question\QuestionDetail.aspx" />
     <Content Include="Web\Question\QuestionHistory.aspx" />
-    <Content Include="DataAccess\SeverData.dbml">
-      <Generator>MSLinqToSQLGenerator</Generator>
-      <LastGenOutput>SeverData.designer.cs</LastGenOutput>
-      <SubType>Designer</SubType>
-    </Content>
-    <Content Include="ClassDiagram1.cd" />
     <Content Include="Web\script.js" />
     <Content Include="Web\script.responsive.js" />
     <Content Include="Web\style.css" />
