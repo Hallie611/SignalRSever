@@ -293,6 +293,20 @@ namespace SignalRSever.DataAccess
 			IExecuteResult result = this.ExecuteMethodCall(this, ((MethodInfo)(MethodInfo.GetCurrentMethod())), win, winPoint, loser, losePoint);
 			return ((int)(result.ReturnValue));
 		}
+		
+		[global::System.Data.Linq.Mapping.FunctionAttribute(Name="dbo.get_games_by_Name")]
+		public ISingleResult<get_games_by_NameResult> get_games_by_Name([global::System.Data.Linq.Mapping.ParameterAttribute(DbType="NVarChar(50)")] string player_name)
+		{
+			IExecuteResult result = this.ExecuteMethodCall(this, ((MethodInfo)(MethodInfo.GetCurrentMethod())), player_name);
+			return ((ISingleResult<get_games_by_NameResult>)(result.ReturnValue));
+		}
+		
+		[global::System.Data.Linq.Mapping.FunctionAttribute(Name="dbo.get_player_name")]
+		public ISingleResult<get_player_nameResult> get_player_name([global::System.Data.Linq.Mapping.ParameterAttribute(DbType="Int")] System.Nullable<int> playerID)
+		{
+			IExecuteResult result = this.ExecuteMethodCall(this, ((MethodInfo)(MethodInfo.GetCurrentMethod())), playerID);
+			return ((ISingleResult<get_player_nameResult>)(result.ReturnValue));
+		}
 	}
 	
 	[global::System.Data.Linq.Mapping.TableAttribute(Name="dbo.AnswerFillBlanks")]
@@ -3133,6 +3147,94 @@ namespace SignalRSever.DataAccess
 				if ((this._Type != value))
 				{
 					this._Type = value;
+				}
+			}
+		}
+	}
+	
+	public partial class get_games_by_NameResult
+	{
+		
+		private int _GameID;
+		
+		private System.Nullable<int> _WinerID;
+		
+		private System.Nullable<int> _LoserID;
+		
+		public get_games_by_NameResult()
+		{
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_GameID", DbType="Int NOT NULL")]
+		public int GameID
+		{
+			get
+			{
+				return this._GameID;
+			}
+			set
+			{
+				if ((this._GameID != value))
+				{
+					this._GameID = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_WinerID", DbType="Int")]
+		public System.Nullable<int> WinerID
+		{
+			get
+			{
+				return this._WinerID;
+			}
+			set
+			{
+				if ((this._WinerID != value))
+				{
+					this._WinerID = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_LoserID", DbType="Int")]
+		public System.Nullable<int> LoserID
+		{
+			get
+			{
+				return this._LoserID;
+			}
+			set
+			{
+				if ((this._LoserID != value))
+				{
+					this._LoserID = value;
+				}
+			}
+		}
+	}
+	
+	public partial class get_player_nameResult
+	{
+		
+		private string _PlayerName;
+		
+		public get_player_nameResult()
+		{
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_PlayerName", DbType="NVarChar(50)")]
+		public string PlayerName
+		{
+			get
+			{
+				return this._PlayerName;
+			}
+			set
+			{
+				if ((this._PlayerName != value))
+				{
+					this._PlayerName = value;
 				}
 			}
 		}

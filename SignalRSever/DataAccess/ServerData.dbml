@@ -247,4 +247,18 @@
     <Parameter Name="LosePoint" Parameter="losePoint" Type="System.Int32" DbType="Int" />
     <Return Type="System.Int32" />
   </Function>
+  <Function Name="dbo.get_games_by_Name" Method="get_games_by_Name">
+    <Parameter Name="player_name" Type="System.String" DbType="NVarChar(50)" />
+    <ElementType Name="get_games_by_NameResult">
+      <Column Name="GameID" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="WinerID" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="LoserID" Type="System.Int32" DbType="Int" CanBeNull="true" />
+    </ElementType>
+  </Function>
+  <Function Name="dbo.get_player_name" Method="get_player_name">
+    <Parameter Name="playerID" Type="System.Int32" DbType="Int" />
+    <ElementType Name="get_player_nameResult">
+      <Column Name="PlayerName" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
+    </ElementType>
+  </Function>
 </Database>

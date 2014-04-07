@@ -5,6 +5,7 @@ using System.Web;
 using System.Web.UI;
 using System.Web.UI.WebControls;
 using SignalRSever.Business;
+using System.Data;
 
 namespace SignalRSever.Web.Player
 {
@@ -24,6 +25,8 @@ namespace SignalRSever.Web.Player
 
         void BindData(string name)
         {
+            GV_games.DataSource = manager.GetGamesByUser(name);
+            GV_games.DataBind();
             GVPlayer_Detail.DataSource = manager.GetQuestionsByUser(name);
             GVPlayer_Detail.DataBind();
         }

@@ -52,6 +52,37 @@ namespace SignalRSever.Business
             return new Client { name = player.PlayerName, level = (int)player.PlayerLevel, point = (int)player.PlayerPoint };
         }
 
+        public DataTable GetGamesByUser(string name)
+        {
+            DataTable result = new DataTable();
+            result.Columns.Add(new DataColumn("Game ID", typeof(int)));
+            result.Columns.Add(new DataColumn("Opponent", typeof(string)));
+            result.Columns.Add(new DataColumn("Result", typeof(string)));
+            var games = severdata.get_games_by_Name(name);
+            foreach( var g in games)
+            {
+
+                string winner = severdata.get_player_name(g.WinerID).FirstOrDefault().PlayerName;
+
+                string loser = severdata.get_player_name(g.LoserID).FirstOrDefault().PlayerName;
+                DataRow dr = result.NewRow();
+                dr["Game ID"] = g.GameID;
+                if (winner == name)
+                {
+                    dr["Opponent"] = loser;
+                    dr["Result"] = "WIN";
+                }
+                else
+                {
+                    dr["Opponent"] = winner;
+                    dr["Result"] = "LOSE";
+                }
+                result.Rows.Add(dr);
+            }
+
+            return result;
+        }
+
         public DataTable Get_allPlayer()
         {
             DataTable result = new DataTable();
