@@ -402,7 +402,11 @@
       <DependentUpon>Model1.edmx</DependentUpon>
       <LastGenOutput>Model1.cs</LastGenOutput>
     </Content>
-    <Content Include="ClassDiagram2.cd" />
+    <Content Include="DataAccess\ServerData.dbml">
+      <Generator>MSLinqToSQLGenerator</Generator>
+      <LastGenOutput>ServerData.designer.cs</LastGenOutput>
+      <SubType>Designer</SubType>
+    </Content>
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
@@ -431,10 +435,10 @@
     </Compile>
     <Compile Include="Business\PlayerManager.cs" />
     <Compile Include="Business\QuestionManagers.cs" />
-    <Compile Include="DataAccess\SeverData.designer.cs">
+    <Compile Include="DataAccess\ServerData.designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
-      <DependentUpon>SeverData.dbml</DependentUpon>
+      <DependentUpon>ServerData.dbml</DependentUpon>
     </Compile>
     <Compile Include="Entities\Match.cs" />
     <Compile Include="Entities\Client.cs" />
@@ -533,12 +537,12 @@
     <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="DataAccess\SeverData.dbml.layout">
-      <DependentUpon>SeverData.dbml</DependentUpon>
-    </None>
+    <Folder Include="PresentLayer\" />
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="PresentLayer\" />
+    <None Include="DataAccess\ServerData.dbml.layout">
+      <DependentUpon>ServerData.dbml</DependentUpon>
+    </None>
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>

@@ -10,7 +10,7 @@ namespace SignalRSever.Business
 {
     public class QuestionManagers
     {
-        public SeverDataDataContext severdata = new SeverDataDataContext();
+        public ServerDataDataContext severdata = new ServerDataDataContext();
 
         public DataTable GetQuestionByID(int ID)
         {

@@ -37,7 +37,8 @@ namespace SignalRSever
                 {
                     Client playerOut = game.Player1.connectionId == Context.ConnectionId ? game.Player1 : game.Player2;
                     Clients.Client(playerOut.opponent.connectionId).OpponentDisconnect();
-
+                    playerOut.opponent.lookingForOpponent = false;
+                    playerOut.opponent.isReady = false;
                     playerManager.UpdatePoint(playerOut.opponent.name, 5, playerOut.name, 0);
                     listMatches.Remove(game);
 
@@ -166,20 +167,29 @@ namespace SignalRSever
         public void playerReady()
         {
             var game = listMatches.FirstOrDefault(x => x.Player1.connectionId == Context.ConnectionId || x.Player2.connectionId == Context.ConnectionId);
-            if (game == null || game.IsGameOver) return;
-
-
+//            if (game == null || game.IsGameOver) return;
+            var player = game.Player1.connectionId == Context.ConnectionId ? game.Player1 : game.Player2;
+            
             if (game.Player1.connectionId == Context.ConnectionId)
+            {
                 game.Player1.isReady = true;
+            }
             else
+            {
                 game.Player2.isReady = true;
+            }
+
 
             if (game.Player1.isReady == true && game.Player2.isReady == true)
             {
-
                 Clients.Client(game.Player1.connectionId).gameReady();
                 Clients.Client(game.Player2.connectionId).gameReady();
             }
+            else
+            {
+                Clients.Client(player.opponent.connectionId).oponentReady(player.name);
+            }
+            
         }
 
 

@@ -11,7 +11,7 @@ namespace SignalRSever.Business
 {
     public class PlayerManager
     {
-        public SeverDataDataContext severdata = new SeverDataDataContext();
+        public ServerDataDataContext severdata = new ServerDataDataContext();
 
         public void UpdatePoint(string winner, int winPoint, string loser, int lossPoint)
         {
