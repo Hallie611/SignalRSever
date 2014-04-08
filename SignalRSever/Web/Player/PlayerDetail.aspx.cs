@@ -13,10 +13,37 @@ namespace SignalRSever.Web.Player
     {
         PlayerManager manager = new PlayerManager();
         static string name;
+        static string level;
+        static string point;
+        static string win;
+        static string lose;
         protected void Page_Load(object sender, EventArgs e)
         {
             name = Request.QueryString["name"];
+            level = Request.QueryString["level"];
+            point = Request.QueryString["point"];
+            win = Request.QueryString["win"];
+            lose = Request.QueryString["lose"];
+
             lblname.Text = name;
+            lbllevel.Text = level;
+            lblpoint.Text = point;
+            lblwin.Text = win;
+            lbllose.Text = lose;
+
+            int winpie = Int32.Parse(win);
+            int losepie = Int32.Parse(lose);
+
+            int[] yValues = { winpie, losepie };
+            string[] xValues = { "Win", "Lose" };
+            Chart1.Series["Series1"].Points.DataBindXY(xValues, yValues);
+
+            Chart1.Series["Series1"]["PieLabelStyle"] = "Disabled";
+            Chart1.ChartAreas["ChartArea1"].Area3DStyle.Enable3D = true;
+            Chart1.Legends[0].Enabled = true;
+            Chart1.Series["Series1"].Label = "#VAL";
+            Chart1.Series["Series1"].LegendText = "#VALX" + " (" + "#PERCENT{P1}" + ")";
+
             if (!IsPostBack)
             {
                 BindData(name);

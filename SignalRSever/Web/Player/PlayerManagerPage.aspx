@@ -10,7 +10,7 @@
 
          <div>
             <asp:GridView ID="GVPlayer" runat="server" CssClass="EU_DataTable" AllowPaging="true"
-                PageSize="10" OnSelectedIndexChanged="GVPlayer_SelectedIndexChanged" AutoGenerateSelectButton="True" OnRowDataBound="GVPlayer_RowDataBound" OnPageIndexChanging="GridView1_PageIndexChanging">
+                PageSize="10" OnSelectedIndexChanged="GVPlayer_SelectedIndexChanged" AutoGenerateSelectButton="True" OnRowDataBound="GVPlayer_RowDataBound" OnPageIndexChanging="GridView1_PageIndexChanging" AllowSorting="True" OnSorting="GridView1_Sorting">
             </asp:GridView>
         </div> 
                   

@@ -16,26 +16,24 @@ namespace SignalRSever.Web
         {
             if (!IsPostBack)
             {
-                BindData();
+                Session["data"] = manager.Get_allPlayer();
+                GVPlayer.DataSource = Session["data"];
+                GVPlayer.DataBind();
             }
-        }
-
-        void BindData()
-        {
-            GVPlayer.DataSource = manager.Get_allPlayer();
-            GVPlayer.DataBind();
         }
 
         protected void GridView1_PageIndexChanging(object sender, GridViewPageEventArgs e)
         {
+            GVPlayer.DataSource = Session["data"];
             GVPlayer.PageIndex = e.NewPageIndex;
-            BindData();
+            GVPlayer.DataBind();
         }
 
         protected void GVPlayer_SelectedIndexChanged(object sender, EventArgs e)
         {
             GridViewRow gr = GVPlayer.SelectedRow;
-            Response.Redirect("PlayerDetail.aspx?name=" + gr.Cells[1].Text);
+            Response.Redirect("PlayerDetail.aspx?name=" + gr.Cells[1].Text + "&level=" + gr.Cells[2].Text
+                + "&point=" + gr.Cells[3].Text + "&win=" + gr.Cells[4].Text + "&lose=" + gr.Cells[5].Text);
         }
 
         protected void GVPlayer_RowDataBound(object sender, GridViewRowEventArgs e)
@@ -57,6 +55,53 @@ namespace SignalRSever.Web
                 e.Row.Attributes["onclick"] =
                   ClientScript.GetPostBackClientHyperlink(this.GVPlayer, "Select$" + e.Row.RowIndex);
             }
+        }
+
+        protected void GridView1_Sorting(object sender, GridViewSortEventArgs e)
+        {
+            string sortExpression = e.SortExpression;
+            if (GridViewSortDirection == SortDirection.Ascending)
+            {
+                GridViewSortDirection = SortDirection.Descending;
+                SortGridView(sortExpression, DESCENDING);
+            }
+            else
+            {
+                GridViewSortDirection = SortDirection.Ascending;
+                SortGridView(sortExpression, ASCENDING);
+            }
+        }
+
+        private const string ASCENDING = " ASC";
+        private const string DESCENDING = " DESC";
+
+        public SortDirection GridViewSortDirection
+        {
+            get
+            {
+                if (ViewState["sortDirection"] == null)
+                {
+                    ViewState["sortDirection"] = SortDirection.Ascending;
+                }
+                return (SortDirection)ViewState["sortDirection"];
+            }
+            set
+            {
+                ViewState["sortDirection"] = value;
+            }
+        }
+
+        private void SortGridView(string sortExpression, string direction)
+        {
+            DataTable dt = new DataTable();
+            dt = Session["data"] as DataTable;
+            DataView dv = new DataView(dt);
+            dv.Sort = sortExpression + direction;
+            DataTable dt2 = new DataTable();
+            dt2 = dv.ToTable();
+            Session["data"] = dt2;
+            GVPlayer.DataSource = dv;
+            GVPlayer.DataBind();
         }
     }
 }

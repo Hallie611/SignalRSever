@@ -75,6 +75,7 @@
     <Reference Include="System.Web.Cors">
       <HintPath>..\packages\Microsoft.AspNet.Cors.5.0.0\lib\net45\System.Web.Cors.dll</HintPath>
     </Reference>
+    <Reference Include="System.Web.DataVisualization" />
     <Reference Include="System.Web.DynamicData" />
     <Reference Include="System.Web.Entity" />
     <Reference Include="System.Web.ApplicationServices" />
@@ -369,7 +370,6 @@
     <Content Include="Web\images\vimeoicon.png" />
     <Content Include="Web\images\youtubeicon.png" />
     <Content Include="Web\jquery.js" />
-    <Content Include="Web\Login.aspx" />
     <Content Include="Web\Player\PlayerDetail.aspx" />
     <Content Include="Web\Player\PlayerManagerPage.aspx" />
     <Content Include="Web\Question\QuestionDetail.aspx" />
@@ -482,13 +482,6 @@
     </Compile>
     <Compile Include="Web\Home.aspx.designer.cs">
       <DependentUpon>Home.aspx</DependentUpon>
-    </Compile>
-    <Compile Include="Web\Login.aspx.cs">
-      <DependentUpon>Login.aspx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
-    </Compile>
-    <Compile Include="Web\Login.aspx.designer.cs">
-      <DependentUpon>Login.aspx</DependentUpon>
     </Compile>
     <Compile Include="Web\MasterPage.Master.cs">
       <DependentUpon>MasterPage.Master</DependentUpon>

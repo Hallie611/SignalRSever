@@ -51,7 +51,7 @@
 </header>
 
 <nav class="art-nav">
-    <ul class="art-hmenu"><li><a href="/Web/Home.aspx" class="">Home</a></li><li><a href="" class="active">Report</a><ul class="active"><li><a href="/Web/Player/PlayerManagerPage.aspx" class="active">Player</a></li><li><a href="/Web/Question/QuestionHistory.aspx">Questions</a></li></ul></li></ul> 
+    <ul class="art-hmenu"><li><a href="/Web/Player/PlayerManagerPage.aspx" class="">Player Report</a></li><li><a href="/Web/Question/QuestionHistory.aspx" class="">Question Report</a></li></ul> 
     </nav>
 <div class="art-sheet clearfix">
             <div class="art-layout-wrapper">
