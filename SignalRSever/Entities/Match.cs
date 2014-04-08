@@ -17,7 +17,9 @@ namespace SignalRSever.Entities
         public int[,] score { get; set; }
         public List<Question> listQ { get; set; }
         public PlayerManager playerManager = new PlayerManager();
-        private int QuestionLeft = 3;
+        public int QuestionLeft ;
+        public int QuestionCorrect;
+
 
         public Match()
         {
@@ -31,7 +33,7 @@ namespace SignalRSever.Entities
         /// <returns>True if a winner was found</returns>
         public bool Play(Client player, int posion, int mark, bool getMaxPoint)
         {
-            
+            QuestionLeft--;
             if (posion == 0)
             {
                 if (score[1, 0] > score[2, 0])
@@ -47,6 +49,7 @@ namespace SignalRSever.Entities
 
             if (getMaxPoint)
             {
+                QuestionCorrect--;
                 QuestionLeft--;
             }
 
@@ -61,7 +64,7 @@ namespace SignalRSever.Entities
                 score[2, 0] += mark;
             }
 
-            if (QuestionLeft <= 0)
+            if (QuestionLeft <= 0 || QuestionCorrect<=0)
             {
                 if (score[1, 0] > score[2, 0])
                     Winner = Player1;

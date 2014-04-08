@@ -149,7 +149,8 @@ namespace SignalRSever
                 int dif = game.Player1.level < game.Player2.level ? game.Player1.level : game.Player2.level;
 
                 game.listQ = questionManager.RandomQuestion(dif);
-
+                game.QuestionCorrect = game.listQ.Count;
+                game.QuestionLeft = game.listQ.Count * 2;
 
                 game.score = new int[3, game.listQ.Count + 1];
                 //Reset game
@@ -158,7 +159,14 @@ namespace SignalRSever
                     game.score[1, i] = 0;
                     game.score[2, i] = 0;
                 }
-                Clients.Client(game.Player1.connectionId).getQuestionList(game.listQ);
+                //for (int i = 0; i < game.listQ.Count; i++)
+                //{
+                //    if (game.listQ[i].type == "Single Choice")
+                //    {
+                //        game.listQ[i].questionId = 2002;
+                //    }
+                //}
+                    Clients.Client(game.Player1.connectionId).getQuestionList(game.listQ);
                 Clients.Client(game.Player2.connectionId).getQuestionList(game.listQ);
             }
 
