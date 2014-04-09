@@ -124,7 +124,6 @@ namespace SignalRSever
             var opponent = listClient.Where(x => x.connectionId != Context.ConnectionId && x.lookingForOpponent).OrderBy(x => Guid.NewGuid()).FirstOrDefault();
             if (opponent == null)
             {
-                Clients.Client(Context.ConnectionId).noOpponents();
                 return;
             }
             // Set both players as busy
@@ -132,10 +131,6 @@ namespace SignalRSever
             opponent.lookingForOpponent = false;
             player.opponent = opponent;
             opponent.opponent = player;
-
-
-           
-
             // Notify both players that a game was found
             Clients.Client(Context.ConnectionId).foundOpponent(new { oName = opponent.name, oLevel = opponent.level, oPoint = opponent.point });
             Clients.Client(opponent.connectionId).foundOpponent(new { oName = player.name, oLevel = player.level, oPoint = player.point });
@@ -171,6 +166,13 @@ namespace SignalRSever
             }
 
         }
+
+        public void foundNoOpponents()
+        {
+            Client player = listClient.FirstOrDefault(x=> x.connectionId == Context.ConnectionId);
+            player.lookingForOpponent = false;
+        }
+
 
         public void playerReady()
         {
