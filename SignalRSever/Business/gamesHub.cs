@@ -207,7 +207,7 @@ namespace SignalRSever
         /// Play a marker at a given positon
         /// </summary>
         /// <param name="position">The position where to place the marker</param>
-        public void postAnswer(int position, int mark, bool getMaxPoint)
+        public void postAnswer (int position, int mark, bool getMaxPoint)
         {
             // Find the game where there is a player1 and player2 and either of them have the current connection id
             var game = listMatches.FirstOrDefault(x => x.Player1.connectionId == Context.ConnectionId || x.Player2.connectionId == Context.ConnectionId);
