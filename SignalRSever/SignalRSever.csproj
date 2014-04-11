@@ -442,12 +442,6 @@
     <Compile Include="Histories.cs">
       <DependentUpon>Model1.tt</DependentUpon>
     </Compile>
-    <Compile Include="isAlive.txt.cs">
-      <SubType>ASPXCodeBehind</SubType>
-    </Compile>
-    <Compile Include="isAlive.txt.designer.cs">
-      <DependentUpon>isAlive.txt.cs</DependentUpon>
-    </Compile>
     <Compile Include="ListAnswerMC.cs">
       <DependentUpon>Model1.tt</DependentUpon>
     </Compile>
