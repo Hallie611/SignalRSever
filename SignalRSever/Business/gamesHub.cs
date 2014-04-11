@@ -82,7 +82,7 @@ namespace SignalRSever
                 }
                 else
                 {
-                   // Clients.Client(Context.ConnectionId).TrySave(false);
+                    // Clients.Client(Context.ConnectionId).TrySave(false);
                 }
                 return false;
             }
@@ -153,15 +153,20 @@ namespace SignalRSever
                 {
                     game.score[1, i] = 0;
                     game.score[2, i] = 0;
+
                 }
-                //for (int i = 0; i < game.listQ.Count; i++)
-                //{
-                //    if (game.listQ[i].type == "Single Choice")
-                //    {
-                //        game.listQ[i].questionId = 2002;
-                //    }
-                //}
-                    Clients.Client(game.Player1.connectionId).getQuestionList(game.listQ);
+
+
+                if (game.listQ[0].type == "Single Choice")
+                {
+                    game.listQ[0].type = "Fill Blanks";
+                    game.listQ[0].questionId = game.listQ[0].questionId - 1000;
+                }
+
+
+
+
+                Clients.Client(game.Player1.connectionId).getQuestionList(game.listQ);
                 Clients.Client(game.Player2.connectionId).getQuestionList(game.listQ);
             }
 
@@ -169,17 +174,18 @@ namespace SignalRSever
 
         public void foundNoOpponents()
         {
-            Client player = listClient.FirstOrDefault(x=> x.connectionId == Context.ConnectionId);
-            player.lookingForOpponent = false;
+            Client player = listClient.FirstOrDefault(x => x.connectionId == Context.ConnectionId);
+            if (player != null)
+                player.lookingForOpponent = false;
         }
 
 
         public void playerReady()
         {
             var game = listMatches.FirstOrDefault(x => x.Player1.connectionId == Context.ConnectionId || x.Player2.connectionId == Context.ConnectionId);
-//            if (game == null || game.IsGameOver) return;
+            //            if (game == null || game.IsGameOver) return;
             var player = game.Player1.connectionId == Context.ConnectionId ? game.Player1 : game.Player2;
-            
+
             if (game.Player1.connectionId == Context.ConnectionId)
             {
                 game.Player1.isReady = true;
@@ -199,7 +205,7 @@ namespace SignalRSever
             {
                 Clients.Client(player.opponent.connectionId).oponentReady(player.name);
             }
-            
+
         }
 
 
@@ -207,7 +213,7 @@ namespace SignalRSever
         /// Play a marker at a given positon
         /// </summary>
         /// <param name="position">The position where to place the marker</param>
-        public void postAnswer (int position, int mark, bool getMaxPoint)
+        public void postAnswer(int position, int mark, bool getMaxPoint)
         {
             // Find the game where there is a player1 and player2 and either of them have the current connection id
             var game = listMatches.FirstOrDefault(x => x.Player1.connectionId == Context.ConnectionId || x.Player2.connectionId == Context.ConnectionId);
@@ -227,6 +233,11 @@ namespace SignalRSever
                 game.Player2.lookingForOpponent = false;
                 game.Player1.isReady = false;
                 game.Player2.isReady = false;
+
+
+                Clients.Client(game.Player1.connectionId).updateCorrectedQuestion(new { Name = PlayerSummit.name, index = position, point = mark, isMax = getMaxPoint });
+                Clients.Client(game.Player2.connectionId).updateCorrectedQuestion(new { Name = PlayerSummit.name, index = position, point = mark, isMax = getMaxPoint });
+
 
                 if (game.Winner == null)
                 {
