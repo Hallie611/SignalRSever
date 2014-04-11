@@ -2,155 +2,147 @@
 
 .art-header, #art-header-bg, .art-layout-cell, .art-layout-wrapper, .art-footer, .art-nav, #art-hmenu-bg, .art-sheet,
 .clearfix {
-   zoom: expression(this.runtimeStyle.zoom="1", this.appendChild(document.createElement("br")).className="cleared");
+    zoom: expression(this.runtimeStyle.zoom="1", this.appendChild(document.createElement("br")).className="cleared");
 }
 
 .art-textblock > div {
-   display: block;
-   line-height: normal;
-   zoom: 1;
+    display: block;
+    line-height: normal;
+    zoom: 1;
 }
 
-.art-header
-{
-   z-index: 1;
-   background-image: [headerimage];
-   background-position: [headerposition];
+.art-header {
+    z-index: 1;
+    background-image: [headerimage];
+    background-position: [headerposition];
 }
 
-#art-header-bg 
-{
-   display: none;
+#art-header-bg {
+    display: none;
 }
 
-.art-hmenu>li, .art-hmenu>li>a
-{
-   display: inline !important;
-   zoom: 1;
-   float: none !important;
-   vertical-align: top;
+.art-hmenu > li, .art-hmenu > li > a {
+    display: inline !important;
+    zoom: 1;
+    float: none !important;
+    vertical-align: top;
 }
+
 ul.art-hmenu, ul.art-hmenu ul {
-   zoom: expression(this.runtimeStyle.zoom="1", this.appendChild(document.createElement("br")).className="cleared");
-}
-#art-hmenu-bg 
-{
-   display: none;
+    zoom: expression(this.runtimeStyle.zoom="1", this.appendChild(document.createElement("br")).className="cleared");
 }
 
-ul.art-hmenu>li:first-child {
-   padding-right:8px;
+#art-hmenu-bg {
+    display: none;
 }
 
-ul.art-hmenu ul{
-   background-color: rgba(112, 112, 112, 0.9) !important;
+ul.art-hmenu > li:first-child {
+    padding-right: 8px;
 }
 
-.art-content-layout, .art-content-layout-row, .art-layout-cell 
-{
-   display: block;
-   zoom: 1;
-}
-.art-layout-cell
-{
-   position:relative;
-   float: left;
-   clear: right;
+ul.art-hmenu ul {
+    background-color: rgba(112, 112, 112, 0.9) !important;
 }
 
-input[type="text"]
-{
-   margin:0 0 0 -3px;
-   zoom:expression(runtimeStyle.zoom = 1, parentNode.insertBefore(document.createElement('div'), this).appendChild(this));
+.art-content-layout, .art-content-layout-row, .art-layout-cell {
+    display: block;
+    zoom: 1;
 }
 
-* html input[type="text"]
-{
-   margin :0;
+.art-layout-cell {
+    position: relative;
+    float: left;
+    clear: right;
 }
 
-form.art-search>input[type="text"]
-{
-   margin:0 0 0 -3px;
-   zoom:expression(runtimeStyle.zoom = 1, parentNode.insertBefore(document.createElement('div'), this).appendChild(this));
+input[type="text"] {
+    margin: 0 0 0 -3px;
+    zoom: expression(runtimeStyle.zoom = 1, parentNode.insertBefore(document.createElement('div'), this).appendChild(this));
 }
 
-form.art-search div>input[type="text"]
-{
-   width: 100%;
+* html input[type="text"] {
+    margin: 0;
 }
 
-* html form.art-search>input[type="text"] 
-{
-   margin :0;
+form.art-search > input[type="text"] {
+    margin: 0 0 0 -3px;
+    zoom: expression(runtimeStyle.zoom = 1, parentNode.insertBefore(document.createElement('div'), this).appendChild(this));
 }
 
-form.art-search
-{
-   zoom: 1;
+form.art-search div > input[type="text"] {
+    width: 100%;
 }
-.art-postheadericons span{
-   zoom: 1;
+
+* html form.art-search > input[type="text"] {
+    margin: 0;
 }
+
+form.art-search {
+    zoom: 1;
+}
+
+.art-postheadericons span {
+    zoom: 1;
+}
+
 .art-postcontent {
-   height: 1%;
+    height: 1%;
 }
 
-.art-postfootericons span{
-   zoom: 1;
+.art-postfootericons span {
+    zoom: 1;
 }
+
 .close-alt, .arrow-right-alt, .arrow-left-alt {
-   display: block !important;
-}
-.cw, .ccw {
-   display: none !important;
+    display: block !important;
 }
 
-.art-content 
-{
-   width: auto;
-   float:none;
+.cw, .ccw {
+    display: none !important;
+}
+
+.art-content {
+    width: auto;
+    float: none;
 }
 
 /*----------------data Table GridView Css----------------------*/
-        .EU_DataTable
-        {
-            border-collapse: collapse;
-            width:100%;
-        }
-            .EU_DataTable tr th
-            {
-                background-color: #bfc5ce;
-                color: #ffffff;
-                padding: 10px 5px 10px 5px;
-                border: 1px solid #cccccc;
-                font-family: Arial, Helvetica, sans-serif;
-                font-size: 12px;
-                font-weight: normal;
-                text-transform:capitalize;
-            }
-            .EU_DataTable tr:nth-child(2n+2)
-            {
-                background-color: #f3f4f5;
-            }
+.EU_DataTable {
+    border-collapse: collapse;
+    width: 100%;
+}
 
-            .EU_DataTable tr:nth-child(2n+1) td
-            {
-                background-color: #d6dadf;
-                color: #454545;
-            }
-            .EU_DataTable tr td
-            {
-                padding: 5px 10px 5px 10px;
-                color: #454545;
-                font-family: Arial, Helvetica, sans-serif;
-                font-size: 11px;
-                border: 1px solid #cccccc;
-                vertical-align: middle;
-            }
-                .EU_DataTable tr td:first-child
-                {
-                    text-align: center;
-                }
-        /*-----------------------------------------------------------------*/
+    .EU_DataTable tr th {
+        background-color: #3c454f;
+        color: #ffffff;
+        padding: 10px 5px 10px 5px;
+        border: 1px solid #cccccc;
+        font-family: Arial, Helvetica, sans-serif;
+        font-size: 12px;
+        font-weight: normal;
+        text-transform: capitalize;
+    }
+
+    .EU_DataTable tr:nth-child(2n+2) {
+        background-color: #f3f4f5;
+    }
+
+    .EU_DataTable tr:nth-child(2n+1) td {
+        background-color: #d6dadf;
+        color: #454545;
+    }
+
+    .EU_DataTable tr td {
+        padding: 5px 10px 5px 10px;
+        color: #454545;
+        font-family: Arial, Helvetica, sans-serif;
+        font-size: 11px;
+        border: 1px solid #cccccc;
+        vertical-align: middle;
+    }
+
+        .EU_DataTable tr td:first-child {
+            text-align: center;
+        }
+/*-----------------------------------------------------------------*/
 
