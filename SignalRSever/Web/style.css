@@ -501,7 +501,7 @@ font-variant: normal;
 
 .art-header
 {
-   border:1px solid #2B2B2B;
+   border:0px solid #2B2B2B;
    margin:0 auto;
    background-repeat: no-repeat;
    height: 300px;
