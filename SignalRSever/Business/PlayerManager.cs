@@ -37,6 +37,7 @@ namespace SignalRSever.Business
             return true;
         }
 
+
         public void AddUser(string username)
         {
             severdata.Insert_Player(username);
