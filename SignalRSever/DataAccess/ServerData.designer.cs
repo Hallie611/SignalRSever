@@ -280,13 +280,6 @@ namespace SignalRSever.DataAccess
 			return ((ISingleResult<Random_question_by_difResult>)(result.ReturnValue));
 		}
 		
-		[global::System.Data.Linq.Mapping.FunctionAttribute(Name="dbo.update_player_info")]
-		public int update_player_info([global::System.Data.Linq.Mapping.ParameterAttribute(Name="Name", DbType="NVarChar(50)")] string name, [global::System.Data.Linq.Mapping.ParameterAttribute(Name="Level", DbType="Int")] System.Nullable<int> level, [global::System.Data.Linq.Mapping.ParameterAttribute(Name="Point", DbType="Int")] System.Nullable<int> point)
-		{
-			IExecuteResult result = this.ExecuteMethodCall(this, ((MethodInfo)(MethodInfo.GetCurrentMethod())), name, level, point);
-			return ((int)(result.ReturnValue));
-		}
-		
 		[global::System.Data.Linq.Mapping.FunctionAttribute(Name="dbo.update_point")]
 		public int update_point([global::System.Data.Linq.Mapping.ParameterAttribute(Name="Win", DbType="NVarChar(50)")] string win, [global::System.Data.Linq.Mapping.ParameterAttribute(Name="WinPoint", DbType="Int")] System.Nullable<int> winPoint, [global::System.Data.Linq.Mapping.ParameterAttribute(Name="Loser", DbType="NVarChar(50)")] string loser, [global::System.Data.Linq.Mapping.ParameterAttribute(Name="LosePoint", DbType="Int")] System.Nullable<int> losePoint)
 		{
@@ -306,6 +299,13 @@ namespace SignalRSever.DataAccess
 		{
 			IExecuteResult result = this.ExecuteMethodCall(this, ((MethodInfo)(MethodInfo.GetCurrentMethod())), playerID);
 			return ((ISingleResult<get_player_nameResult>)(result.ReturnValue));
+		}
+		
+		[global::System.Data.Linq.Mapping.FunctionAttribute(Name="dbo.update_player_info")]
+		public int update_player_info([global::System.Data.Linq.Mapping.ParameterAttribute(Name="Name", DbType="NVarChar(50)")] string name, [global::System.Data.Linq.Mapping.ParameterAttribute(Name="Level", DbType="Int")] System.Nullable<int> level, [global::System.Data.Linq.Mapping.ParameterAttribute(Name="Point", DbType="Int")] System.Nullable<int> point)
+		{
+			IExecuteResult result = this.ExecuteMethodCall(this, ((MethodInfo)(MethodInfo.GetCurrentMethod())), name, level, point);
+			return ((int)(result.ReturnValue));
 		}
 	}
 	

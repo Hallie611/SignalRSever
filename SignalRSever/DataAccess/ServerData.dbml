@@ -234,12 +234,6 @@
       <Column Name="Type" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
     </ElementType>
   </Function>
-  <Function Name="dbo.update_player_info" Method="update_player_info">
-    <Parameter Name="Name" Parameter="name" Type="System.String" DbType="NVarChar(50)" />
-    <Parameter Name="Level" Parameter="level" Type="System.Int32" DbType="Int" />
-    <Parameter Name="Point" Parameter="point" Type="System.Int32" DbType="Int" />
-    <Return Type="System.Int32" />
-  </Function>
   <Function Name="dbo.update_point" Method="update_point">
     <Parameter Name="Win" Parameter="win" Type="System.String" DbType="NVarChar(50)" />
     <Parameter Name="WinPoint" Parameter="winPoint" Type="System.Int32" DbType="Int" />
@@ -260,5 +254,11 @@
     <ElementType Name="get_player_nameResult">
       <Column Name="PlayerName" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
     </ElementType>
+  </Function>
+  <Function Name="dbo.update_player_info" Method="update_player_info">
+    <Parameter Name="Name" Parameter="name" Type="System.String" DbType="NVarChar(50)" />
+    <Parameter Name="Level" Parameter="level" Type="System.Int32" DbType="Int" />
+    <Parameter Name="Point" Parameter="point" Type="System.Int32" DbType="Int" />
+    <Return Type="System.Int32" />
   </Function>
 </Database>
