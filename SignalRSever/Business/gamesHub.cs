@@ -128,7 +128,6 @@ namespace SignalRSever
             }
             else
             {
-
                 // Set both players as busy
                 player.lookingForOpponent = false;
                 opponent.lookingForOpponent = false;
