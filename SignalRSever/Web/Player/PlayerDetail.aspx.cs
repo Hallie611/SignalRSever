@@ -5,6 +5,7 @@ using System.Web;
 using System.Web.UI;
 using System.Web.UI.WebControls;
 using SignalRSever.Business;
+using SignalRSever.Entities;
 using System.Data;
 
 namespace SignalRSever.Web.Player
@@ -12,29 +13,24 @@ namespace SignalRSever.Web.Player
     public partial class PlayerDetail : System.Web.UI.Page
     {
         PlayerManager manager = new PlayerManager();
+
         static string name;
-        static string level;
-        static string point;
-        static string win;
-        static string lose;
+
         protected void Page_Load(object sender, EventArgs e)
         {
             name = Request.QueryString["name"];
-            level = Request.QueryString["level"];
-            point = Request.QueryString["point"];
-            win = Request.QueryString["win"];
-            lose = Request.QueryString["lose"];
+            int level = manager.GetPlayerInfo4PlayerDetailPage(name).level;
+            int point = manager.GetPlayerInfo4PlayerDetailPage(name).point;
+            int win = manager.GetPlayerInfo4PlayerDetailPage(name).win;
+            int lose = manager.GetPlayerInfo4PlayerDetailPage(name).lose;
 
             lblname.Text = name;
-            lbllevel.Text = level;
-            lblpoint.Text = point;
-            lblwin.Text = win;
-            lbllose.Text = lose;
+            lbllevel.Text = level.ToString();
+            lblpoint.Text = point.ToString();
+            lblwin.Text = win.ToString();
+            lbllose.Text = lose.ToString();
 
-            int winpie = Int32.Parse(win);
-            int losepie = Int32.Parse(lose);
-
-            int[] yValues = { winpie, losepie };
+            int[] yValues = { win, lose };
             string[] xValues = { "Win", "Lose" };
             Chart1.Series["Series1"].Points.DataBindXY(xValues, yValues);
 
@@ -67,7 +63,12 @@ namespace SignalRSever.Web.Player
         protected void GVPlayer_Detail_SelectedIndexChanged(object sender, EventArgs e)
         {
             GridViewRow gr = GVPlayer_Detail.SelectedRow;
-            Response.Redirect("../Question/QuestionDetail.aspx?ID=" + gr.Cells[1].Text);
+            if (gr.Cells[2].Text == "Find Bugs")
+            { Response.Redirect("QuestionDetailFindBugs.aspx?ID=" + gr.Cells[1].Text); }
+            else if (gr.Cells[2].Text == "Fill Blanks")
+            { Response.Redirect("QuestionDetailFillBlank.aspx?ID=" + gr.Cells[1].Text); }
+            else
+            { Response.Redirect("QuestionDetailSingleChoice.aspx?ID=" + gr.Cells[1].Text); }
         }
 
         protected void GVPlayer_Detail_RowDataBound(object sender, GridViewRowEventArgs e)

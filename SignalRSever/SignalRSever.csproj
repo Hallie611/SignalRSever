@@ -372,7 +372,9 @@
     <Content Include="Web\jquery.js" />
     <Content Include="Web\Player\PlayerDetail.aspx" />
     <Content Include="Web\Player\PlayerManagerPage.aspx" />
-    <Content Include="Web\Question\QuestionDetail.aspx" />
+    <Content Include="Web\Question\QuestionDetailFillBlank.aspx" />
+    <Content Include="Web\Question\QuestionDetailFindBugs.aspx" />
+    <Content Include="Web\Question\QuestionDetailSingleChoice.aspx" />
     <Content Include="Web\Question\QuestionHistory.aspx" />
     <Content Include="Web\script.js" />
     <Content Include="Web\script.responsive.js" />
@@ -504,12 +506,26 @@
     <Compile Include="Web\Player\PlayerManagerPage.aspx.designer.cs">
       <DependentUpon>PlayerManagerPage.aspx</DependentUpon>
     </Compile>
-    <Compile Include="Web\Question\QuestionDetail.aspx.cs">
-      <DependentUpon>QuestionDetail.aspx</DependentUpon>
+    <Compile Include="Web\Question\QuestionDetailFillBlank.aspx.cs">
+      <DependentUpon>QuestionDetailFillBlank.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
-    <Compile Include="Web\Question\QuestionDetail.aspx.designer.cs">
-      <DependentUpon>QuestionDetail.aspx</DependentUpon>
+    <Compile Include="Web\Question\QuestionDetailFillBlank.aspx.designer.cs">
+      <DependentUpon>QuestionDetailFillBlank.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Web\Question\QuestionDetailFindBugs.aspx.cs">
+      <DependentUpon>QuestionDetailFindBugs.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Web\Question\QuestionDetailFindBugs.aspx.designer.cs">
+      <DependentUpon>QuestionDetailFindBugs.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Web\Question\QuestionDetailSingleChoice.aspx.cs">
+      <DependentUpon>QuestionDetailSingleChoice.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Web\Question\QuestionDetailSingleChoice.aspx.designer.cs">
+      <DependentUpon>QuestionDetailSingleChoice.aspx</DependentUpon>
     </Compile>
     <Compile Include="Web\Question\QuestionHistory.aspx.cs">
       <DependentUpon>QuestionHistory.aspx</DependentUpon>

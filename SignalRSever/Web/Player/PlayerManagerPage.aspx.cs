@@ -32,8 +32,7 @@ namespace SignalRSever.Web
         protected void GVPlayer_SelectedIndexChanged(object sender, EventArgs e)
         {
             GridViewRow gr = GVPlayer.SelectedRow;
-            Response.Redirect("PlayerDetail.aspx?name=" + gr.Cells[1].Text + "&level=" + gr.Cells[2].Text
-                + "&point=" + gr.Cells[3].Text + "&win=" + gr.Cells[4].Text + "&lose=" + gr.Cells[5].Text);
+            Response.Redirect("PlayerDetail.aspx?name=" + gr.Cells[1].Text);
         }
 
         protected void GVPlayer_RowDataBound(object sender, GridViewRowEventArgs e)

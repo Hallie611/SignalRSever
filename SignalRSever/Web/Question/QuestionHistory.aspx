@@ -8,7 +8,9 @@
          <div class="art-postcontent art-postcontent-0 clearfix"><p><br/></p></div> 
          <div>
              <asp:GridView ID="GV_historyQuestion" runat="server" CssClass="EU_DataTable" AllowPaging="true"
-                PageSize="10" AutoGenerateSelectButton="True" OnRowDataBound="GV_historyQuestion_RowDataBound" OnSelectedIndexChanged="GV_historyQuestion_SelectedIndexChanged" OnPageIndexChanging="GridView1_PageIndexChanging">
+                PageSize="10" AutoGenerateSelectButton="True" OnRowDataBound="GV_historyQuestion_RowDataBound" 
+                 OnSelectedIndexChanged="GV_historyQuestion_SelectedIndexChanged" 
+                 OnPageIndexChanging="GridView1_PageIndexChanging" AllowSorting="True" OnSorting="GridView1_Sorting">
              </asp:GridView>
         </div>           
     </article></div>

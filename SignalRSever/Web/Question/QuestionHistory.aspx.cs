@@ -5,6 +5,7 @@ using System.Web;
 using System.Web.UI;
 using System.Web.UI.WebControls;
 using SignalRSever.Business;
+using System.Data;
 
 namespace SignalRSever.Web.Question
 {
@@ -16,28 +17,28 @@ namespace SignalRSever.Web.Question
 
             if (!IsPostBack)
             {
-                BindData();
-
+                Session["data"] = manager.GetQuestionHistory();
+                GV_historyQuestion.DataSource = Session["data"];
+                GV_historyQuestion.DataBind();;
             }
-        }
-
-        void BindData()
-        {
-            GV_historyQuestion.DataSource = manager.GetQuestionHistory();
-            GV_historyQuestion.DataBind();
         }
 
         protected void GridView1_PageIndexChanging(object sender, GridViewPageEventArgs e)
         {
+            GV_historyQuestion.DataSource = Session["data"];
             GV_historyQuestion.PageIndex = e.NewPageIndex;
-            BindData();
+            GV_historyQuestion.DataBind();
         }
 
         protected void GV_historyQuestion_SelectedIndexChanged(object sender, EventArgs e)
         {
             GridViewRow gr = GV_historyQuestion.SelectedRow;
-            Response.Redirect("QuestionDetail.aspx?ID=" + gr.Cells[1].Text);
-
+            if (gr.Cells[2].Text == "Find Bugs")
+            { Response.Redirect("QuestionDetailFindBugs.aspx?ID=" + gr.Cells[1].Text); }
+            else if (gr.Cells[2].Text == "Fill Blanks")
+            { Response.Redirect("QuestionDetailFillBlank.aspx?ID=" + gr.Cells[1].Text); }
+            else
+            { Response.Redirect("QuestionDetailSingleChoice.aspx?ID=" + gr.Cells[1].Text); }
         }
 
         protected void GV_historyQuestion_RowDataBound(object sender, GridViewRowEventArgs e)
@@ -58,6 +59,53 @@ namespace SignalRSever.Web.Question
                 e.Row.Attributes["onclick"] =
                   ClientScript.GetPostBackClientHyperlink(this.GV_historyQuestion, "Select$" + e.Row.RowIndex);
             }
+        }
+
+        protected void GridView1_Sorting(object sender, GridViewSortEventArgs e)
+        {
+            string sortExpression = e.SortExpression;
+            if (GridViewSortDirection == SortDirection.Ascending)
+            {
+                GridViewSortDirection = SortDirection.Descending;
+                SortGridView(sortExpression, DESCENDING);
+            }
+            else
+            {
+                GridViewSortDirection = SortDirection.Ascending;
+                SortGridView(sortExpression, ASCENDING);
+            }
+        }
+
+        private const string ASCENDING = " ASC";
+        private const string DESCENDING = " DESC";
+
+        public SortDirection GridViewSortDirection
+        {
+            get
+            {
+                if (ViewState["sortDirection"] == null)
+                {
+                    ViewState["sortDirection"] = SortDirection.Ascending;
+                }
+                return (SortDirection)ViewState["sortDirection"];
+            }
+            set
+            {
+                ViewState["sortDirection"] = value;
+            }
+        }
+
+        private void SortGridView(string sortExpression, string direction)
+        {
+            DataTable dt = new DataTable();
+            dt = Session["data"] as DataTable;
+            DataView dv = new DataView(dt);
+            dv.Sort = sortExpression + direction;
+            DataTable dt2 = new DataTable();
+            dt2 = dv.ToTable();
+            Session["data"] = dt2;
+            GV_historyQuestion.DataSource = dv;
+            GV_historyQuestion.DataBind();
         }
     }
 }
