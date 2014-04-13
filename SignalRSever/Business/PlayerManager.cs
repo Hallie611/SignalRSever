@@ -53,12 +53,6 @@ namespace SignalRSever.Business
             return new Client { name = player.PlayerName, level = (int)player.PlayerLevel, point = (int)player.PlayerPoint };
         }
 
-        public Client GetPlayerInfo4PlayerDetailPage(string username)
-        {
-            var player = severdata.get_player_info(username).FirstOrDefault();
-            return new Client { name = player.PlayerName, level = (int)player.PlayerLevel, point = (int)player.PlayerPoint, win = (int)player.Win, lose = (int)player.Lose };
-        }
-
         public DataTable GetGamesByUser(string name)
         {
             DataTable result = new DataTable();

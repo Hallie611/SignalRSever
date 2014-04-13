@@ -15,22 +15,26 @@ namespace SignalRSever.Web.Player
         PlayerManager manager = new PlayerManager();
 
         static string name;
+        static string level;
+        static string point;
+        static string win;
+        static string lose;
 
         protected void Page_Load(object sender, EventArgs e)
         {
             name = Request.QueryString["name"];
-            int level = manager.GetPlayerInfo4PlayerDetailPage(name).level;
-            int point = manager.GetPlayerInfo4PlayerDetailPage(name).point;
-            int win = manager.GetPlayerInfo4PlayerDetailPage(name).win;
-            int lose = manager.GetPlayerInfo4PlayerDetailPage(name).lose;
+            level = Request.QueryString["level"];
+            point = Request.QueryString["point"];
+            win = Request.QueryString["win"];
+            lose = Request.QueryString["lose"];
 
             lblname.Text = name;
-            lbllevel.Text = level.ToString();
-            lblpoint.Text = point.ToString();
-            lblwin.Text = win.ToString();
-            lbllose.Text = lose.ToString();
+            lbllevel.Text = level;
+            lblpoint.Text = point;
+            lblwin.Text = win;
+            lbllose.Text = lose;
 
-            int[] yValues = { win, lose };
+            int[] yValues = { Int32.Parse(win), Int32.Parse(lose) };
             string[] xValues = { "Win", "Lose" };
             Chart1.Series["Series1"].Points.DataBindXY(xValues, yValues);
 

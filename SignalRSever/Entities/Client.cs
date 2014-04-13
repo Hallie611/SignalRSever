@@ -14,8 +14,6 @@ namespace SignalRSever.Entities
         public Client opponent { get; set; }
         public bool isReady { get; set; }
         public bool lookingForOpponent { get; set; }
-        public int win { get; set; }
-        public int lose { get; set; }
         
     }
 }
