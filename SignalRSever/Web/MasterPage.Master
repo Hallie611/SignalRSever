@@ -39,7 +39,11 @@
 <header class="art-header">
     <div class="art-shapes">
         <div class="art-object260662843"></div>
-        <div class="art-object1630956507"></div>
+        <div class="art-object1630956507">
+            <div style="float: right">
+                <asp:LinkButton ID="lbtlogout" runat="server" OnClick="lbtlogout_Click" ForeColor="#FFFF99">Logout</asp:LinkButton>
+            </div>
+        </div>
     </div>
 
 <h1 class="art-headline">

@@ -11,7 +11,23 @@ namespace SignalRSever.Web
     {
         protected void Page_Load(object sender, EventArgs e)
         {
+            if (Session["LoginFailed"] != null)
+            {
+                lbMess.Text = "Please Login first!";
+            }
+        }
 
+        protected void btLogin_Click(object sender, EventArgs e)
+        {
+            if (txtUser.Text == "admin" && txtPass.Text == "admin")
+            {
+                Session["CheckLogin"] = "Done";
+                Response.Redirect("/Web/Player/PlayerManagerPage.aspx");
+            }
+            else
+            {
+                lbMess.Text = "Invalid Login, Please try again!";
+            }
         }
     }
 }

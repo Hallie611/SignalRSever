@@ -78,8 +78,7 @@
              <asp:GridView ID="GVPlayer_Detail" runat="server" CssClass="EU_DataTable" AllowPaging="true"
                 PageSize="10" OnRowDataBound="GVPlayer_Detail_RowDataBound" OnSelectedIndexChanged="GVPlayer_Detail_SelectedIndexChanged" AutoGenerateSelectButton="True" OnPageIndexChanging="GridView1_PageIndexChanging">
              </asp:GridView>
-             <div></div>
-             <div></div>
+             <div><br /><br /><br /></div>
              <div>Top 5</div>
              <asp:GridView ID="GV_games" runat="server" CssClass="EU_DataTable"></asp:GridView>
              <a href='javascript:history.go(-1)'>Go Back to Previous Page</a>

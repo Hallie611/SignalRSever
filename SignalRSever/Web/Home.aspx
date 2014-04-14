@@ -5,7 +5,9 @@
 <asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" runat="server">
     <div class="art-layout-cell art-content"><article class="art-post art-article">
          <h2 class="art-postheader">Login</h2>                      
-         <div class="art-postcontent art-postcontent-0 clearfix"><p><br/></p></div> 
+         <div class="art-postcontent art-postcontent-0 clearfix"><p>
+             <asp:Label ID="lbMess" runat="server" ForeColor="Red"></asp:Label>
+             <br/></p></div> 
          <table style="width: 100%;">
             <tr>
                 <td>Username:</td>
@@ -17,7 +19,7 @@
             </tr>
             <tr>
                 <td>&nbsp;</td>
-                <td><asp:Button ID="btLogin" runat="server" Text="Login" /> </td>
+                <td><asp:Button ID="btLogin" runat="server" Text="Login" OnClick="btLogin_Click" /> </td>
             </tr>
         </table>             
     </article></div>

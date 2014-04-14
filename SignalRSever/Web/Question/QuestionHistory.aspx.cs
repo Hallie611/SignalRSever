@@ -14,7 +14,11 @@ namespace SignalRSever.Web.Question
         QuestionManagers manager = new QuestionManagers();
         protected void Page_Load(object sender, EventArgs e)
         {
-
+            if (Session["CheckLogin"] == null)
+            {
+                Session["LoginFailed"] = "error";
+                Response.Redirect("/Web/Home.aspx");
+            }
             if (!IsPostBack)
             {
                 Session["data"] = manager.GetQuestionHistory();
@@ -33,12 +37,8 @@ namespace SignalRSever.Web.Question
         protected void GV_historyQuestion_SelectedIndexChanged(object sender, EventArgs e)
         {
             GridViewRow gr = GV_historyQuestion.SelectedRow;
-            if (gr.Cells[2].Text == "Find Bugs")
-            { Response.Redirect("QuestionDetailFindBugs.aspx?ID=" + gr.Cells[1].Text); }
-            else if (gr.Cells[2].Text == "Fill Blanks")
-            { Response.Redirect("QuestionDetailFillBlank.aspx?ID=" + gr.Cells[1].Text); }
-            else
-            { Response.Redirect("QuestionDetailSingleChoice.aspx?ID=" + gr.Cells[1].Text); }
+            Session["QType"] = gr.Cells[2].Text;
+            Response.Redirect("/Web/Question/QuestionDetail.aspx?ID=" + gr.Cells[1].Text);
         }
 
         protected void GV_historyQuestion_RowDataBound(object sender, GridViewRowEventArgs e)
