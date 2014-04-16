@@ -380,7 +380,6 @@
     <Content Include="Web\style.css" />
     <Content Include="Web\style.ie7.css" />
     <Content Include="Web\style.responsive.css" />
-    <Content Include="Web\TempImages\temp.txt" />
     <EntityDeploy Include="Model1.edmx">
       <Generator>EntityModelCodeGenerator</Generator>
       <LastGenOutput>Model1.Designer.cs</LastGenOutput>
