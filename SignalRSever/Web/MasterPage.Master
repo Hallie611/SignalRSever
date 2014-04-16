@@ -70,15 +70,15 @@
 <div class="art-content-layout">
     <div class="art-content-layout-row">
     <div class="art-layout-cell layout-item-0" style="width: 50%">
-        <p style="text-align: left;"><img width="38" height="38" alt="" src="/Web/images/1308292981_rss-2-2.png" style="margin-top: 0px; margin-right: 5px; margin-bottom: 0px; margin-left: 0px;"> <img width="38" height="38" alt="" src="/Web/images/1308293091_twitter-2.png" style="margin-top: 0px; margin-right: 5px; margin-bottom: 0px; margin-left: 0px;" class=""> <img width="38" height="38" alt="" src="/Web/images/1308293119_facebook-2.png" style="margin-top: 0px; margin-right: 5px; margin-bottom: 0px; margin-left: 0px;" class=""> <img width="38" height="38" alt="" src="/Web/images/1308293126_linkedin-2.png" style="margin-top: 0px; margin-right: 5px; margin-bottom: 0px; margin-left: 0px;" class=""></p>
+        
     </div><div class="art-layout-cell layout-item-0" style="width: 50%">
-        <p style="text-align: right;">Copyright © 2011 <a href="http://www.iconfinder.com/search/?q=iconset:WPZOOM_Social_Networking_Icon_Set">Icon set</a> by <a href="http://www.wpzoom.com/">wpzoom.com</a></p>
+        <p style="text-align: right;">Website created by Group 2</p>
     </div>
     </div>
 </div>
 
     <p class="art-page-footer">
-        <span id="art-footnote-links">Website created by Group 2</span>
+        <span id="art-footnote-links"></span>
     </p>
 </footer>
 

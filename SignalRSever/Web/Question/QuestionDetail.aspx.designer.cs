@@ -130,42 +130,6 @@ namespace SignalRSever.Web.Question {
         protected global::System.Web.UI.WebControls.Label lbDifFB;
         
         /// <summary>
-        /// lbWidth control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.Label lbWidth;
-        
-        /// <summary>
-        /// lbHeight control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.Label lbHeight;
-        
-        /// <summary>
-        /// lbTop control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.Label lbTop;
-        
-        /// <summary>
-        /// lbLeft control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.Label lbLeft;
-        
-        /// <summary>
         /// ChartFB control.
         /// </summary>
         /// <remarks>

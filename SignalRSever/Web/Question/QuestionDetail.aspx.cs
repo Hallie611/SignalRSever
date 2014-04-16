@@ -35,10 +35,6 @@ namespace SignalRSever.Web.Question
                     lbQuestionIDFB.Text = dt.Rows[0]["QuestionID"].ToString();
                     lbTypeFB.Text = dt.Rows[0]["Type"].ToString();
                     lbDifFB.Text = dt.Rows[0]["Difficulty"].ToString();
-                    lbWidth.Text = dt.Rows[0]["Width"].ToString();
-                    lbHeight.Text = dt.Rows[0]["Height"].ToString();
-                    lbTop.Text = dt.Rows[0]["Top"].ToString();
-                    lbLeft.Text = dt.Rows[0]["Left"].ToString();
                     ImageFB.ImageUrl = "~/" + dt.Rows[0]["SRC"].ToString();
 
                     int[] yValues = { cor, wro };

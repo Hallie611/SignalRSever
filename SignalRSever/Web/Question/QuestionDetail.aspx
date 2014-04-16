@@ -146,26 +146,6 @@
                             <asp:Label ID="lbDifFB" runat="server" Text=""></asp:Label></td>
                     </tr>
                     <tr>
-                        <td class="auto-style1">Width: </td>
-                        <td class="auto-style2">
-                            <asp:Label ID="lbWidth" runat="server" Text=""></asp:Label></td>
-                    </tr>
-                    <tr>
-                        <td class="auto-style1">Height: </td>
-                        <td class="auto-style2">
-                            <asp:Label ID="lbHeight" runat="server" Text=""></asp:Label></td>
-                    </tr>
-                    <tr>
-                        <td class="auto-style1">Top: </td>
-                        <td class="auto-style2">
-                            <asp:Label ID="lbTop" runat="server" Text=""></asp:Label></td>
-                    </tr>
-                    <tr>
-                        <td class="auto-style1">Left: </td>
-                        <td class="auto-style2">
-                            <asp:Label ID="lbLeft" runat="server" Text=""></asp:Label></td>
-                    </tr>
-                    <tr>
                         <td class="auto-style1">&nbsp;</td>
                         <td class="auto-style2">&nbsp;</td>
                     </tr>
