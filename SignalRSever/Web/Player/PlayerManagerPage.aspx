@@ -1,4 +1,4 @@
-﻿<%@ Page Title="Player Management" Language="C#" MasterPageFile="~/Web/MasterPage.Master" AutoEventWireup="true" CodeBehind="PlayerManagerPage.aspx.cs" Inherits="SignalRSever.Web.UserManagerPage" EnableEventValidation="false"%>
+﻿<%@ Page Title="Player Management" Language="C#" MasterPageFile="~/Web/MasterPage.Master" AutoEventWireup="true" CodeBehind="PlayerManagerPage.aspx.cs" Inherits="SignalRSever.Web.UserManagerPage" EnableEventValidation="false" %>
 
 <asp:Content ID="Content1" ContentPlaceHolderID="head" runat="server">
     <script type="text/javascript" src="/Web/jquery-1.7.1.min.js"></script>
@@ -14,9 +14,9 @@
                 var iCounter = 0;
                 var sSearchTerm = $('#<%=txtSearch.ClientID%>').val(); //Get the search box value
 
-            if (sSearchTerm.length == 0) //if nothing is entered then show all the rows.
-            {
-                $("#<%=GVPlayer.ClientID%> tr:has(td)").show();
+                if (sSearchTerm.length == 0) //if nothing is entered then show all the rows.
+                {
+                    $("#<%=GVPlayer.ClientID%> tr:has(td)").show();
                 return false;
             }
                 //Iterate through all the td.
@@ -31,7 +31,7 @@
                 });
                 if (iCounter == 0) {
                     $('#<%=lblNoRecords.ClientID%>').css('display', '');
-            }
+                }
                 e.preventDefault();
             })
         })
@@ -44,10 +44,11 @@
             <h2 class="art-postheader">Player Management</h2>
             <div class="art-postcontent art-postcontent-0 clearfix">
                 <div style="float: right">
-                Search Text : <asp:TextBox ID="txtSearch" runat="server"></asp:TextBox>
-                &nbsp;
+                    Search Text :
+                    <asp:TextBox ID="txtSearch" runat="server"></asp:TextBox>
+                    &nbsp;
                 <asp:Button ID="btnSubmit" runat="server" Text="Search" />
-            </div>
+                </div>
             </div>
             <div>
                 <br />

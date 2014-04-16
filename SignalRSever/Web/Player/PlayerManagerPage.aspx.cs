@@ -8,6 +8,10 @@ using SignalRSever.Business;
 using System.Data;
 using System.IO;
 using System.Drawing;
+using OfficeOpenXml;
+using OfficeOpenXml.Drawing;
+using OfficeOpenXml.Style;
+using System.Globalization;
 
 namespace SignalRSever.Web
 {
@@ -114,60 +118,62 @@ namespace SignalRSever.Web
             GVPlayer.DataBind();
         }
 
-        protected void btExport_Click(object sender, EventArgs e)
+        public static void DumpExcel(DataTable dataTable)
         {
-            Response.Clear();
-            Response.Buffer = true;
-            Response.AddHeader("content-disposition", "attachment;filename=PlayerManagement.xlsx");
-            Response.Charset = "";
-            //Response.ContentType = "application/vnd.ms-excel";
-            Response.ContentType = "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet";
-            using (StringWriter sw = new StringWriter())
+            using (ExcelPackage package = new ExcelPackage())
             {
-                HtmlTextWriter hw = new HtmlTextWriter(sw);
+                ExcelWorksheet worksheet = package.Workbook.Worksheets.Add("DataTable");
 
-                //To Export all pages
-                GVPlayer.AllowPaging = false;
-                GVPlayer.AllowSorting = false;
-                GVPlayer.DataSource = Session["data"];
-                GVPlayer.DataBind();
+                worksheet.Cells["A1"].LoadFromDataTable(dataTable, true);
 
-                GVPlayer.HeaderRow.BackColor = Color.White;
-                foreach (TableCell cell in GVPlayer.HeaderRow.Cells)
+                for (int i = 1; i <= dataTable.Columns.Count; i++)
                 {
-                    cell.BackColor = GVPlayer.HeaderStyle.BackColor;
-                }
-                foreach (GridViewRow row in GVPlayer.Rows)
-                {
-                    row.BackColor = Color.White;
-                    foreach (TableCell cell in row.Cells)
+                    worksheet.Column(i).AutoFit();
+
+                    if (dataTable.Columns[i - 1].DataType == System.Type.GetType("System.DateTime"))
                     {
-                        if (row.RowIndex % 2 == 0)
+                        worksheet.Column(i).Style.Numberformat.Format = CultureInfo.CurrentCulture.DateTimeFormat.ShortDatePattern;
+                    }
+
+                    for (int j = 2; j <= dataTable.Rows.Count + 1; j++)
+                    {
+                        if (j % 2 == 0)
                         {
-                            cell.BackColor = GVPlayer.AlternatingRowStyle.BackColor;
+                            worksheet.Cells[j, i].Style.Fill.PatternType = ExcelFillStyle.Solid;
+                            worksheet.Cells[j, i].Style.Fill.BackgroundColor.SetColor(Color.WhiteSmoke);
+                            worksheet.Cells[j, i].Style.Border.Left.Style = ExcelBorderStyle.Thin;
+                            worksheet.Cells[j, i].Style.Border.Top.Style = ExcelBorderStyle.Thin;
+                            worksheet.Cells[j, i].Style.Border.Right.Style = ExcelBorderStyle.Thin;
+                            worksheet.Cells[j, i].Style.Border.Bottom.Style = ExcelBorderStyle.Thin;
                         }
                         else
                         {
-                            cell.BackColor = GVPlayer.RowStyle.BackColor;
+                            worksheet.Cells[j, i].Style.Fill.PatternType = ExcelFillStyle.Solid;
+                            worksheet.Cells[j, i].Style.Fill.BackgroundColor.SetColor(Color.LightGray);
+                            worksheet.Cells[j, i].Style.Border.Left.Style = ExcelBorderStyle.Thin;
+                            worksheet.Cells[j, i].Style.Border.Top.Style = ExcelBorderStyle.Thin;
+                            worksheet.Cells[j, i].Style.Border.Right.Style = ExcelBorderStyle.Thin;
+                            worksheet.Cells[j, i].Style.Border.Bottom.Style = ExcelBorderStyle.Thin;
                         }
-                        cell.CssClass = "textmode";
                     }
                 }
 
-                GVPlayer.RenderControl(hw);
-
-                //style to format numbers to string
-                string style = @"<style> .textmode { } </style>";
-                Response.Write(style);
-                Response.Output.Write(sw.ToString());
-                Response.Flush();
-                Response.End();
+                worksheet.Row(1).Style.Font.Bold = true;
+                worksheet.Row(1).Style.Font.Color.SetColor(Color.White);
+                worksheet.Row(1).Style.Fill.PatternType = ExcelFillStyle.Solid;
+                worksheet.Row(1).Style.Fill.BackgroundColor.SetColor(Color.Gray);
+                
+                HttpContext.Current.Response.ContentType = "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet";
+                HttpContext.Current.Response.AddHeader("content-disposition", "attachment;  filename=PlayerManagement.xlsx");
+                HttpContext.Current.Response.BinaryWrite(package.GetAsByteArray());
+                HttpContext.Current.Response.End();
             }
         }
 
-        public override void VerifyRenderingInServerForm(Control control)
+        protected void btExport_Click(object sender, EventArgs e)
         {
-            /* Verifies that the control is rendered */
+            DataTable ttb = (DataTable)Session["data"];
+            DumpExcel(ttb);
         }
     }
 }
