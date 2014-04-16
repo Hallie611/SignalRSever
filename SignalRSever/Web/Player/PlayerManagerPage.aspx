@@ -1,4 +1,4 @@
-﻿<%@ Page Title="Player Management" Language="C#" MasterPageFile="~/Web/MasterPage.Master" AutoEventWireup="true" CodeBehind="PlayerManagerPage.aspx.cs" Inherits="SignalRSever.Web.UserManagerPage" %>
+﻿<%@ Page Title="Player Management" Language="C#" MasterPageFile="~/Web/MasterPage.Master" AutoEventWireup="true" CodeBehind="PlayerManagerPage.aspx.cs" Inherits="SignalRSever.Web.UserManagerPage" EnableEventValidation="false"%>
 
 <asp:Content ID="Content1" ContentPlaceHolderID="head" runat="server">
     <script type="text/javascript" src="/Web/jquery-1.7.1.min.js"></script>
@@ -43,18 +43,13 @@
         <article class="art-post art-article">
             <h2 class="art-postheader">Player Management</h2>
             <div class="art-postcontent art-postcontent-0 clearfix">
-                <p>
-                    <br />
-                </p>
-            </div>
-            <div style="float: right">
+                <div style="float: right">
                 Search Text : <asp:TextBox ID="txtSearch" runat="server"></asp:TextBox>
                 &nbsp;
                 <asp:Button ID="btnSubmit" runat="server" Text="Search" />
             </div>
+            </div>
             <div>
-                <br />
-                <br />
                 <br />
                 <asp:GridView ID="GVPlayer" runat="server" CssClass="EU_DataTable" AllowPaging="true"
                     PageSize="10" OnSelectedIndexChanged="GVPlayer_SelectedIndexChanged" AutoGenerateSelectButton="True"
@@ -63,7 +58,11 @@
                 </asp:GridView>
                 <asp:Label ID="lblNoRecords" Text="No records to display" runat="server" ForeColor="red"></asp:Label>
             </div>
-
+            <div style="float: right">
+                <asp:Button ID="btExport" runat="server" Text="Export" OnClick="btExport_Click" />
+            </div>
+            <br />
+            <br />
         </article>
     </div>
 </asp:Content>

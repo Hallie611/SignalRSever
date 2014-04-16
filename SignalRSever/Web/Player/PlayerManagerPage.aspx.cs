@@ -6,6 +6,8 @@ using System.Web.UI;
 using System.Web.UI.WebControls;
 using SignalRSever.Business;
 using System.Data;
+using System.IO;
+using System.Drawing;
 
 namespace SignalRSever.Web
 {
@@ -110,6 +112,62 @@ namespace SignalRSever.Web
             Session["data"] = dt2;
             GVPlayer.DataSource = dv;
             GVPlayer.DataBind();
+        }
+
+        protected void btExport_Click(object sender, EventArgs e)
+        {
+            Response.Clear();
+            Response.Buffer = true;
+            Response.AddHeader("content-disposition", "attachment;filename=PlayerManagement.xlsx");
+            Response.Charset = "";
+            //Response.ContentType = "application/vnd.ms-excel";
+            Response.ContentType = "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet";
+            using (StringWriter sw = new StringWriter())
+            {
+                HtmlTextWriter hw = new HtmlTextWriter(sw);
+
+                //To Export all pages
+                GVPlayer.AllowPaging = false;
+                GVPlayer.AllowSorting = false;
+                GVPlayer.DataSource = Session["data"];
+                GVPlayer.DataBind();
+
+                GVPlayer.HeaderRow.BackColor = Color.White;
+                foreach (TableCell cell in GVPlayer.HeaderRow.Cells)
+                {
+                    cell.BackColor = GVPlayer.HeaderStyle.BackColor;
+                }
+                foreach (GridViewRow row in GVPlayer.Rows)
+                {
+                    row.BackColor = Color.White;
+                    foreach (TableCell cell in row.Cells)
+                    {
+                        if (row.RowIndex % 2 == 0)
+                        {
+                            cell.BackColor = GVPlayer.AlternatingRowStyle.BackColor;
+                        }
+                        else
+                        {
+                            cell.BackColor = GVPlayer.RowStyle.BackColor;
+                        }
+                        cell.CssClass = "textmode";
+                    }
+                }
+
+                GVPlayer.RenderControl(hw);
+
+                //style to format numbers to string
+                string style = @"<style> .textmode { } </style>";
+                Response.Write(style);
+                Response.Output.Write(sw.ToString());
+                Response.Flush();
+                Response.End();
+            }
+        }
+
+        public override void VerifyRenderingInServerForm(Control control)
+        {
+            /* Verifies that the control is rendered */
         }
     }
 }

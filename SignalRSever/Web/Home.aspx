@@ -10,10 +10,6 @@
              <br/></p></div> 
          <table style="width: 100%;">
             <tr>
-                <td>Username:</td>
-                <td><asp:TextBox ID="txtUser" runat="server" Width="400px"></asp:TextBox></td>
-            </tr>
-            <tr>
                 <td>Password:</td>
                 <td><asp:TextBox ID="txtPass" runat="server" TextMode="Password" Width="400px"></asp:TextBox></td>
             </tr>

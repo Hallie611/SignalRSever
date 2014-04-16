@@ -15,11 +15,12 @@ namespace SignalRSever.Web
             {
                 lbMess.Text = "Please Login first!";
             }
+            Master.FindControl("lbtlogout").Visible = false;
         }
 
         protected void btLogin_Click(object sender, EventArgs e)
         {
-            if (txtUser.Text == "admin" && txtPass.Text == "admin")
+            if (txtPass.Text == "admin")
             {
                 Session["CheckLogin"] = "Done";
                 Response.Redirect("/Web/Player/PlayerManagerPage.aspx");

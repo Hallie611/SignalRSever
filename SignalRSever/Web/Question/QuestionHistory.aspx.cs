@@ -6,6 +6,8 @@ using System.Web.UI;
 using System.Web.UI.WebControls;
 using SignalRSever.Business;
 using System.Data;
+using System.IO;
+using System.Drawing;
 
 namespace SignalRSever.Web.Question
 {
@@ -106,6 +108,60 @@ namespace SignalRSever.Web.Question
             Session["data"] = dt2;
             GV_historyQuestion.DataSource = dv;
             GV_historyQuestion.DataBind();
+        }
+
+        protected void btExport_Click(object sender, EventArgs e)
+        {
+            Response.Clear();
+            Response.Buffer = true;
+            Response.AddHeader("content-disposition", "attachment;filename=QuestionHistory.xls");
+            Response.Charset = "";
+            Response.ContentType = "application/vnd.ms-excel";
+            using (StringWriter sw = new StringWriter())
+            {
+                HtmlTextWriter hw = new HtmlTextWriter(sw);
+
+                //To Export all pages
+                GV_historyQuestion.AllowPaging = false;
+                GV_historyQuestion.DataSource = Session["data"];
+                GV_historyQuestion.DataBind();
+
+                GV_historyQuestion.HeaderRow.BackColor = Color.White;
+                foreach (TableCell cell in GV_historyQuestion.HeaderRow.Cells)
+                {
+                    cell.BackColor = GV_historyQuestion.HeaderStyle.BackColor;
+                }
+                foreach (GridViewRow row in GV_historyQuestion.Rows)
+                {
+                    row.BackColor = Color.White;
+                    foreach (TableCell cell in row.Cells)
+                    {
+                        if (row.RowIndex % 2 == 0)
+                        {
+                            cell.BackColor = GV_historyQuestion.AlternatingRowStyle.BackColor;
+                        }
+                        else
+                        {
+                            cell.BackColor = GV_historyQuestion.RowStyle.BackColor;
+                        }
+                        cell.CssClass = "textmode";
+                    }
+                }
+
+                GV_historyQuestion.RenderControl(hw);
+
+                //style to format numbers to string
+                string style = @"<style> .textmode { } </style>";
+                Response.Write(style);
+                Response.Output.Write(sw.ToString());
+                Response.Flush();
+                Response.End();
+            }
+        }
+
+        public override void VerifyRenderingInServerForm(Control control)
+        {
+            /* Verifies that the control is rendered */
         }
     }
 }
