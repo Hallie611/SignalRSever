@@ -23,6 +23,9 @@ namespace SignalRSever.Web.Question
             int id = int.Parse(Request.QueryString["ID"]);
             if (!IsPostBack)
             {
+                int cor = Int32.Parse(Session["Correct"].ToString());
+                int wro = Int32.Parse(Session["Wrong"].ToString());
+
                 if (Session["QType"].ToString() == "Find Bugs")
                 {
                     FillBlank.Visible = false;
@@ -37,6 +40,20 @@ namespace SignalRSever.Web.Question
                     lbTop.Text = dt.Rows[0]["Top"].ToString();
                     lbLeft.Text = dt.Rows[0]["Left"].ToString();
                     ImageFB.ImageUrl = "~/" + dt.Rows[0]["SRC"].ToString();
+
+                    int[] yValues = { cor, wro };
+                    string[] xValues = { "Correct", "Wrong" };
+                    ChartFB.Series["Series1"].Points.DataBindXY(xValues, yValues);
+
+                    ChartFB.ChartAreas["ChartArea1"].Area3DStyle.Enable3D = true;
+                    ChartFB.Legends[0].Enabled = true;
+                    ChartFB.Series["Series1"].Label = "#VAL";
+                    ChartFB.Series["Series1"].LegendText = "#VALX" + " (" + "#PERCENT{P1}" + ")";
+
+                    imageCSS.Style.Add("left", dt.Rows[0]["Left"].ToString());
+                    imageCSS.Style.Add("top", dt.Rows[0]["Top"].ToString());
+                    imageCSS.Style.Add("width", dt.Rows[0]["Width"].ToString());
+                    imageCSS.Style.Add("height", dt.Rows[0]["Height"].ToString());
                 }
                 else if (Session["QType"].ToString() == "Fill Blanks")
                 {
@@ -88,8 +105,17 @@ namespace SignalRSever.Web.Question
                     { lbList3_2.ForeColor = Color.Red; }
                     else
                     { lbList3_3.ForeColor = Color.Red; }
+
+                    int[] yValues = { cor, wro };
+                    string[] xValues = { "Correct", "Wrong" };
+                    ChartFK.Series["Series1"].Points.DataBindXY(xValues, yValues);
+
+                    ChartFK.ChartAreas["ChartArea1"].Area3DStyle.Enable3D = true;
+                    ChartFK.Legends[0].Enabled = true;
+                    ChartFK.Series["Series1"].Label = "#VAL";
+                    ChartFK.Series["Series1"].LegendText = "#VALX" + " (" + "#PERCENT{P1}" + ")";
                 }
-                else 
+                else
                 {
                     FindBugs.Visible = false;
                     FillBlank.Visible = false;
@@ -100,8 +126,17 @@ namespace SignalRSever.Web.Question
                     lbDifSC.Text = dt.Rows[0]["Difficulty"].ToString();
                     lbAnswerSC.Text = dt.Rows[0]["Answer"].ToString();
                     ImageSC.ImageUrl = "~/" + dt.Rows[0]["SRC"].ToString();
+
+                    int[] yValues = { cor, wro };
+                    string[] xValues = { "Correct", "Wrong" };
+                    ChartSC.Series["Series1"].Points.DataBindXY(xValues, yValues);
+
+                    ChartSC.ChartAreas["ChartArea1"].Area3DStyle.Enable3D = true;
+                    ChartSC.Legends[0].Enabled = true;
+                    ChartSC.Series["Series1"].Label = "#VAL";
+                    ChartSC.Series["Series1"].LegendText = "#VALX" + " (" + "#PERCENT{P1}" + ")";
                 }
-                
+
             }
         }
     }

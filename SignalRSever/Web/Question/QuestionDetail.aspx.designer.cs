@@ -67,6 +67,15 @@ namespace SignalRSever.Web.Question {
         protected global::System.Web.UI.WebControls.Label lbAnswerSC;
         
         /// <summary>
+        /// ChartSC control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.DataVisualization.Charting.Chart ChartSC;
+        
+        /// <summary>
         /// FindBugs control.
         /// </summary>
         /// <remarks>
@@ -74,6 +83,15 @@ namespace SignalRSever.Web.Question {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.HtmlControls.HtmlGenericControl FindBugs;
+        
+        /// <summary>
+        /// imageCSS control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.HtmlControls.HtmlGenericControl imageCSS;
         
         /// <summary>
         /// ImageFB control.
@@ -146,6 +164,15 @@ namespace SignalRSever.Web.Question {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Label lbLeft;
+        
+        /// <summary>
+        /// ChartFB control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.DataVisualization.Charting.Chart ChartFB;
         
         /// <summary>
         /// FillBlank control.
@@ -283,12 +310,12 @@ namespace SignalRSever.Web.Question {
         protected global::System.Web.UI.WebControls.Label lbList3_3;
         
         /// <summary>
-        /// GV_QuestionDetail control.
+        /// ChartFK control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.GridView GV_QuestionDetail;
+        protected global::System.Web.UI.DataVisualization.Charting.Chart ChartFK;
     }
 }

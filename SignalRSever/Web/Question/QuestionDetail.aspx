@@ -1,8 +1,9 @@
 ﻿<%@ Page Title="" Language="C#" MasterPageFile="~/Web/MasterPage.Master" AutoEventWireup="true" CodeBehind="QuestionDetail.aspx.cs" Inherits="SignalRSever.Web.Question.QuestionDetail" %>
+
 <asp:Content ID="Content1" ContentPlaceHolderID="head" runat="server">
     <style type="text/css">
         .auto-style1 {
-            width: 122px;
+            width: 139px;
         }
 
         .auto-style2 {
@@ -15,6 +16,23 @@
 
         .auto-style4 {
             width: 120px;
+        }
+
+        .auto-style5 {
+            height: 23px;
+            width: 139px;
+        }
+
+        .auto-style6 {
+            width: 225px;
+            height: 23px;
+        }
+
+        .tag {
+            float: left;
+            position: absolute;
+            border-style:solid;
+            border-color: red;
         }
     </style>
 </asp:Content>
@@ -33,7 +51,7 @@
                     <tr>
                         <td class="auto-style1">&nbsp;</td>
                         <td class="auto-style2">&nbsp;</td>
-                        <td rowspan="16">
+                        <td rowspan="8">
                             <asp:Image ID="ImageSC" runat="server" ImageAlign="Right" BorderStyle="Solid" />
                         </td>
                     </tr>
@@ -62,44 +80,25 @@
                             <asp:Label ID="lbAnswerSC" runat="server" Text=""></asp:Label></td>
                     </tr>
                     <tr>
-                        <td class="auto-style1">&nbsp;</td>
-                        <td class="auto-style2">&nbsp;</td>
+                        <td class="auto-style5"></td>
+                        <td class="auto-style6"></td>
                     </tr>
                     <tr>
-                        <td class="auto-style1">&nbsp;</td>
-                        <td class="auto-style2">&nbsp;</td>
-                    </tr>
-                    <tr>
-                        <td class="auto-style1">&nbsp;</td>
-                        <td class="auto-style2">&nbsp;</td>
-                    </tr>
-                    <tr>
-                        <td class="auto-style1">&nbsp;</td>
-                        <td class="auto-style2">&nbsp;</td>
-                    </tr>
-                    <tr>
-                        <td class="auto-style1">&nbsp;</td>
-                        <td class="auto-style2">&nbsp;</td>
-                    </tr>
-                    <tr>
-                        <td class="auto-style1">&nbsp;</td>
-                        <td class="auto-style2">&nbsp;</td>
-                    </tr>
-                    <tr>
-                        <td class="auto-style1">&nbsp;</td>
-                        <td class="auto-style2">&nbsp;</td>
-                    </tr>
-                    <tr>
-                        <td class="auto-style1">&nbsp;</td>
-                        <td class="auto-style2">&nbsp;</td>
-                    </tr>
-                    <tr>
-                        <td class="auto-style1">&nbsp;</td>
-                        <td class="auto-style2">&nbsp;</td>
-                    </tr>
-                    <tr>
-                        <td class="auto-style1">&nbsp;</td>
-                        <td class="auto-style2">&nbsp;</td>
+                        <td class="auto-style1" colspan="2">
+                            <asp:Chart ID="ChartSC" runat="server">
+                                <Series>
+                                    <asp:Series Name="Series1" ChartType="Pie" IsValueShownAsLabel="true"></asp:Series>
+                                </Series>
+                                <Legends>
+                                    <asp:Legend Alignment="Center" Docking="Bottom"
+                                        IsTextAutoFit="False" Name="Default"
+                                        LegendStyle="Row" />
+                                </Legends>
+                                <ChartAreas>
+                                    <asp:ChartArea Name="ChartArea1"></asp:ChartArea>
+                                </ChartAreas>
+                            </asp:Chart>
+                        </td>
                     </tr>
                 </table>
                 <a href='javascript:history.go(-1)'>Go Back to Previous Page</a>
@@ -107,16 +106,24 @@
         </article>
     </div>
 
-    <div class="art-layout-cell art-content" runat="server" id="FindBugs"><article class="art-post art-article">
-         <h2 class="art-postheader">Question Detail Find Bugs</h2>                      
-         <div class="art-postcontent art-postcontent-0 clearfix"><p><br/></p></div> 
-         <div>
-        <table style="width: 100%;">
+    <div class="art-layout-cell art-content" runat="server" id="FindBugs">
+        <article class="art-post art-article">
+            <h2 class="art-postheader">Question Detail Find Bugs</h2>
+            <div class="art-postcontent art-postcontent-0 clearfix">
+                <p>
+                    <br />
+                </p>
+            </div>
+            <div>
+                <table style="width: 100%;">
                     <tr>
                         <td class="auto-style1">&nbsp;</td>
                         <td class="auto-style2">&nbsp;</td>
-                        <td rowspan="16">
-                            <asp:Image ID="ImageFB" runat="server" ImageAlign="Right" BorderStyle="Solid" />
+                        <td rowspan="11">
+                            <div style="position: relative; float:right;">
+                                <div class="tag" runat="server" id="imageCSS"></div>
+                                <asp:Image ID="ImageFB" runat="server" BorderStyle="Solid" />
+                            </div>
                         </td>
                     </tr>
                     <tr>
@@ -145,50 +152,47 @@
                     </tr>
                     <tr>
                         <td class="auto-style1">Height: </td>
-                        <td class="auto-style2"><asp:Label ID="lbHeight" runat="server" Text=""></asp:Label></td>
+                        <td class="auto-style2">
+                            <asp:Label ID="lbHeight" runat="server" Text=""></asp:Label></td>
                     </tr>
                     <tr>
                         <td class="auto-style1">Top: </td>
-                        <td class="auto-style2"><asp:Label ID="lbTop" runat="server" Text=""></asp:Label></td>
+                        <td class="auto-style2">
+                            <asp:Label ID="lbTop" runat="server" Text=""></asp:Label></td>
                     </tr>
                     <tr>
                         <td class="auto-style1">Left: </td>
-                        <td class="auto-style2"><asp:Label ID="lbLeft" runat="server" Text=""></asp:Label></td>
+                        <td class="auto-style2">
+                            <asp:Label ID="lbLeft" runat="server" Text=""></asp:Label></td>
                     </tr>
                     <tr>
                         <td class="auto-style1">&nbsp;</td>
                         <td class="auto-style2">&nbsp;</td>
                     </tr>
                     <tr>
-                        <td class="auto-style1">&nbsp;</td>
-                        <td class="auto-style2">&nbsp;</td>
-                    </tr>
-                    <tr>
-                        <td class="auto-style1">&nbsp;</td>
-                        <td class="auto-style2">&nbsp;</td>
-                    </tr>
-                    <tr>
-                        <td class="auto-style1">&nbsp;</td>
-                        <td class="auto-style2">&nbsp;</td>
-                    </tr>
-                    <tr>
-                        <td class="auto-style1">&nbsp;</td>
-                        <td class="auto-style2">&nbsp;</td>
-                    </tr>
-                    <tr>
-                        <td class="auto-style1">&nbsp;</td>
-                        <td class="auto-style2">&nbsp;</td>
-                    </tr>
-                    <tr>
-                        <td class="auto-style1">&nbsp;</td>
-                        <td class="auto-style2">&nbsp;</td>
+                        <td class="auto-style1" colspan="2">
+                            <asp:Chart ID="ChartFB" runat="server">
+                                <Series>
+                                    <asp:Series Name="Series1" ChartType="Pie" IsValueShownAsLabel="true"></asp:Series>
+                                </Series>
+                                <Legends>
+                                    <asp:Legend Alignment="Center" Docking="Bottom"
+                                        IsTextAutoFit="False" Name="Default"
+                                        LegendStyle="Row" />
+                                </Legends>
+                                <ChartAreas>
+                                    <asp:ChartArea Name="ChartArea1"></asp:ChartArea>
+                                </ChartAreas>
+                            </asp:Chart>
+                        </td>
                     </tr>
                 </table>
-        <a href='javascript:history.go(-1)'>Go Back to Previous Page</a>
-        </div>         
-    </article></div>
+                <a href='javascript:history.go(-1)'>Go Back to Previous Page</a>
+            </div>
+        </article>
+    </div>
 
-        <div class="art-layout-cell art-content" runat="server" id="FillBlank">
+    <div class="art-layout-cell art-content" runat="server" id="FillBlank">
         <article class="art-post art-article">
             <h2 class="art-postheader">Question Detail Fill Blanks</h2>
             <div class="art-postcontent art-postcontent-0 clearfix">
@@ -201,7 +205,7 @@
                     <tr>
                         <td class="auto-style1">&nbsp;</td>
                         <td class="auto-style3" colspan="3">&nbsp;</td>
-                        <td rowspan="16">
+                        <td rowspan="11">
                             <asp:Image ID="ImageFK" runat="server" ImageAlign="Right" BorderStyle="Solid" />
                         </td>
                     </tr>
@@ -272,37 +276,28 @@
                         </td>
                     </tr>
                     <tr>
-                        <td class="auto-style1">&nbsp;</td>
+                        <td class="auto-style1"></td>
                         <td class="auto-style3" colspan="3">&nbsp;
                         </td>
                     </tr>
                     <tr>
-                        <td class="auto-style1">&nbsp;</td>
-                        <td class="auto-style3" colspan="3">&nbsp;</td>
-                    </tr>
-                    <tr>
-                        <td class="auto-style1">&nbsp;</td>
-                        <td class="auto-style3" colspan="3">&nbsp;</td>
-                    </tr>
-                    <tr>
-                        <td class="auto-style1"></td>
-                        <td class="auto-style3" colspan="3"></td>
-                    </tr>
-                    <tr>
-                        <td class="auto-style1">&nbsp;</td>
-                        <td class="auto-style3" colspan="3">&nbsp;</td>
-                    </tr>
-                    <tr>
-                        <td class="auto-style1">&nbsp;</td>
-                        <td class="auto-style3" colspan="3">&nbsp;</td>
-                    </tr>
-                    <tr>
-                        <td class="auto-style1">&nbsp;</td>
-                        <td class="auto-style3" colspan="3">&nbsp;</td>
+                        <td class="auto-style1" colspan="4">
+                            <asp:Chart ID="ChartFK" runat="server">
+                                <Series>
+                                    <asp:Series Name="Series1" ChartType="Pie" IsValueShownAsLabel="true"></asp:Series>
+                                </Series>
+                                <Legends>
+                                    <asp:Legend Alignment="Center" Docking="Bottom"
+                                        IsTextAutoFit="False" Name="Default"
+                                        LegendStyle="Row" />
+                                </Legends>
+                                <ChartAreas>
+                                    <asp:ChartArea Name="ChartArea1"></asp:ChartArea>
+                                </ChartAreas>
+                            </asp:Chart>
+                        </td>
                     </tr>
                 </table>
-                <asp:GridView ID="GV_QuestionDetail" runat="server" CssClass="EU_DataTable">
-                </asp:GridView>
                 <a href='javascript:history.go(-1)'>Go Back to Previous Page</a>
             </div>
         </article>

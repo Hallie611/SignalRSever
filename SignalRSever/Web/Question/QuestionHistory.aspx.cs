@@ -45,6 +45,8 @@ namespace SignalRSever.Web.Question
         {
             GridViewRow gr = GV_historyQuestion.SelectedRow;
             Session["QType"] = gr.Cells[2].Text;
+            Session["Correct"] = gr.Cells[4].Text;
+            Session["Wrong"] = gr.Cells[5].Text;
             Response.Redirect("/Web/Question/QuestionDetail.aspx?ID=" + gr.Cells[1].Text);
         }
 

@@ -43,7 +43,6 @@ namespace SignalRSever.Web.Player
             string[] xValues = { "Win", "Lose" };
             Chart1.Series["Series1"].Points.DataBindXY(xValues, yValues);
 
-            Chart1.Series["Series1"]["PieLabelStyle"] = "Disabled";
             Chart1.ChartAreas["ChartArea1"].Area3DStyle.Enable3D = true;
             Chart1.Legends[0].Enabled = true;
             Chart1.Series["Series1"].Label = "#VAL";
