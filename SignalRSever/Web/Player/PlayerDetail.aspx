@@ -22,7 +22,7 @@
                      <td class="auto-style2"></td>
                      <td class="auto-style4"></td>
                      <td rowspan="10">
-                         <asp:Chart ID="Chart1" runat="server">
+                         <asp:Chart ID="Chart1" runat="server" ImageLocation="/Web/TempImages/ChartPic_#SEQ(300,3)">
                              <Series>
                                  <asp:Series Name="Series1" ChartType="Pie"></asp:Series>
                              </Series>
