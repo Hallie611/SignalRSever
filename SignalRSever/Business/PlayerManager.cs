@@ -15,6 +15,7 @@ namespace SignalRSever.Business
 
         public void UpdatePoint(string winner, int winPoint, string loser, int lossPoint)
         {
+            
             severdata.update_point(winner, winPoint, loser, lossPoint);
         }
 
@@ -37,6 +38,7 @@ namespace SignalRSever.Business
             return true;
         }
 
+        
 
         public void AddUser(string username)
         {

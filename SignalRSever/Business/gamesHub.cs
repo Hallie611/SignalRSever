@@ -36,12 +36,11 @@ namespace SignalRSever
                 lock (_syncRoot)
                 {
                     Client playerOut = game.Player1.connectionId == Context.ConnectionId ? game.Player1 : game.Player2;
-                    Clients.Client(playerOut.opponent.connectionId).OpponentDisconnect();
                     playerOut.opponent.lookingForOpponent = false;
                     playerOut.opponent.isReady = false;
                     playerManager.UpdatePoint(playerOut.opponent.name, 5, playerOut.name, 0);
                     listMatches.Remove(game);
-
+                    return Clients.Client(playerOut.opponent.connectionId).OpponentDisconnect();
                 }
             }
             listClient.Remove(player);
@@ -115,60 +114,64 @@ namespace SignalRSever
 
         public bool FindOpponent()
         {
-            var player = listClient.FirstOrDefault(x => x.connectionId == Context.ConnectionId);
 
-            //if (player == null) return;
+            lock (_syncRoot)
+            {
+                var player = listClient.FirstOrDefault(x => x.connectionId == Context.ConnectionId);
 
-            player.lookingForOpponent = true;
-            // Look for a random opponent if there's more than one looking for a game
-            var opponent = listClient.Where(x => x.connectionId != Context.ConnectionId && x.lookingForOpponent).OrderBy(x => Guid.NewGuid()).FirstOrDefault();
-            if (opponent == null)
-            {
-                return false;
-            }
-            else
-            {
-                // Set both players as busy
-                player.lookingForOpponent = false;
-                opponent.lookingForOpponent = false;
-                player.opponent = opponent;
-                opponent.opponent = player;
-                // Notify both players that a game was found
-                Clients.Client(Context.ConnectionId).foundOpponent(new { oName = opponent.name, oLevel = opponent.level, oPoint = opponent.point });
-                Clients.Client(opponent.connectionId).foundOpponent(new { oName = player.name, oLevel = player.level, oPoint = player.point });
-                lock (_syncRoot)
+                //if (player == null) return;
+
+                player.lookingForOpponent = true;
+                // Look for a random opponent if there's more than one looking for a game
+                var opponent = listClient.Where(x => x.connectionId != Context.ConnectionId && x.lookingForOpponent).OrderBy(x => Guid.NewGuid()).FirstOrDefault();
+                if (opponent == null)
                 {
-                    Match game = new Match { Player1 = player, Player2 = opponent };
-                    listMatches.Add(game);
-
-
-                    int dif = game.Player1.level < game.Player2.level ? game.Player1.level : game.Player2.level;
-
-                    game.listQ = questionManager.RandomQuestion(dif);
-                    game.QuestionCorrect = game.listQ.Count;
-                    game.QuestionLeft = game.listQ.Count * 2;
-
-                    game.score = new int[3, game.listQ.Count + 1];
-                    //Reset game
-                    for (int i = 0; i < game.listQ.Count + 1; i++)
-                    {
-                        game.score[1, i] = 0;
-                        game.score[2, i] = 0;
-
-                    }
-
-
-                    if (game.listQ[0].type == "Single Choice")
-                    {
-                        game.listQ[0].type = "Fill Blanks";
-                        game.listQ[0].questionId = game.listQ[0].questionId - 1000;
-                    }
-                    Clients.Client(game.Player1.connectionId).getQuestionList(game.listQ);
-                    Clients.Client(game.Player2.connectionId).getQuestionList(game.listQ);
-                    return true;
+                    return false;
                 }
+                else
+                {
+                    // Set both players as busy
+                    player.lookingForOpponent = false;
+                    opponent.lookingForOpponent = false;
+                    player.opponent = opponent;
+                    opponent.opponent = player;
+                    // Notify both players that a game was found
+                    Clients.Client(Context.ConnectionId).foundOpponent(new { oName = opponent.name, oLevel = opponent.level, oPoint = opponent.point });
+                    Clients.Client(opponent.connectionId).foundOpponent(new { oName = player.name, oLevel = player.level, oPoint = player.point });
+                    lock (_syncRoot)
+                    {
+                        Match game = new Match(player, opponent);
+                        listMatches.Add(game);
 
 
+                        //int dif = game.Player1.level < game.Player2.level ? game.Player1.level : game.Player2.level;
+
+                        //game.listQ = questionManager.RandomQuestion(dif);
+                        //game.QuestionCorrect = game.listQ.Count;
+                        //game.QuestionLeft = game.listQ.Count * 2;
+
+                        //game.score = new int[3, game.listQ.Count + 1];
+                        ////Reset game
+                        //for (int i = 0; i < game.listQ.Count + 1; i++)
+                        //{
+                        //    game.score[1, i] = 0;
+                        //    game.score[2, i] = 0;
+
+                        //}
+
+
+                        //if (game.listQ[0].type == "Single Choice")
+                        //{
+                        //    game.listQ[0].type = "Fill Blanks";
+                        //    game.listQ[0].questionId = game.listQ[0].questionId - 1000;
+                        //}
+                        Clients.Client(game.Player1.connectionId).getQuestionList(game.listQ);
+                        Clients.Client(game.Player2.connectionId).getQuestionList(game.listQ);
+                        return true;
+                    }
+
+
+                }
             }
 
         }

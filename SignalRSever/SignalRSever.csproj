@@ -407,6 +407,9 @@
       <LastGenOutput>ServerData.designer.cs</LastGenOutput>
       <SubType>Designer</SubType>
     </Content>
+    <Content Include="ClassDiagram1.cd" />
+    <Content Include="ClassDiagram2.cd" />
+    <Content Include="ClassDiagram4.cd" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
@@ -435,6 +438,9 @@
     </Compile>
     <Compile Include="Business\PlayerManager.cs" />
     <Compile Include="Business\QuestionManagers.cs" />
+    <Compile Include="DataAccess\ServerData.cs">
+      <DependentUpon>ServerData.dbml</DependentUpon>
+    </Compile>
     <Compile Include="DataAccess\ServerData.designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
