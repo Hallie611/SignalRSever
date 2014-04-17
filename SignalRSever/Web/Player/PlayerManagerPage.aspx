@@ -43,11 +43,13 @@
         <article class="art-post art-article">
             <h2 class="art-postheader">Player Management</h2>
             <div class="art-postcontent art-postcontent-0 clearfix">
-                <div style="float: right">
+                <br />
+                <div>
                     Search Text :
                     <asp:TextBox ID="txtSearch" runat="server"></asp:TextBox>
                     &nbsp;
                 <asp:Button ID="btnSubmit" runat="server" Text="Search" />
+                <asp:Button ID="btExport" runat="server" Text="Export" style="float: right" OnClick="btExport_Click" />
                 </div>
             </div>
             <div>
@@ -59,11 +61,6 @@
                 </asp:GridView>
                 <asp:Label ID="lblNoRecords" Text="No records to display" runat="server" ForeColor="red"></asp:Label>
             </div>
-            <div style="float: right">
-                <asp:Button ID="btExport" runat="server" Text="Export" OnClick="btExport_Click" />
-            </div>
-            <br />
-            <br />
         </article>
     </div>
 </asp:Content>
