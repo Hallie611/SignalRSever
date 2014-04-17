@@ -361,7 +361,7 @@
     <Content Include="Web\images\no-avatar.jpg" />
     <Content Include="Web\images\object1630956507.png" />
     <Content Include="Web\images\object260662843.png" />
-    <Content Include="Web\images\page.jpeg" />
+    
     <Content Include="Web\images\pinteresticon.png" />
     <Content Include="Web\images\postbullets.png" />
     <Content Include="Web\images\postemailicon.png" />
