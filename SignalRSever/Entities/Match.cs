@@ -49,6 +49,8 @@ namespace SignalRSever.Entities
             //    listQ[0].questionId = listQ[0].questionId - 1000;
             //}
 
+
+
             listQ[0].questionId = 2;
             listQ[0].type = "Find Bugs";
             listQ[1].questionId = 1002;
