@@ -98,6 +98,7 @@
     <Reference Include="System.EnterpriseServices" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="Global.asax" />
     <Content Include="images\fillinBlankQ\F1.jpg" />
     <Content Include="images\fillinBlankQ\F10.jpg" />
     <Content Include="images\fillinBlankQ\F11.jpg" />
@@ -420,6 +421,9 @@
     <Compile Include="Entities\Match.cs" />
     <Compile Include="Entities\Client.cs" />
     <Compile Include="Business\gamesHub.cs" />
+    <Compile Include="Global.asax.cs">
+      <DependentUpon>Global.asax</DependentUpon>
+    </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Entities\Question.cs" />
     <Compile Include="Business\Startup.cs" />
