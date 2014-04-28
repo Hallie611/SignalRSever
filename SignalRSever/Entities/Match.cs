@@ -45,18 +45,18 @@ namespace SignalRSever.Entities
 
 
 
-            //if (listQ[0].type == "Single Choice")
-            //{
-            //    listQ[0].type = "Fill Blanks";
-            //    listQ[0].questionId = listQ[0].questionId - 1000;
-            //}
+            if (listQ[0].type == "Single Choice")
+            {
+                listQ[0].type = "Fill Blanks";
+                listQ[0].questionId = listQ[0].questionId - 1000;
+            }
 
-            listQ[0].questionId = 2;
-            listQ[0].type = "Find Bugs";
-            listQ[1].questionId = 1002;
-            listQ[1].type = "Fill Blanks";
-            listQ[2].questionId = 2002;
-            listQ[2].type = "Single Choice";
+            //listQ[0].questionId = 2;
+            //listQ[0].type = "Find Bugs";
+            //listQ[1].questionId = 1002;
+            //listQ[1].type = "Fill Blanks";
+            //listQ[2].questionId = 2002;
+            //listQ[2].type = "Single Choice";
         }
         /// <summary>
         /// Insert a correct at a given index for a given player
