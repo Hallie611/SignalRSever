@@ -119,7 +119,7 @@ namespace SignalRSever
             {
                 var player = listClient.FirstOrDefault(x => x.connectionId == Context.ConnectionId);
 
-                //if (player == null) return;
+                if (player == null) return false;
 
                 player.lookingForOpponent = true;
                 // Look for a random opponent if there's more than one looking for a game
