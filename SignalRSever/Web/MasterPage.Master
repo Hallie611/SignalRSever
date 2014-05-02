@@ -1,5 +1,5 @@
 ﻿<%@ Master Language="C#" AutoEventWireup="true" CodeBehind="MasterPage.master.cs" Inherits="SignalRSever.Web.MasterPage" %>
-
+<link rel="shortcut icon" type="image/png" href="/Web/images/favicon.ico" />
 <!DOCTYPE html>
 
 <html xmlns="http://www.w3.org/1999/xhtml">

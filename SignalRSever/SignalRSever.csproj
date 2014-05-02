@@ -434,6 +434,7 @@
     <Content Include="Web\images\1308293119_facebook-2.png" />
     <Content Include="Web\images\1308293126_linkedin-2.png" />
     <Content Include="Web\images\blockbullets.png" />
+    <Content Include="Web\images\favicon.ico" />
     <Content Include="Web\images\footerfacebookicon.png" />
     <Content Include="Web\images\footerrssicon.png" />
     <Content Include="Web\images\footertwittericon.png" />
