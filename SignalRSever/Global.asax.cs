@@ -20,12 +20,14 @@ namespace SignalRSever
 
             // Wait a maximum of 30 seconds after a transport connection is lost
             // before raising the Disconnected event to terminate the SignalR connection.
-            GlobalHost.Configuration.DisconnectTimeout = TimeSpan.FromSeconds(30);
+        
+            GlobalHost.Configuration.DisconnectTimeout = TimeSpan.FromSeconds(10);
 
             // For transports other than long polling, send a keepalive packet every
             // 10 seconds. 
             // This value must be no more than 1/3 of the DisconnectTimeout value.
-            GlobalHost.Configuration.KeepAlive = TimeSpan.FromSeconds(10);
+       
+            //GlobalHost.Configuration.KeepAlive = TimeSpan.FromSeconds(10);
 
         }
 
