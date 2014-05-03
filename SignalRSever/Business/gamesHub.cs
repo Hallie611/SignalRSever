@@ -94,17 +94,14 @@ namespace SignalRSever
             {
                 playerManager.UpdateUser(name, level, point);
                 var client = listClient.FirstOrDefault(x => x.name == name);
-                if (client == null)
-                {
-                    client = new Client();
-                    client.connectionId = Context.ConnectionId;
-                    client.name = name;
-                    client.level = level;
-                    client.point = point;
-                    listClient.Add(client);
+                if (client != null) listClient.Remove(client);
 
-
-                }
+                client = new Client();
+                client.connectionId = Context.ConnectionId;
+                client.name = name;
+                client.level = level;
+                client.point = point;
+                listClient.Add(client);
                 client.isReady = false;
                 client.lookingForOpponent = false;
             }
