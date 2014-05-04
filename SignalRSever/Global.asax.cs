@@ -16,7 +16,7 @@ namespace SignalRSever
             // Make long polling connections wait a maximum of 110 seconds for a
             // response. When that time expires, trigger a timeout command and
             // make the client reconnect.
-           // GlobalHost.Configuration.ConnectionTimeout = TimeSpan.FromSeconds(110);
+            GlobalHost.Configuration.ConnectionTimeout = TimeSpan.FromSeconds(10);
 
             // Wait a maximum of 30 seconds after a transport connection is lost
             // before raising the Disconnected event to terminate the SignalR connection.
