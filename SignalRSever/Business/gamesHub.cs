@@ -33,15 +33,13 @@ namespace SignalRSever
 
             if (game != null)
             {
-                lock (_syncRoot)
-                {
+
                     Client playerOut = game.Player1.connectionId == Context.ConnectionId ? game.Player1 : game.Player2;
+                    Clients.Client(playerOut.opponent.connectionId).OpponentDisconnect();
                     playerOut.opponent.lookingForOpponent = false;
                     playerOut.opponent.isReady = false;
                     playerManager.UpdatePoint(playerOut.opponent.name, 5, playerOut.name, 0);
                     listMatches.Remove(game);
-                    return Clients.Client(playerOut.opponent.connectionId).OpponentDisconnect();
-                }
             }
             listClient.Remove(player);
             return null;
