@@ -33,12 +33,12 @@ namespace SignalRSever
             if (player.opponent != null)
             {
                 Clients.Client(player.opponent.connectionId).OpponentDisconnect();
-                player.opponent.opponent = null;
                 player.opponent.lookingForOpponent = false;
                 player.opponent.isReady = false;
                 playerManager.UpdatePoint(player.opponent.name, 5, player.name, 0);
                 if(game!=null)
                 listMatches.Remove(game);
+                player.opponent.opponent = null;
             }
             listClient.Remove(player);
             return null;
@@ -61,6 +61,8 @@ namespace SignalRSever
                     playerManager.UpdatePoint(playerOut.opponent.name, 5, playerOut.name, 5);
                     listMatches.Remove(game);
                     Clients.Client(playerOut.opponent.connectionId).OpponentDisconnect();
+                    playerOut.opponent.opponent = null;
+                    playerOut.opponent = null;
                 }
             }
 
@@ -247,6 +249,8 @@ namespace SignalRSever
                     Clients.Client(game.Winner.connectionId).gameOver(new { Name = game.Winner.name, Point = "+10" });
                     Clients.Client(game.Winner.opponent.connectionId).gameOver(new { Name = game.Winner.name, Point = "-5" });
                 }
+                game.Player1.opponent = null;
+                game.Player2.opponent = null;
                 listMatches.Remove(game);
             }
             else
