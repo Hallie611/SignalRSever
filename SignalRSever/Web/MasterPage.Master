@@ -1,4 +1,5 @@
 ﻿<%@ Master Language="C#" AutoEventWireup="true" CodeBehind="MasterPage.master.cs" Inherits="SignalRSever.Web.MasterPage" %>
+
 <link rel="shortcut icon" type="image/png" href="/Web/images/favicon.ico" />
 <!DOCTYPE html>
 
@@ -10,80 +11,146 @@
     <meta name="viewport" content="initial-scale = 1.0, maximum-scale = 1.0, user-scalable = no, width = device-width">
 
     <!--[if lt IE 9]><script src="https://html5shiv.googlecode.com/svn/trunk/html5.js"></script><![endif]-->
-        <link rel="stylesheet" href="/Web/style.css" media="screen">
+    <link rel="stylesheet" href="/Web/style.css" media="screen">
     <!--[if lte IE 7]>
         <link rel="stylesheet" href="style.ie7.css" media="screen" /><![endif]-->
-        <link rel="stylesheet" href="/Web/style.responsive.css" media="all">
+    <link rel="stylesheet" href="/Web/style.responsive.css" media="all">
 
 
     <script src="/Web/jquery.js"></script>
     <script src="/Web/script.js"></script>
     <script src="/Web/script.responsive.js"></script>
-        <meta name="description" content="Description">
-        <meta name="keywords" content="Keywords">
-        <style>
-.art-content .art-postcontent-0 .layout-item-0 { margin-top: 0px;margin-right: 0px;margin-bottom: 10px;margin-left: 0px;  }
-.art-content .art-postcontent-0 .layout-item-1 { border-top-width:1px;border-top-style:Solid;border-top-color:#D9D9D9;  }
-.art-content .art-postcontent-0 .layout-item-2 { color: #0C1301; background: ;  }
-.art-content .art-postcontent-0 .layout-item-3 { margin-top: 10px;margin-bottom: 10px;  }
-.art-content .art-postcontent-0 .layout-item-4 { border-top-style:solid;border-right-style:Solid;border-bottom-style:solid;border-left-style:solid;border-top-width:0px;border-right-width:1px;border-bottom-width:0px;border-left-width:0px;border-color:#D9D9D9; padding-top: 20px;padding-right: 20px;padding-bottom: 0px;padding-left: 0px;  }
-.art-content .art-postcontent-0 .layout-item-5 { padding: 20px;  }
-.art-content .art-postcontent-0 .layout-item-6 { color: #0C1301; background: #FF962E;  }
-.ie7 .art-post .art-layout-cell {border:none !important; padding:0 !important; }
-.ie6 .art-post .art-layout-cell {border:none !important; padding:0 !important; }
-</style>
+    <link type="text/css" href="/Web/menu.css" rel="stylesheet" />
+    <script type="text/javascript" src="/Web/jquerymenu.js"></script>
+    <script type="text/javascript" src="/Web/menu.js"></script>
+
+
+    <meta name="description" content="Description">
+    <meta name="keywords" content="Keywords">
+    <style>
+        .art-content .art-postcontent-0 .layout-item-0 {
+            margin-top: 0px;
+            margin-right: 0px;
+            margin-bottom: 10px;
+            margin-left: 0px;
+        }
+
+        .art-content .art-postcontent-0 .layout-item-1 {
+            border-top-width: 1px;
+            border-top-style: Solid;
+            border-top-color: #D9D9D9;
+        }
+
+        .art-content .art-postcontent-0 .layout-item-2 {
+            color: #0C1301;
+            background:;
+        }
+
+        .art-content .art-postcontent-0 .layout-item-3 {
+            margin-top: 10px;
+            margin-bottom: 10px;
+        }
+
+        .art-content .art-postcontent-0 .layout-item-4 {
+            border-top-style: solid;
+            border-right-style: Solid;
+            border-bottom-style: solid;
+            border-left-style: solid;
+            border-top-width: 0px;
+            border-right-width: 1px;
+            border-bottom-width: 0px;
+            border-left-width: 0px;
+            border-color: #D9D9D9;
+            padding-top: 20px;
+            padding-right: 20px;
+            padding-bottom: 0px;
+            padding-left: 0px;
+        }
+
+        .art-content .art-postcontent-0 .layout-item-5 {
+            padding: 20px;
+        }
+
+        .art-content .art-postcontent-0 .layout-item-6 {
+            color: #0C1301;
+            background: #FF962E;
+        }
+
+        .ie7 .art-post .art-layout-cell {
+            border: none !important;
+            padding: 0 !important;
+        }
+
+        .ie6 .art-post .art-layout-cell {
+            border: none !important;
+            padding: 0 !important;
+        }
+    </style>
 </head>
 <body>
     <form id="form1" runat="server">
         <div id="art-main">
-<header class="art-header">
-    <div class="art-shapes">
-        <div class="art-object260662843"></div>
-        <div class="art-object1630956507">
-            <div style="float: right">
-                <asp:LinkButton ID="lbtlogout" runat="server" OnClick="lbtlogout_Click" ForeColor="#FFFF99">Logout</asp:LinkButton>
+            <header class="art-header">
+                <div class="art-shapes">
+                    <div class="art-object260662843"></div>
+                    <div class="art-object1630956507">
+                        <div runat="server" id="Manage" style="margin-left:80%">
+                            <div id="menu">
+                                <ul class="menu">
+                                    <li><a href="#" class="parent"><span>Admin</span></a>
+                                        <div>
+                                            <ul> 
+                                                <li><a href="/Web/ChangePass.aspx"><span>Change Password</span></a></li>
+                                                <li><asp:LinkButton ID="lbtlogout" runat="server" OnClick="lbtlogout_Click"><span>Logout</span></asp:LinkButton></li>
+                                            </ul>
+                                        </div>
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <h1 class="art-headline">&nbsp;<a href="#">MISTAKE</a><br />
+                    <a href="#">CHASING</a><br />
+                    &nbsp;
+    <a href="Question/QuestionHistory.aspx">GAME</a>
+                </h1>
+            </header>
+
+            <nav class="art-nav">
+                <ul class="art-hmenu">
+                    <li><a href="/Web/Player/PlayerManagerPage.aspx" class="">Player Report</a></li>
+                    <li><a href="/Web/Question/QuestionHistory.aspx" class="">Question Report</a></li>
+                </ul>
+            </nav>
+            <div class="art-sheet clearfix">
+                <div class="art-layout-wrapper">
+                    <div class="art-content-layout">
+                        <div class="art-content-layout-row">
+                            <asp:ContentPlaceHolder ID="ContentPlaceHolder1" runat="server">
+                            </asp:ContentPlaceHolder>
+                        </div>
+                    </div>
+                </div>
+                <footer class="art-footer">
+                    <div class="art-content-layout">
+                        <div class="art-content-layout-row">
+                            <div class="art-layout-cell layout-item-0" style="width: 50%">
+                            </div>
+                            <div class="art-layout-cell layout-item-0" style="width: 50%">
+                                <p style="text-align: right;">Website created by Group 2</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <p class="art-page-footer">
+                        <span id="art-footnote-links"></span>
+                    </p>
+                </footer>
+
             </div>
         </div>
-    </div>
-
-<h1 class="art-headline">
-    &nbsp;<a href="#">MISTAKE</a><br />
-    <a href="#">CHASING</a><br />
-    &nbsp;
-    <a href="Question/QuestionHistory.aspx">GAME</a>
-</h1>                
-</header>
-
-<nav class="art-nav">
-    <ul class="art-hmenu"><li><a href="/Web/Player/PlayerManagerPage.aspx" class="">Player Report</a></li><li><a href="/Web/Question/QuestionHistory.aspx" class="">Question Report</a></li></ul> 
-    </nav>
-<div class="art-sheet clearfix">
-            <div class="art-layout-wrapper">
-                <div class="art-content-layout">
-                    <div class="art-content-layout-row">
-                        <asp:ContentPlaceHolder ID="ContentPlaceHolder1" runat="server">
-
-                        </asp:ContentPlaceHolder>
-                    </div>    
-                </div>
-            </div><footer class="art-footer">
-<div class="art-content-layout">
-    <div class="art-content-layout-row">
-    <div class="art-layout-cell layout-item-0" style="width: 50%">
-        
-    </div><div class="art-layout-cell layout-item-0" style="width: 50%">
-        <p style="text-align: right;">Website created by Group 2</p>
-    </div>
-    </div>
-</div>
-
-    <p class="art-page-footer">
-        <span id="art-footnote-links"></span>
-    </p>
-</footer>
-
-    </div>
-</div>
     </form>
 </body>
 </html>

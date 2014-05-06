@@ -10,51 +10,51 @@
 namespace SignalRSever.Web {
     
     
-    public partial class MasterPage {
+    public partial class ChangePass {
         
         /// <summary>
-        /// head control.
+        /// lbMess control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.ContentPlaceHolder head;
+        protected global::System.Web.UI.WebControls.Label lbMess;
         
         /// <summary>
-        /// form1 control.
+        /// txtPassCurrent control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.HtmlControls.HtmlForm form1;
+        protected global::System.Web.UI.WebControls.TextBox txtPassCurrent;
         
         /// <summary>
-        /// Manage control.
+        /// txtPassNew control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.HtmlControls.HtmlGenericControl Manage;
+        protected global::System.Web.UI.WebControls.TextBox txtPassNew;
         
         /// <summary>
-        /// lbtlogout control.
+        /// txtPassConfirm control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.LinkButton lbtlogout;
+        protected global::System.Web.UI.WebControls.TextBox txtPassConfirm;
         
         /// <summary>
-        /// ContentPlaceHolder1 control.
+        /// btConfirm control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.ContentPlaceHolder ContentPlaceHolder1;
+        protected global::System.Web.UI.WebControls.Button btConfirm;
     }
 }

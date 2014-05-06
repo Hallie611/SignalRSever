@@ -13,6 +13,7 @@ namespace SignalRSever
 
         protected void Application_Start(object sender, EventArgs e)
         {
+            Application["Password"] = "admin";
             // Make long polling connections wait a maximum of 110 seconds for a
             // response. When that time expires, trigger a timeout command and
             // make the client reconnect.
