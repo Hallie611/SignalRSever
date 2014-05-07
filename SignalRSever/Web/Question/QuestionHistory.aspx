@@ -53,11 +53,10 @@
                 </div>
             </div>
             <div>
-                <br />
-                <asp:GridView ID="GV_historyQuestion" runat="server" CssClass="EU_DataTable" AllowPaging="true"
-                    PageSize="10" AutoGenerateSelectButton="True" OnRowDataBound="GV_historyQuestion_RowDataBound"
+                <br /><!--AllowPaging="true"PageSize="10" OnPageIndexChanging="GridView1_PageIndexChanging"-->
+                <asp:GridView ID="GV_historyQuestion" runat="server" CssClass="EU_DataTable"  AutoGenerateSelectButton="True" OnRowDataBound="GV_historyQuestion_RowDataBound"
                     OnSelectedIndexChanged="GV_historyQuestion_SelectedIndexChanged"
-                    OnPageIndexChanging="GridView1_PageIndexChanging" AllowSorting="True" OnSorting="GridView1_Sorting">
+                     AllowSorting="True" OnSorting="GridView1_Sorting">
                 </asp:GridView>
                 <asp:Label ID="lblNoRecords" Text="No records to display" runat="server" ForeColor="red"></asp:Label>
             </div>

@@ -34,12 +34,12 @@ namespace SignalRSever.Web.Question
             }
         }
 
-        protected void GridView1_PageIndexChanging(object sender, GridViewPageEventArgs e)
+        /*protected void GridView1_PageIndexChanging(object sender, GridViewPageEventArgs e)
         {
             GV_historyQuestion.DataSource = Session["data"];
             GV_historyQuestion.PageIndex = e.NewPageIndex;
             GV_historyQuestion.DataBind();
-        }
+        }*/
 
         protected void GV_historyQuestion_SelectedIndexChanged(object sender, EventArgs e)
         {

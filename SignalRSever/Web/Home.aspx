@@ -20,7 +20,7 @@
              <tr>
                  <td></td>
                  <td>
-                     <asp:LinkButton ID="lbforgot" runat="server" OnClick="lbforgot_Click">Forgot your password? CLick here.</asp:LinkButton></td>
+                     <asp:LinkButton ID="lbforgot" runat="server" OnClick="lbforgot_Click">Forgot your password? Click here.</asp:LinkButton></td>
              </tr>
         </table>             
     </article></div>

@@ -33,12 +33,12 @@ namespace SignalRSever.Web
             }
         }
 
-        protected void GridView1_PageIndexChanging(object sender, GridViewPageEventArgs e)
+        /*protected void GridView1_PageIndexChanging(object sender, GridViewPageEventArgs e)
         {
             GVPlayer.DataSource = Session["data"];
             GVPlayer.PageIndex = e.NewPageIndex;
             GVPlayer.DataBind();
-        }
+        }*/
 
         protected void GVPlayer_SelectedIndexChanged(object sender, EventArgs e)
         {
