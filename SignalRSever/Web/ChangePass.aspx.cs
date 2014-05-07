@@ -27,9 +27,9 @@ namespace SignalRSever.Web
                     Application["Password"] = txtPassNew.Text;
                     Response.Redirect("/Web/Player/PlayerManagerPage.aspx");
                 }
-                else lbMess.Text = "New Password doesn't match";
+                else lbMess.Text = "Passwords does not match. Please try again.";
             }
-            else lbMess.Text = "Wrong Password!";
+            else lbMess.Text = "Invalid existing password.";
         }
     }
 }

@@ -17,6 +17,11 @@
                 <td>&nbsp;</td>
                 <td><asp:Button ID="btLogin" runat="server" Text="Login" OnClick="btLogin_Click" /> </td>
             </tr>
+             <tr>
+                 <td></td>
+                 <td>
+                     <asp:LinkButton ID="lbforgot" runat="server" OnClick="lbforgot_Click">Forgot your password? CLick here.</asp:LinkButton></td>
+             </tr>
         </table>             
     </article></div>
 </asp:Content>
