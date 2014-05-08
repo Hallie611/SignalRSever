@@ -27,7 +27,10 @@ namespace SignalRSever.Web
             }
             if (!IsPostBack)
             {
+                
                 Session["data"] = manager.Get_allPlayer();
+                if (Session["data"] == null)
+                    Response.Redirect("/Web/ErrorPage.html");
                 GVPlayer.DataSource = Session["data"];
                 GVPlayer.DataBind();
             }
@@ -35,6 +38,8 @@ namespace SignalRSever.Web
 
         /*protected void GridView1_PageIndexChanging(object sender, GridViewPageEventArgs e)
         {
+            if (Session["data"] == null)
+                Response.Redirect("/Web/ErrorPage.html");
             GVPlayer.DataSource = Session["data"];
             GVPlayer.PageIndex = e.NewPageIndex;
             GVPlayer.DataBind();

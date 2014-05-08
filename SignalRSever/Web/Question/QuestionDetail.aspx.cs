@@ -32,6 +32,9 @@ namespace SignalRSever.Web.Question
                     SingleChoice.Visible = false;
 
                     DataTable dt = Qmanager.GetQuestionByID(id);
+                    if (dt == null)
+                        Response.Redirect("/Web/ErrorPage.html");
+
                     lbQuestionIDFB.Text = dt.Rows[0]["QuestionID"].ToString();
                     lbTypeFB.Text = dt.Rows[0]["Type"].ToString();
                     lbDifFB.Text = dt.Rows[0]["Difficulty"].ToString();
@@ -57,6 +60,9 @@ namespace SignalRSever.Web.Question
                     SingleChoice.Visible = false;
 
                     DataTable dt = Qmanager.GetQuestionByID(id);
+                    if (dt == null)
+                        Response.Redirect("/Web/ErrorPage.html");
+
                     lbQuestionIDFK.Text = dt.Rows[0]["QuestionID"].ToString();
                     lbTypeFK.Text = dt.Rows[0]["Type"].ToString();
                     lbDifFK.Text = dt.Rows[0]["Difficulty"].ToString();
@@ -117,6 +123,9 @@ namespace SignalRSever.Web.Question
                     FillBlank.Visible = false;
 
                     DataTable dt = Qmanager.GetQuestionByID(id);
+                    if (dt == null)
+                        Response.Redirect("/Web/ErrorPage.html");
+
                     lbQuestionIDSC.Text = dt.Rows[0]["QuestionID"].ToString();
                     lbTypeSC.Text = dt.Rows[0]["Type"].ToString();
                     lbDifSC.Text = dt.Rows[0]["Difficulty"].ToString();

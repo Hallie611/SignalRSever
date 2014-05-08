@@ -57,8 +57,12 @@ namespace SignalRSever.Web.Player
         void BindData(string name)
         {
             GV_games.DataSource = manager.GetGamesByUser(name);
+            if (GV_games.DataSource == null)
+                Response.Redirect("/Web/ErrorPage.html");
             GV_games.DataBind();
             GVPlayer_Detail.DataSource = manager.GetQuestionsByUser(name);
+            if (GVPlayer_Detail.DataSource == null)
+                Response.Redirect("/Web/ErrorPage.html");
             GVPlayer_Detail.DataBind();
         }
 

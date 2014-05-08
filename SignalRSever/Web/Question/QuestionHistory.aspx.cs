@@ -29,6 +29,8 @@ namespace SignalRSever.Web.Question
             if (!IsPostBack)
             {
                 Session["data"] = manager.GetQuestionHistory();
+                if (Session["data"] == null)
+                    Response.Redirect("/Web/ErrorPage.html");
                 GV_historyQuestion.DataSource = Session["data"];
                 GV_historyQuestion.DataBind();;
             }
