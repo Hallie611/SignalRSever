@@ -28,14 +28,11 @@ namespace SignalRSever.Web.Question
             }
             if (!IsPostBack)
             {
-<<<<<<< HEAD
                 lblNoRecords.Visible = false;
                 Session["data"] = manager.GetQuestionHistory();
-=======
                 Session["data"] = manager.GetQuestionHistory();
                 if (Session["data"] == null)
                     Response.Redirect("/Web/ErrorPage.html");
->>>>>>> 718126d21a326dfa7191621a59a34dab50fc73fc
                 GV_historyQuestion.DataSource = Session["data"];
                 GV_historyQuestion.DataBind();;
             }
