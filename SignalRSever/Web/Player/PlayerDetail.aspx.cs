@@ -51,6 +51,7 @@ namespace SignalRSever.Web.Player
             if (!IsPostBack)
             {
                 BindData(name);
+                GV_games.Columns[1].Visible = false;
             }
         }
 

@@ -28,18 +28,19 @@ namespace SignalRSever.Web.Question
             }
             if (!IsPostBack)
             {
+                lblNoRecords.Visible = false;
                 Session["data"] = manager.GetQuestionHistory();
                 GV_historyQuestion.DataSource = Session["data"];
                 GV_historyQuestion.DataBind();;
             }
         }
 
-        /*protected void GridView1_PageIndexChanging(object sender, GridViewPageEventArgs e)
+        protected void GridView1_PageIndexChanging(object sender, GridViewPageEventArgs e)
         {
             GV_historyQuestion.DataSource = Session["data"];
             GV_historyQuestion.PageIndex = e.NewPageIndex;
             GV_historyQuestion.DataBind();
-        }*/
+        }
 
         protected void GV_historyQuestion_SelectedIndexChanged(object sender, EventArgs e)
         {
@@ -106,6 +107,7 @@ namespace SignalRSever.Web.Question
 
         private void SortGridView(string sortExpression, string direction)
         {
+            lblNoRecords.Visible = false;
             DataTable dt = new DataTable();
             dt = Session["data"] as DataTable;
             DataView dv = new DataView(dt);
@@ -173,6 +175,37 @@ namespace SignalRSever.Web.Question
         {
             DataTable ttb = (DataTable)Session["data"];
             DumpExcel(ttb);
+        }
+
+        protected void btnSubmit_Click(object sender, EventArgs e)
+        {
+            string str = txtSearch.Text.ToLower();
+            int countrows = 0;
+            lblNoRecords.Visible = false;
+            if (str == "")
+            {
+                GV_historyQuestion.DataSource = Session["data"];
+                GV_historyQuestion.DataBind();
+            }
+            else
+            {
+                GV_historyQuestion.AllowPaging = false;
+                GV_historyQuestion.DataSource = Session["data"];
+                GV_historyQuestion.DataBind();
+                for (int i = 0; i < GV_historyQuestion.Rows.Count; i++)
+                {
+                    if (!GV_historyQuestion.Rows[i].Cells[1].Text.ToLower().Contains(str) && !GV_historyQuestion.Rows[i].Cells[2].Text.ToLower().Contains(str) && !GV_historyQuestion.Rows[i].Cells[3].Text.ToLower().Contains(str) && !GV_historyQuestion.Rows[i].Cells[4].Text.ToLower().Contains(str) && !GV_historyQuestion.Rows[i].Cells[5].Text.ToLower().Contains(str))
+                    {
+                        GV_historyQuestion.Rows[i].Visible = false;
+                        countrows++;
+                    }
+                }
+                if (GV_historyQuestion.Rows.Count == countrows)
+                {
+                    lblNoRecords.Visible = true;
+                }
+                GV_historyQuestion.AllowPaging = true;
+            }
         }
     }
 }

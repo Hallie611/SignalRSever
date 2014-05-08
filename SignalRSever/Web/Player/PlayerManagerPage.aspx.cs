@@ -27,18 +27,19 @@ namespace SignalRSever.Web
             }
             if (!IsPostBack)
             {
+                lblNoRecords.Visible = false;
                 Session["data"] = manager.Get_allPlayer();
                 GVPlayer.DataSource = Session["data"];
                 GVPlayer.DataBind();
             }
         }
 
-        /*protected void GridView1_PageIndexChanging(object sender, GridViewPageEventArgs e)
+        protected void GridView1_PageIndexChanging(object sender, GridViewPageEventArgs e)
         {
             GVPlayer.DataSource = Session["data"];
             GVPlayer.PageIndex = e.NewPageIndex;
             GVPlayer.DataBind();
-        }*/
+        }
 
         protected void GVPlayer_SelectedIndexChanged(object sender, EventArgs e)
         {
@@ -107,6 +108,7 @@ namespace SignalRSever.Web
 
         private void SortGridView(string sortExpression, string direction)
         {
+            lblNoRecords.Visible = false;
             DataTable dt = new DataTable();
             dt = Session["data"] as DataTable;
             DataView dv = new DataView(dt);
@@ -162,7 +164,7 @@ namespace SignalRSever.Web
                 worksheet.Row(1).Style.Font.Color.SetColor(Color.White);
                 worksheet.Row(1).Style.Fill.PatternType = ExcelFillStyle.Solid;
                 worksheet.Row(1).Style.Fill.BackgroundColor.SetColor(Color.Gray);
-                
+
                 HttpContext.Current.Response.ContentType = "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet";
                 HttpContext.Current.Response.AddHeader("content-disposition", "attachment;  filename=PlayerManagement.xlsx");
                 HttpContext.Current.Response.BinaryWrite(package.GetAsByteArray());
@@ -172,8 +174,40 @@ namespace SignalRSever.Web
 
         protected void btExport_Click(object sender, EventArgs e)
         {
+            lblNoRecords.Visible = false;
             DataTable ttb = (DataTable)Session["data"];
             DumpExcel(ttb);
+        }
+
+        protected void btnSubmit_Click(object sender, EventArgs e)
+        {
+            string str = txtSearch.Text.ToLower();
+            int countrows = 0;
+            lblNoRecords.Visible = false;
+            if (str == "")
+            {
+                GVPlayer.DataSource = Session["data"];
+                GVPlayer.DataBind();
+            }
+            else
+            {
+                GVPlayer.AllowPaging = false;
+                GVPlayer.DataSource = Session["data"];
+                GVPlayer.DataBind();
+                for (int i = 0; i < GVPlayer.Rows.Count; i++)
+                {
+                    if (!GVPlayer.Rows[i].Cells[1].Text.ToLower().Contains(str) && !GVPlayer.Rows[i].Cells[2].Text.ToLower().Contains(str) && !GVPlayer.Rows[i].Cells[3].Text.ToLower().Contains(str) && !GVPlayer.Rows[i].Cells[4].Text.ToLower().Contains(str) && !GVPlayer.Rows[i].Cells[5].Text.ToLower().Contains(str))
+                    {
+                        GVPlayer.Rows[i].Visible = false;
+                        countrows++;
+                    }
+                }
+                if (GVPlayer.Rows.Count == countrows)
+                {
+                    lblNoRecords.Visible = true;
+                }
+                GVPlayer.AllowPaging = true;
+            }
         }
     }
 }
