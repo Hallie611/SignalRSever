@@ -429,6 +429,7 @@
     <Content Include="Scripts\jquery-1.10.2.min.map" />
     <Content Include="Web\ChangePass.aspx" />
     <Content Include="Web\EPPlus.dll" />
+    <Content Include="Web\ErrorPage.html" />
     <Content Include="Web\Home.aspx" />
     <Content Include="Web\images\1308292981_rss-2-2.png" />
     <Content Include="Web\images\1308293091_twitter-2.png" />

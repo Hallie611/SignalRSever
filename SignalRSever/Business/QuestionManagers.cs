@@ -14,10 +14,10 @@ namespace SignalRSever.Business
 
         public DataTable GetQuestionByID(int ID)
         {
+            try
+            {
             DataTable result = new DataTable();
             var type = severdata.get_question_type(ID).FirstOrDefault();
-
-
             if (type.Type != null)
                 switch (type.Type)
                 {
@@ -105,14 +105,21 @@ namespace SignalRSever.Business
 
 
             return result;
+            }
+            catch (Exception e)
+            {
+                return null;
+            }
         }
 
 
         public DataTable GetQuestionHistory()
         {
             DataTable result = new DataTable();
-
-            var history = severdata.get_all_questions_history();
+            try
+            {
+                var history = severdata.get_all_questions_history();
+            
 
             result.Columns.Add(new DataColumn("QuestionID", typeof(int)));
             result.Columns.Add(new DataColumn("Type", typeof(string)));
@@ -133,11 +140,17 @@ namespace SignalRSever.Business
             }
 
             return result;
+            }
+            catch (Exception e)
+            {
+                return null;
+            };
         }
 
         public List<Entities.Question> RandomQuestion(int dif)
         {
-
+            try
+            {
             List<Entities.Question> result = new List<Entities.Question>();
             var listRandom = severdata.Random_question_by_dif(dif);
             int i=1;
@@ -152,6 +165,11 @@ namespace SignalRSever.Business
             }
 
             return result;
+            }
+            catch (Exception e)
+            {
+                return null;
+            }
         }
     }
 }
